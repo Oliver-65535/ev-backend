@@ -1,0 +1,80 @@
+services:
+  backend:
+    container_name: nft-publisher-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    networks:
+      - overlay
+    depends_on:
+      - database
+      - redis
+    ports:
+      - "${BACKEND_PORT}:${BACKEND_PORT}"
+    restart: always
+    environment:
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_SYNCHRONIZE: ${DATABASE_SYNCHRONIZE}
+      BACKEND_PORT: ${BACKEND_PORT}
+      BASE_IMAGE_URL: ${BASE_IMAGE_URL}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+      IPFS_ENDPOINT: ${IPFS_ENDPOINT}
+      IPFS_TOKEN: ${IPFS_TOKEN}
+      CONTRACT_ROOT_NFT: ${CONTRACT_ROOT_NFT}
+      CONTRACT_MARKET_NFT: ${CONTRACT_MARKET_NFT}
+      NEAR_NETWORK_ID: ${NEAR_NETWORK_ID}
+      NEAR_NODE_URL: ${NEAR_NODE_URL}
+      NEAR_WALLET_URL: ${NEAR_WALLET_URL}
+      NEAR_HELPER_URL: ${NEAR_HELPER_URL}
+      LIKELY_NFTS_ENDPOINT: ${LIKELY_NFTS_ENDPOINT}
+
+  lake:
+    container_name: near-lake-microservice
+    restart: always
+    build:
+      context: ./near-lake-microservice
+      dockerfile: Dockerfile
+    depends_on:
+      - redis
+    networks:
+      - overlay
+    environment:
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+      AWS_BUCKET_NAME: ${AWS_BUCKET_NAME}
+      AWS_REGION_NAME: ${AWS_REGION_NAME}
+      NEAR_NODE_URL: ${NEAR_NODE_URL}
+
+  database:
+    container_name: nft-publisher-database
+    image: postgres:alpine
+    networks:
+      - overlay
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    ports:
+      - "${DATABASE_PORT}:5432"
+    restart: always
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+
+  redis:
+    container_name: redis-for-microservices
+    restart: always
+    image: "redis:6.2-alpine"
+    networks:
+      - overlay
+    ports:
+      - "${REDIS_PORT}:6379"
+
+networks:
+  overlay:
