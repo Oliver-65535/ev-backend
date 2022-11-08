@@ -17,9 +17,9 @@ import { CertDTO } from './dto/cert-graphql.dto';
         {
           DTOClass: CertDTO,
           EntityClass: Cert,
-          create: { disabled: true },
-          update: { disabled: true },
-          delete: { disabled: true },
+          create: { disabled: false },
+          update: { disabled: false },
+          delete: { disabled: false },
         },
       ],
     }),

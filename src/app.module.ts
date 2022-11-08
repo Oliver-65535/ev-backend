@@ -16,16 +16,16 @@ import ormconfig = require('../ormconfig');
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot(ormconfig),
-    // GraphQLModule.forRoot({
-    //   // set to true to automatically generate schema
-    //   // subscriptions: {
-    //   //   'graphql-ws': true,
-    //   //   'subscriptions-transport-ws': true,
-    //   // },
-    //   driver: ApolloDriver,
-    //   autoSchemaFile: true,
-    //   installSubscriptionHandlers: true,
-    // }),
+    GraphQLModule.forRoot({
+      // set to true to automatically generate schema
+      // subscriptions: {
+      //   'graphql-ws': true,
+      //   'subscriptions-transport-ws': true,
+      // },
+      driver: ApolloDriver,
+      autoSchemaFile: true,
+      //installSubscriptionHandlers: true,
+    }),
     GraphqlCertModule,
     GraphqlUserModule,
   ],

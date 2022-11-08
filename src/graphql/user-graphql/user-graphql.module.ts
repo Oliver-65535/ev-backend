@@ -15,9 +15,9 @@ import { UserDTO } from './dto/user.dto';
         {
           DTOClass: UserDTO,
           EntityClass: User,
-          create: { disabled: true },
-          update: { disabled: true },
-          delete: { disabled: true },
+          create: { disabled: false },
+          update: { disabled: false },
+          delete: { disabled: false },
         },
       ],
     }),
