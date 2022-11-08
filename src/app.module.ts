@@ -7,6 +7,9 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
+import { GraphqlCertModule } from './graphql/cert-graphql/cert-graphql.module';
+import { GraphqlUserModule } from './graphql/user-graphql/user-graphql.module';
+
 import ormconfig = require('../ormconfig');
 
 @Module({
@@ -23,6 +26,8 @@ import ormconfig = require('../ormconfig');
     //   autoSchemaFile: true,
     //   installSubscriptionHandlers: true,
     // }),
+    GraphqlCertModule,
+    GraphqlUserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

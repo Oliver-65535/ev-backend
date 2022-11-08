@@ -6,16 +6,11 @@ import {
   UnPagedRelation,
 } from '@nestjs-query/query-graphql';
 import { ObjectType, GraphQLISODateTime, Field, ID } from '@nestjs/graphql';
-import { CollectionDTO } from 'src/graphql/collection-graphql/dto/collection-graphql.dto';
-import { InitializationDTO } from 'src/graphql/initialization-graphql/dto/initialization.dto';
+import { CertDTO } from 'src/graphql/cert-graphql/dto/cert-graphql.dto';
+import { Role } from '../../../enums/role.enum';
 
 @ObjectType('User')
-@OffsetConnection('collections', () => CollectionDTO, {
-  disableRemove: true,
-  disableUpdate: true,
-  enableTotalCount: true,
-})
-@OffsetConnection('initialization', () => InitializationDTO, {
+@OffsetConnection('certs', () => CertDTO, {
   disableRemove: true,
   disableUpdate: true,
   enableTotalCount: true,
@@ -24,21 +19,24 @@ export class UserDTO {
   @IDField(() => ID)
   id!: number;
 
-  @FilterableField()
-  account_id!: string;
-
   @FilterableField({ nullable: true })
-  name!: string;
-
-  @FilterableField({ nullable: true })
-  avatar!: string;
-
-  @FilterableField({ nullable: true })
-  session!: string;
-
-  @FilterableField({ nullable: true })
-  collections!: string;
+  certs!: string;
 
   @FilterableField({ nullable: true })
   initialization!: string;
+
+  @FilterableField({ nullable: true })
+  firstname: string;
+
+  @FilterableField({ nullable: true })
+  lastname: string;
+
+  @FilterableField({ nullable: true })
+  role: Role;
+
+  @FilterableField({ nullable: true })
+  wallet_eth: string;
+
+  @FilterableField({ nullable: true })
+  is_active: boolean;
 }

@@ -26,4 +26,4 @@ import { CertDTO } from './dto/cert-graphql.dto';
   ],
   exports: [TypeOrmModule],
 })
-export class CollectionGraphqlModule {}
+export class GraphqlCertModule {}

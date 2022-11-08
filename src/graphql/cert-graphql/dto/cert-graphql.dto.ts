@@ -22,42 +22,103 @@ export class CertDTO {
   @IDField(() => ID)
   id!: number;
 
-  @FilterableField()
-  nfts!: string;
+  @FilterableField({ nullable: true })
+  singed_role1_id: number;
 
   @FilterableField({ nullable: true })
-  img!: string;
+  singed_role2_id: number;
 
   @FilterableField({ nullable: true })
-  cover!: string;
+  singed_role4_id: number;
+
+  // @CreateDateColumn({
+  //   type: 'timestamp',
+  //   default: () => 'CURRENT_TIMESTAMP(6)',
+  // })
+  // public createdAt: Date;
+
+  // @UpdateDateColumn({
+  //   type: 'timestamp',
+  //   default: () => 'CURRENT_TIMESTAMP(6)',
+  //   onUpdate: 'CURRENT_TIMESTAMP(6)',
+  // })
+  // public updatedAt: Date;
+
+  // @Column({ length: 50 })
+  // reg_number: string;
+
+  // @Column({
+  //   type: 'timestamp',
+  //   default: () => 'CURRENT_TIMESTAMP(6)',
+  // })
+  // public dob: Date;
 
   @FilterableField({ nullable: true })
-  name!: string;
+  firstname: string;
 
   @FilterableField({ nullable: true })
-  description!: string;
+  middlename: string;
 
   @FilterableField({ nullable: true })
-  symbol!: string;
-
-  @FilterableField()
-  account_id!: string;
+  lastname: string;
 
   @FilterableField({ nullable: true })
-  creator!: string;
+  sex: string;
 
   @FilterableField({ nullable: true })
-  price!: string;
+  single_twin: string;
 
   @FilterableField({ nullable: true })
-  max_mint!: string;
+  ismultiple: string;
 
   @FilterableField({ nullable: true })
-  userId!: string;
+  pb_name: string;
+
+  @FilterableField({ nullable: true })
+  pb_street: string;
+
+  @FilterableField({ nullable: true })
+  pb_city: string;
+
+  @FilterableField({ nullable: true })
+  pb_country: string;
+
+  @FilterableField({ nullable: true })
+  child_height: number;
+
+  @FilterableField({ nullable: true })
+  child_weight: number;
+
+  @FilterableField({ nullable: true })
+  child_blood: number;
+
+  @FilterableField({ nullable: true })
+  p1_firstname: string;
+
+  @FilterableField({ nullable: true })
+  p1_middlename: string;
+
+  @FilterableField({ nullable: true })
+  p1_lastname: string;
+
+  @FilterableField({ nullable: true })
+  p1_parent: string;
+
+  @FilterableField({ nullable: true })
+  p1_pob: string;
+
+  @FilterableField({ nullable: true })
+  p1_dob: Date;
+
+  @FilterableField({ nullable: true })
+  ipfs_public_hash: string;
+
+  @FilterableField({ nullable: true })
+  ipfs_private_hash: string;
+
+  @FilterableField({ nullable: true })
+  ipfs_private_key: string;
 
   @FilterableField({ nullable: true })
   user!: string;
-
-  @FilterableField({ nullable: true })
-  status!: string;
 }

@@ -2,7 +2,7 @@ import { NestjsQueryGraphQLModule } from '@nestjs-query/query-graphql';
 import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from 'src/entity/user.entity';
+import { User } from 'src/entities/user.entity';
 import { UserDTO } from './dto/user.dto';
 
 @Module({
@@ -24,5 +24,5 @@ import { UserDTO } from './dto/user.dto';
   ],
   exports: [TypeOrmModule],
 })
-export class GraphqlModule {}
+export class GraphqlUserModule {}
 console.log(NestjsQueryGraphQLModule.forFeature);
