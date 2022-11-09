@@ -1,0 +1,12 @@
+{
+  "name": "ipfs",
+  "version": "0.0.1",
+  "description": "prepare lbc and upload to ipfs",
+  "main": "ipfs.js",
+  "author": "d0ubleit",
+  "license": "MIT",
+  "dependencies": {
+    "eth-crypto": "^2.4.0",
+    "nft.storage": "^7.0.0"
+  }
+}

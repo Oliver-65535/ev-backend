@@ -1,0 +1,99 @@
+{
+    "name": "Live Birth Certificate 000000X",
+    "description": "LBC for USER_X",
+    "image": "ipfs://link_to_LBC_image",
+    "external_url": "https://link_to_LBC_website",
+    "LBCnumber": "000001",
+    "attributes": [
+        {
+            "trait_type": "FirstName",
+            "value": "Christopher"
+        },
+        {
+            "trait_type": "MiddleName",
+            "value": "William"
+        },
+        {
+            "trait_type": "LastName",
+            "value": "Shroud"
+        },
+        {
+            "trait_type": "Sex",
+            "value": "Male"
+        },
+        {
+            "trait_type": "ThisBirth",
+            "value": "Single"
+        },
+        {
+            "trait_type": "DateOfBirth",
+            "value": "21/02/1993"
+        },
+        {
+            "trait_type": "Hour",
+            "value": "18:23"
+        },
+        {
+            "trait_type": "NameOfHospital",
+            "value": "Los Robles Hospital/Medical Center"
+        },
+        {
+            "trait_type": "StreetAndNumberOrLocation",
+            "value": "215 W. JANSS RD."
+        },
+        {
+            "trait_type": "City",
+            "value": "Thousand Oaks"
+        },
+        {
+            "trait_type": "Country",
+            "value": "Ventura"
+        },
+        {
+            "trait_type": "MotherFirstName",
+            "value": "Susan"
+        },
+        {
+            "trait_type": "MotherMiddleName",
+            "value": "William"
+        },
+        {
+            "trait_type": "MotherLastName",
+            "value": "Stroud"
+        },
+        {
+            "trait_type": "MotherBirthplace",
+            "value": "ALB"
+        },
+        {
+            "trait_type": "MotherDateOfBirth",
+            "value": "07/13/1973"
+        },
+        {
+            "trait_type": "FatherFirstName",
+            "value": "Christopher"
+        },
+        {
+            "trait_type": "FatherMiddleName",
+            "value": "William"
+        },
+        {
+            "trait_type": "FatherLastName",
+            "value": "Stroud"
+        },
+        {
+            "trait_type": "FatherBirthplace",
+            "value": "ALB"
+        },
+        {
+            "trait_type": "FatherDateOfBirth",
+            "value": "07/13/1973"
+        }
+    ],
+    "signs": {
+        "sign1": "123456789abcdef",
+        "sign2": "23456789abcdef1",
+        "sign3": "3456789abcdef12"
+    },
+    "private_data_url": "ipfs://link_to_private_data"
+}
