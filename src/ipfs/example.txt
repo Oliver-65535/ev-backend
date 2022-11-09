@@ -1,0 +1,5 @@
+https://testnet.rarible.com/token/0x6ae3c43d04e8a19356d9dedf6f8ca6eb0e81387b:67574324377831297000946672199978628829281952404005227931483762186542452310043?tab=overview
+
+URI: https://ipfs.io/ipfs/bafkreicdwqlwcjwfr6azwyy5vum2af7ywvam5a4i4plqiyn5gbizxylwbi
+Private: https://ipfs.io/ipfs/bafkreicymlipasoyvomntonin56afk6gpfyzb6jufj4dopf72o2gcj5f3e
+Image: https://ipfs.io/ipfs/QmcqbSmqLsEtHn51obdtUm4KtVU3Zf3jQqPYJMj2wnRZyx
