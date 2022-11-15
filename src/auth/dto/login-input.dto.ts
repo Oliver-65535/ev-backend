@@ -5,9 +5,13 @@ import { IsString } from 'class-validator';
 export class LoginInputDTO {
   @Field()
   @IsString()
-  username!: string;
+  publicAddress!: string;
 
   @Field()
   @IsString()
-  password!: string;
+  message!: string;
+
+  @Field()
+  @IsString()
+  signature!: string;
 }

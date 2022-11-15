@@ -10,7 +10,7 @@ import { Cert } from './cert.entity';
 import { Role } from '../enums/role.enum';
 
 @Entity()
-export class User {
+export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -19,6 +19,11 @@ export class User {
 
   @Column({ length: 50 })
   lastname: string;
+
+  @Column({ length: 50 })
+  username: string;
+  @Column({ length: 50 })
+  password: string;
 
   @Column({ type: 'enum', enum: Role, default: Role.User })
   role: Role;

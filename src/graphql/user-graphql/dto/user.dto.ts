@@ -23,13 +23,15 @@ export class UserDTO {
   certs!: string;
 
   @FilterableField({ nullable: true })
-  initialization!: string;
-
-  @FilterableField({ nullable: true })
   firstname: string;
 
   @FilterableField({ nullable: true })
   lastname: string;
+
+  @FilterableField({ nullable: true })
+  username: string;
+  @FilterableField({ nullable: true })
+  password: string;
 
   @FilterableField({ nullable: true })
   role: Role;

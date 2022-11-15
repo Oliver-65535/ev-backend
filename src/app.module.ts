@@ -9,6 +9,7 @@ import { AppService } from './app.service';
 
 import { GraphqlCertModule } from './graphql/cert-graphql/cert-graphql.module';
 import { GraphqlUserModule } from './graphql/user-graphql/user-graphql.module';
+import { AuthModule } from './auth/auth.module';
 
 import ormconfig = require('../ormconfig');
 
@@ -28,6 +29,7 @@ import ormconfig = require('../ormconfig');
     }),
     GraphqlCertModule,
     GraphqlUserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
