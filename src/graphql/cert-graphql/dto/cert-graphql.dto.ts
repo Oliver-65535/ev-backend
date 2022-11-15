@@ -1,7 +1,6 @@
 import {
   FilterableField,
   IDField,
-  OffsetConnection,
   PagingStrategies,
   QueryOptions,
   Relation,

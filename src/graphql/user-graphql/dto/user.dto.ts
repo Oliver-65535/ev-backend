@@ -1,16 +1,20 @@
 import {
   FilterableField,
   IDField,
-  OffsetConnection,
-  Relation,
-  UnPagedRelation,
+  PagingStrategies,
+  FilterableOffsetConnection,
+  QueryOptions,
 } from '@nestjs-query/query-graphql';
 import { ObjectType, GraphQLISODateTime, Field, ID } from '@nestjs/graphql';
 import { CertDTO } from 'src/graphql/cert-graphql/dto/cert-graphql.dto';
 import { Role } from '../../../enums/role.enum';
 
 @ObjectType('User')
-@OffsetConnection('certs', () => CertDTO, {
+@QueryOptions({
+  pagingStrategy: PagingStrategies.OFFSET,
+  enableTotalCount: true,
+})
+@FilterableOffsetConnection('certs', () => CertDTO, {
   disableRemove: true,
   disableUpdate: true,
   enableTotalCount: true,
