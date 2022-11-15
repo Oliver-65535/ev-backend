@@ -7,9 +7,6 @@ export class UserAuthDTO {
   id!: number;
 
   @FilterableField()
-  username!: string;
-
-  @FilterableField()
   role!: string;
 
   @FilterableField()

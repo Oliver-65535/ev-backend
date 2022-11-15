@@ -33,11 +33,6 @@ export class UserDTO {
   lastname: string;
 
   @FilterableField({ nullable: true })
-  username: string;
-  @FilterableField({ nullable: true })
-  password: string;
-
-  @FilterableField({ nullable: true })
   role: Role;
 
   @FilterableField({ nullable: true })

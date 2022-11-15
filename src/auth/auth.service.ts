@@ -56,11 +56,12 @@ export class AuthService {
 
   login(user: AuthenticatedUser): Promise<LoginResponseDto> {
     const payload: JwtPayload = {
-      username: user.username,
       sub: user.id,
-      role: user.role,
       firstname: user.firstname,
       lastname: user.lastname,
+      role: user.role,
+      wallet_eth: user.wallet_eth,
+      is_active: user.is_active,
     };
     return Promise.resolve({
       // eslint-disable-next-line @typescript-eslint/naming-convention

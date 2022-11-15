@@ -20,11 +20,6 @@ export class UserEntity {
   @Column({ length: 50 })
   lastname: string;
 
-  @Column({ length: 50 })
-  username: string;
-  @Column({ length: 50 })
-  password: string;
-
   @Column({ type: 'enum', enum: Role, default: Role.User })
   role: Role;
 
