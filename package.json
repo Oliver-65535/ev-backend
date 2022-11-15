@@ -21,6 +21,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@metamask/eth-sig-util": "^5.0.2",
     "@nestjs-query/core": "^0.30.0",
     "@nestjs-query/query-graphql": "^0.30.0",
     "@nestjs-query/query-typeorm": "^0.30.0",
@@ -29,6 +30,8 @@
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/graphql": "^10.1.5",
+    "@nestjs/jwt": "^9.0.0",
+    "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/typeorm": "^9.0.1",
     "apollo-server-core": "^3.11.1",
@@ -40,6 +43,8 @@
     "ethereumjs-util": "^7.1.5",
     "graphql": "^16.6.0",
     "graphql-subscriptions": "^2.0.0",
+    "passport": "^0.6.0",
+    "passport-jwt": "^4.0.0",
     "pg": "^8.8.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",

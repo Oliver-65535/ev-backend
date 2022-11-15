@@ -1,7 +1,6 @@
 import {
   FilterableField,
   IDField,
-  OffsetConnection,
   PagingStrategies,
   QueryOptions,
   Relation,
@@ -9,7 +8,7 @@ import {
 import { ObjectType, GraphQLISODateTime, Field, ID } from '@nestjs/graphql';
 import { UserDTO } from 'src/graphql/user-graphql/dto/user.dto';
 
-@ObjectType('Collections')
+@ObjectType('Cert')
 @Relation('user', () => UserDTO, {
   disableRemove: true,
   disableUpdate: true,

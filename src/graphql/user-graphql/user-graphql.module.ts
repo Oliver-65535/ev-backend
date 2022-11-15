@@ -2,19 +2,19 @@ import { NestjsQueryGraphQLModule } from '@nestjs-query/query-graphql';
 import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from 'src/entities/user.entity';
+import { UserEntity } from 'src/entities/user.entity';
 import { UserDTO } from './dto/user.dto';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([UserEntity]),
     NestjsQueryGraphQLModule.forFeature({
-      imports: [NestjsQueryTypeOrmModule.forFeature([User])],
+      imports: [NestjsQueryTypeOrmModule.forFeature([UserEntity])],
       // describe the resolvers you want to expose
       resolvers: [
         {
           DTOClass: UserDTO,
-          EntityClass: User,
+          EntityClass: UserEntity,
           create: { disabled: false },
           update: { disabled: false },
           delete: { disabled: false },

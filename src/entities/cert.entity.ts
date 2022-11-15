@@ -8,7 +8,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { User } from './user.entity';
+import { UserEntity } from './user.entity';
 
 @Entity()
 export class Cert {
@@ -112,6 +112,6 @@ export class Cert {
   @Column({ length: 64 })
   ipfs_private_key: string;
 
-  @ManyToOne(() => User, (user) => user.certs)
-  user: User;
+  @ManyToOne(() => UserEntity, (user) => user.certs)
+  user: UserEntity;
 }
