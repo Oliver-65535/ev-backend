@@ -1,37 +1,15 @@
 import EthCrypto from 'eth-crypto';
-import fs from 'fs';
+import * as fs from 'fs'
 import { NFTStorage, File, Blob } from 'nft.storage';
 import "dotenv/config.js";
-import ethers from "ethers";
+import * as ethers from "ethers";
 
 
-const tokenId = 8;
-
-const abi = (JSON.parse(fs.readFileSync("./abi.json", { encoding: "utf-8" }))).abi;
-// console.log("ABI:", abi);
-
-
-const account = {
-    address: process.env.ACCOUNT_ADDRESS,
-    privateKey: process.env.ACCOUNT_PRIVATEKEY
-};
-console.log("account:", account);
-
-const metaPrivate = JSON.parse(fs.readFileSync("./meta-private.json", { encoding: "utf-8" }));
-// console.log("metaPrivate:", metaPrivate);
-
-const metaOpen = JSON.parse(fs.readFileSync("./meta-open.json", { encoding: "utf-8" }));
-// console.log("metaOpen:", metaOpen);
-
-const nftStorageToken = process.env.NFT_STORAGE_TOKEN
-// console.log("NFT_STORAGE_TOKEN", NFT_STORAGE_TOKEN);
-
-
-async function prepareAndDownload(metaOpen, metaPrivate) {
+async function prepareAndDownload(account, metaOpen, metaPrivate, nftStorageToken) {
     const publicKey = EthCrypto.publicKeyByPrivateKey(
         account.privateKey
     );
-    // console.log("generated pubKey:", publicKey);
+
     const encrypted = await EthCrypto.encryptWithPublicKey(
         publicKey,
         JSON.stringify(metaPrivate)
@@ -44,16 +22,12 @@ async function prepareAndDownload(metaOpen, metaPrivate) {
     // );
     // console.log("Decrypted data:", JSON.parse(message));
 
-
-
     const dataPrivate = JSON.stringify(encrypted);
-    // console.log("dataPrivate:", dataPrivate);
 
     const CIDprivate = await uploadToIPFS(dataPrivate, nftStorageToken);
     console.log("CID for private data:", CIDprivate);
 
     metaOpen.private_data_url = "ipfs://" + CIDprivate;
-    // console.log("metaOpen:", metaOpen);
     const dataOpen = JSON.stringify(metaOpen);
 
     const CIDopen = await uploadToIPFS(dataOpen, nftStorageToken);
@@ -69,7 +43,6 @@ async function prepareAndDownload(metaOpen, metaPrivate) {
 async function uploadToIPFS(data, nftStorageToken) {
 
     const client = new NFTStorage({ token: nftStorageToken });
-    // console.log("DATA:", data);
     const dataBlob = new Blob([data], {
         type: "application/json;charset=utf-8"
     });
@@ -77,14 +50,14 @@ async function uploadToIPFS(data, nftStorageToken) {
     return result;
 }
 
-async function checkURI(tokenId) {
-    const RPCprovider = new ethers.providers.JsonRpcProvider(process.env.ETH_NODE_URL);
-    const erc721 = new ethers.Contract(process.env.CONTRACT_ADDRESS, abi, RPCprovider);
-    let answer = await erc721.tokenURI(tokenId);
-    console.log("URI FOR TOKEN ID", tokenId, " is:", answer);
-}
+// async function checkURI(tokenId) {
+//     const RPCprovider = new ethers.providers.JsonRpcProvider(process.env.ETH_NODE_URL);
+//     const erc721 = new ethers.Contract(process.env.CONTRACT_ADDRESS, abi, RPCprovider);
+//     let answer = await erc721.tokenURI(tokenId);
+//     console.log("URI FOR TOKEN ID", tokenId, " is:", answer);
+// }
 
-async function mintCertificate(abi, tokenId, URI, mintTo = account.address) {
+async function mintCertificate(account, abi, tokenId, URI, mintTo) {
     const RPCprovider = new ethers.providers.JsonRpcProvider(process.env.ETH_NODE_URL);
     const signer = new ethers.Wallet(account.privateKey, RPCprovider);
     const balanceB = await signer.getBalance();
@@ -98,9 +71,9 @@ async function mintCertificate(abi, tokenId, URI, mintTo = account.address) {
     console.log("GAS OPTIONS", options);
 
     let receipt = await erc721.connect(signer).safeMint(mintTo, tokenId, URI);
-    // console.log(receipt);
+
     console.log("----------------------------------------------------------");
-    console.log("-- Signer minted tokens to ", mintTo);
+    console.log("-- Signer minted token to ", mintTo);
     console.log("----------------------------------------------------------");
 
     let completedTxHash = await txTracking(receipt, process.env.txTracking_confirms, process.env.txTrackint_timeout)
@@ -115,9 +88,6 @@ async function mintCertificate(abi, tokenId, URI, mintTo = account.address) {
 
 
 async function calcMaxFees(RPCprovider, estimatedGas, feeData, minimal = []) {
-    ///Mults later can be setted in chains settings,
-    // or get from extern API, or calculated from service
-    // [Average, Fast, Fastest]
     let mults = [50, 90, 140];
     let multsBase = [100, 113, 125];
     let baseMult = 200;
@@ -138,33 +108,21 @@ async function calcMaxFees(RPCprovider, estimatedGas, feeData, minimal = []) {
     console.log("baseFee:", ethers.utils.formatUnits(baseFee, "gwei"));
     let priorityFeesArr = [];
     let maxFeesArr = [];
-    // let approxTxPrices = [];
-    // let maxTxPrices = [];
     mults.forEach((mult, i) => {
         priorityFeesArr.push(priorityFee.mul(mult).div(divider));
         maxFeesArr.push(priorityFeesArr[i].add(maxBaseFee));
-        //   approxTxPrices.push(((baseFee.mul(multsBase[i]).div(divider)).add(priorityFeesArr[i])).mul(estimatedGas));
-        //   maxTxPrices.push(ethers.utils.formatUnits(estimatedGas.mul(maxFeesArr[i]), units));
-        //   priorityFeesArr[i] = ethers.utils.formatUnits(priorityFeesArr[i], units);
-        //   maxFeesArr[i] = ethers.utils.formatUnits(maxFeesArr[i], units);
-        //   approxTxPrices[i] = ethers.utils.formatUnits(approxTxPrices[i], units);
     });
     console.log("priorityFeesArr:", priorityFeesArr);
     console.log("maxFeesArr:", maxFeesArr);
-    // console.log("approxTxPrices:", approxTxPrices);
-    // console.log("maxTxPrices:", maxTxPrices);
+
     return {
         priorityFees: priorityFeesArr,
         maxFees: maxFeesArr,
-        //   approxTxPrices: approxTxPrices,
-        //   maxTxPrices: maxTxPrices
     }
 }
 
 async function txTracking(txReceipt, confirmsTotal, txTimeout) {
     try {
-        //   let currentTx = await RPCprovider.getTransaction(parsedAnswer.txHash);
-
         let confirmCnt = txReceipt.confirmations;
         let timeoutRes = false;
         let receipt;
@@ -201,7 +159,6 @@ async function txTracking(txReceipt, confirmsTotal, txTimeout) {
                 }
                 ,
             };
-            // await delay(20000); //uncomment to check situation when tx confirmed same time with timeout
             confirmsTotal = 0;
         } else {
             txPrice = ethers.utils.formatUnits((receipt.gasUsed).mul(receipt.effectiveGasPrice), "gwei");
@@ -210,7 +167,6 @@ async function txTracking(txReceipt, confirmsTotal, txTimeout) {
         while (confirmCnt <= confirmsTotal) {
             console.log("waiting for confirm", confirmCnt);
             receipt = await txReceipt.wait(confirmCnt);
-            // console.log(receipt);
             txConfirmations = receipt.confirmations;
             let stat = confirmCnt == confirmsTotal ? "OK" : "TRACKING";
             console.log({
@@ -224,25 +180,33 @@ async function txTracking(txReceipt, confirmsTotal, txTimeout) {
             });
             confirmCnt++;
         }
-        return receipt.hash
+        return txReceipt.hash
     } catch (error) {
-        //   throw {
-        //     description: error,
-        //     code: ""
-        //   }
         console.log("----ERROR:", error);
     }
 }
 
 
-async function main() {
-    console.log("TEST START");
-    // const testURI = "ipfs://bafkreiej7jkxgvywocqcmalidbqc37ztrstwliqisba4efs3ojgcqpsv6q";
-    let [URIforMint, CIDopen, CIDprivate] = await prepareAndDownload(metaOpen, metaPrivate);
-    let result = await mintCertificate(abi, tokenId, URIforMint /*, mintTo*/);
+export async function uploadAndMint(tokenId, metaOpen, metaPrivate) {
+    // const tokenId = 12;
+    // const metaPrivate = JSON.parse(fs.readFileSync("src/ipfs/meta-private.json", { encoding: "utf-8" }));
+    // // console.log("metaPrivate:", metaPrivate);
+    // const metaOpen = JSON.parse(fs.readFileSync("src/ipfs/meta-open.json", { encoding: "utf-8" }));
+    // // console.log("metaOpen:", metaOpen);
+
+    const abi = (JSON.parse(fs.readFileSync("src/ipfs/abi.json", { encoding: "utf-8" }))).abi;
+    const account = {
+        address: process.env.ACCOUNT_ADDRESS,
+        privateKey: process.env.ACCOUNT_PRIVATEKEY
+    };
+    console.log("account:", account);
+    const nftStorageToken = process.env.NFT_STORAGE_TOKEN
+    let [URIforMint, CIDopen, CIDprivate] = await prepareAndDownload(account, metaOpen, metaPrivate, nftStorageToken);
+    let result = await mintCertificate(account, abi, tokenId, URIforMint, account.address);
     console.log("RESULT:", result);
-    await checkURI(tokenId);
-    console.log("URIforMint:", URIforMint);
+    return result
 }
 
-main();
+module.exports = {
+    uploadAndMint,
+}
