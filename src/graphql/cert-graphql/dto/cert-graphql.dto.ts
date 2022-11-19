@@ -103,6 +103,24 @@ export class CertDTO {
   p1_dob: Date;
 
   @FilterableField({ nullable: true })
+  p2_firstname: string;
+
+  @FilterableField({ nullable: true })
+  p2_middlename: string;
+
+  @FilterableField({ nullable: true })
+  p2_lastname: string;
+
+  @FilterableField({ nullable: true })
+  p2_parent: string;
+
+  @FilterableField({ nullable: true })
+  p2_pob: string;
+
+  @FilterableField({ nullable: true })
+  p2_dob: Date;
+
+  @FilterableField({ nullable: true })
   ipfs_public_hash: string;
 
   @FilterableField({ nullable: true })

@@ -107,6 +107,24 @@ export class Cert {
   @Column({ nullable: true })
   p1_dob: Date;
 
+  @Column({ length: 50 })
+  p2_firstname: string;
+
+  @Column({ length: 50 })
+  p2_middlename: string;
+
+  @Column({ length: 50 })
+  p2_lastname: string;
+
+  @Column({ length: 50 })
+  p2_parent: string;
+
+  @Column({ length: 50 })
+  p2_pob: string;
+
+  @Column({ nullable: true })
+  p2_dob: Date;
+
   @Column({ length: 64 })
   ipfs_public_hash: string;
 
