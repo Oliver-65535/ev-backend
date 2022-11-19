@@ -89,37 +89,37 @@ export class Cert {
   @Column({ nullable: true })
   child_blood: string;
 
-  @Column({ length: 50 })
+  @Column({ length: 50, nullable: true })
   p1_firstname: string;
 
-  @Column({ length: 50 })
+  @Column({ length: 50, nullable: true })
   p1_middlename: string;
 
-  @Column({ length: 50 })
+  @Column({ length: 50, nullable: true })
   p1_lastname: string;
 
-  @Column({ length: 50 })
+  @Column({ length: 50, nullable: true })
   p1_parent: string;
 
-  @Column({ length: 50 })
+  @Column({ length: 50, nullable: true })
   p1_pob: string;
 
   @Column({ nullable: true })
   p1_dob: Date;
 
-  @Column({ length: 50 })
+  @Column({ length: 50, nullable: true })
   p2_firstname: string;
 
-  @Column({ length: 50 })
+  @Column({ length: 50, nullable: true })
   p2_middlename: string;
 
-  @Column({ length: 50 })
+  @Column({ length: 50, nullable: true })
   p2_lastname: string;
 
-  @Column({ length: 50 })
+  @Column({ length: 50, nullable: true })
   p2_parent: string;
 
-  @Column({ length: 50 })
+  @Column({ length: 50, nullable: true })
   p2_pob: string;
 
   @Column({ nullable: true })
