@@ -20,5 +20,5 @@ export class CertIDInputDTO {
   @Field()
   @IsNumber()
   @IsNotEmpty()
-  id!: string;
+  id!: number;
 }
