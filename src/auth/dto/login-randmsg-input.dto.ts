@@ -1,5 +1,11 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsString, IsNotEmpty, MinLength, MaxLength } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  MinLength,
+  MaxLength,
+  IsNumber,
+} from 'class-validator';
 
 @InputType()
 export class RandomMessageInputDTO {
@@ -7,4 +13,12 @@ export class RandomMessageInputDTO {
   @IsString()
   @IsNotEmpty()
   wallet_eth!: string;
+}
+
+@InputType()
+export class CertIDInputDTO {
+  @Field()
+  @IsNumber()
+  @IsNotEmpty()
+  id!: string;
 }

@@ -3,7 +3,10 @@ import { UnauthorizedException, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginResponseDto } from './dto/login-response.dto';
 import { LoginInputDTO } from './dto/login-input.dto';
-import { RandomMessageInputDTO } from './dto/login-randmsg-input.dto';
+import {
+  RandomMessageInputDTO,
+  CertIDInputDTO,
+} from './dto/login-randmsg-input.dto';
 import { RandomMessageResponseDTO } from './dto/login-randmsg-response.dto';
 import { UserAuthDTO } from '../user/user.dto';
 import { JwtAuthGuard } from './jwt-auth.guard';
@@ -40,5 +43,15 @@ export class AuthResolver {
   me(@CurrentUser() user: AuthenticatedUser): Promise<UserAuthDTO> {
     console.log('ME', user);
     return this.authService.currentUser(user);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Mutation(() => RandomMessageResponseDTO)
+  sign(
+    @CurrentUser() user: AuthenticatedUser,
+    @Args('input') input: CertIDInputDTO,
+  ): Promise<UserAuthDTO> {
+    console.log('asjdjasldjl', user, input);
+    return this.authService.signCert(user, input);
   }
 }
