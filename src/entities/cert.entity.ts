@@ -24,27 +24,31 @@ export class Cert {
   @Column({ nullable: true })
   singed_role4_id: number;
 
-  // @CreateDateColumn({
-  //   type: 'timestamp',
-  //   default: () => 'CURRENT_TIMESTAMP(6)',
-  // })
-  // public createdAt: Date;
+  @CreateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+  })
+  public createdAt: Date;
 
-  // @UpdateDateColumn({
-  //   type: 'timestamp',
-  //   default: () => 'CURRENT_TIMESTAMP(6)',
-  //   onUpdate: 'CURRENT_TIMESTAMP(6)',
-  // })
-  // public updatedAt: Date;
+  @UpdateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+    onUpdate: 'CURRENT_TIMESTAMP(6)',
+  })
+  public updatedAt: Date;
 
   // @Column({ length: 50 })
   // reg_number: string;
 
-  // @Column({
-  //   type: 'timestamp',
-  //   default: () => 'CURRENT_TIMESTAMP(6)',
-  // })
-  // public dob: Date;
+  @Column({
+    nullable: true,
+    // type: 'timestamp',
+    // default: () => 'CURRENT_TIMESTAMP(6)',
+  })
+  public dob_date: string;
+
+  @Column({ nullable: true })
+  public dob_time: string;
 
   @Column({ length: 50 })
   firstname: string;
@@ -83,25 +87,43 @@ export class Cert {
   child_weight: number;
 
   @Column({ nullable: true })
-  child_blood: number;
+  child_blood: string;
 
-  @Column({ length: 50 })
+  @Column({ length: 50, nullable: true })
   p1_firstname: string;
 
-  @Column({ length: 50 })
+  @Column({ length: 50, nullable: true })
   p1_middlename: string;
 
-  @Column({ length: 50 })
+  @Column({ length: 50, nullable: true })
   p1_lastname: string;
 
-  @Column({ length: 50 })
+  @Column({ length: 50, nullable: true })
   p1_parent: string;
 
-  @Column({ length: 50 })
+  @Column({ length: 50, nullable: true })
   p1_pob: string;
 
   @Column({ nullable: true })
   p1_dob: Date;
+
+  @Column({ length: 50, nullable: true })
+  p2_firstname: string;
+
+  @Column({ length: 50, nullable: true })
+  p2_middlename: string;
+
+  @Column({ length: 50, nullable: true })
+  p2_lastname: string;
+
+  @Column({ length: 50, nullable: true })
+  p2_parent: string;
+
+  @Column({ length: 50, nullable: true })
+  p2_pob: string;
+
+  @Column({ nullable: true })
+  p2_dob: Date;
 
   @Column({ length: 64 })
   ipfs_public_hash: string;
