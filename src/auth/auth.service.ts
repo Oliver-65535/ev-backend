@@ -90,7 +90,7 @@ export class AuthService {
       lastname: user.lastname,
       role: user.role,
       wallet_eth: user.wallet_eth,
-      is_active: user.is_active,
+      //is_active: user.is_active,
     };
     return Promise.resolve({
       // eslint-disable-next-line @typescript-eslint/naming-convention

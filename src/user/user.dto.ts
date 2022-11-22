@@ -15,6 +15,9 @@ export class UserAuthDTO {
   @FilterableField()
   lastname!: string;
 
+  @FilterableField()
+  wallet_eth!: string;
+
   @FilterableField(() => GraphQLISODateTime)
   created!: Date;
 
