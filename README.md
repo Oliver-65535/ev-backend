@@ -24,49 +24,40 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Backend Live Birth Certificates project.
 
 ## Installation
 
+Сheck that docker, docker-compose is installed
+
 ```bash
-$ npm install
+$ sudo docker-compose -v
 ```
+
+Result:
+
+```bash
+$ Docker Compose version v2.10.2
+```
+
+It is desirable that the version there were more ~ v2.0.0
 
 ## Running the app
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+# run app
+$ sudo docker-compose up -d
 ```
 
-## Test
+## Run local for develop
 
 ```bash
-# unit tests
-$ npm run test
+# Run database
+$ sudo docker-compose -f docker-compose.db.yml up -d
 
-# e2e tests
-$ npm run test:e2e
+# Install packages
+$ sudo yarn
 
-# test coverage
-$ npm run test:cov
+# Run in watch mode
+$ sudo yarn start:dev
 ```
-
-## Support
-
-Contacts:
-
-## Stay in touch
-
-- Authors - [Radiance Team]
-- Website - [https://radianceteam.com](https://radianceteam.com/)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
