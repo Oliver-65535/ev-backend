@@ -3,14 +3,14 @@ import { Role } from 'src/enums/role.enum';
 
 export type AuthenticatedUser = Pick<
   UserEntity,
-  'id' | 'username' | 'role' | 'firstname' | 'lastname'
+  'id' | 'firstname' | 'lastname' | 'role' | 'wallet_eth'
 >;
 export type JwtPayload = {
   sub: number;
-  username: string;
-  role: Role;
   firstname: string;
   lastname: string;
+  role: Role;
+  wallet_eth: string;
 };
 
 export type UserContext = {

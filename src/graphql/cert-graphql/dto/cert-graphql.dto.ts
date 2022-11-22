@@ -30,19 +30,6 @@ export class CertDTO {
   @FilterableField({ nullable: true })
   singed_role4_id: number;
 
-  // @CreateDateColumn({
-  //   type: 'timestamp',
-  //   default: () => 'CURRENT_TIMESTAMP(6)',
-  // })
-  // public createdAt: Date;
-
-  // @UpdateDateColumn({
-  //   type: 'timestamp',
-  //   default: () => 'CURRENT_TIMESTAMP(6)',
-  //   onUpdate: 'CURRENT_TIMESTAMP(6)',
-  // })
-  // public updatedAt: Date;
-
   // @Column({ length: 50 })
   // reg_number: string;
 
@@ -51,6 +38,12 @@ export class CertDTO {
   //   default: () => 'CURRENT_TIMESTAMP(6)',
   // })
   // public dob: Date;
+
+  @FilterableField({ nullable: true })
+  dob_date: string;
+
+  @FilterableField({ nullable: true })
+  dob_time: string;
 
   @FilterableField({ nullable: true })
   firstname: string;
@@ -89,7 +82,7 @@ export class CertDTO {
   child_weight: number;
 
   @FilterableField({ nullable: true })
-  child_blood: number;
+  child_blood: string;
 
   @FilterableField({ nullable: true })
   p1_firstname: string;
@@ -108,6 +101,24 @@ export class CertDTO {
 
   @FilterableField({ nullable: true })
   p1_dob: Date;
+
+  @FilterableField({ nullable: true })
+  p2_firstname: string;
+
+  @FilterableField({ nullable: true })
+  p2_middlename: string;
+
+  @FilterableField({ nullable: true })
+  p2_lastname: string;
+
+  @FilterableField({ nullable: true })
+  p2_parent: string;
+
+  @FilterableField({ nullable: true })
+  p2_pob: string;
+
+  @FilterableField({ nullable: true })
+  p2_dob: Date;
 
   @FilterableField({ nullable: true })
   ipfs_public_hash: string;

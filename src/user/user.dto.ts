@@ -7,9 +7,6 @@ export class UserAuthDTO {
   id!: number;
 
   @FilterableField()
-  username!: string;
-
-  @FilterableField()
   role!: string;
 
   @FilterableField()
@@ -17,6 +14,9 @@ export class UserAuthDTO {
 
   @FilterableField()
   lastname!: string;
+
+  @FilterableField()
+  wallet_eth!: string;
 
   @FilterableField(() => GraphQLISODateTime)
   created!: Date;
