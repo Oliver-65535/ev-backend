@@ -4,6 +4,7 @@ import { EvmService } from './evm.service';
 
 @Module({
   controllers: [EvmController],
-  providers: [EvmService]
+  providers: [EvmService],
+  exports: [EvmService],
 })
 export class EvmModule {}

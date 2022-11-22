@@ -20,19 +20,11 @@ type resultAuth = {
   result: boolean;
 };
 
-const roles = [
-  { role: Role.Admin, column: 'singed_role1_id' },
-  { role: Role.Doctor, column: 'singed_role2_id' },
-  { role: Role.Midwife, column: 'singed_role4_id' },
-];
-
 @Injectable()
 export class AuthService {
   constructor(
     @InjectQueryService(UserEntity)
     private usersService: QueryService<UserEntity>,
-    @InjectQueryService(Cert)
-    private certService: QueryService<Cert>,
     private jwtService: JwtService,
   ) {}
 
@@ -68,21 +60,6 @@ export class AuthService {
     }
   }
 
-  async signCert(authUser: AuthenticatedUser, cert_id): Promise<any> {
-    let objUpdate = {};
-    try {
-      const user = await this.usersService.getById(authUser.id);
-      if (user && authUser.role == user.role) {
-        const [column] = roles.filter((e) => e.role == user.role);
-        objUpdate[column.column] = authUser.id;
-        await this.certService.updateOne(cert_id.id, objUpdate);
-      }
-      return { msg: 'Signed successfully!' };
-    } catch (e) {
-      throw new NotFoundException();
-    }
-  }
-
   login(user: AuthenticatedUser): Promise<LoginResponseDto> {
     const payload: JwtPayload = {
       sub: user.id,
@@ -97,18 +74,6 @@ export class AuthService {
       accessToken: this.jwtService.sign(payload),
     });
   }
-
-  // async auth(
-  //   publicAddress: string,
-  //   msg: string,
-  //   signature: string,
-  // ): Promise<resultAuth> {
-  //   var addrVerifi = this.verify(msg, signature);
-  //   return {
-  //     publicAddress: publicAddress,
-  //     result: publicAddress == addrVerifi,
-  //   };
-  // }
 
   getAddressFromSignature(
     publicAddress: string,

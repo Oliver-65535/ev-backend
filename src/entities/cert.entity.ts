@@ -125,13 +125,13 @@ export class Cert {
   @Column({ nullable: true })
   p2_dob: Date;
 
-  @Column({ length: 64 })
+  @Column({ length: 128 })
   ipfs_public_hash: string;
 
-  @Column({ length: 64 })
+  @Column({ length: 128 })
   ipfs_private_hash: string;
 
-  @Column({ length: 64 })
+  @Column({ length: 128 })
   ipfs_private_key: string;
 
   @ManyToOne(() => UserEntity, (user) => user.certs)

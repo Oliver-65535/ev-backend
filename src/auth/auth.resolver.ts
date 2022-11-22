@@ -1,6 +1,7 @@
 import { Resolver, Mutation, Args, Query } from '@nestjs/graphql';
 import { UnauthorizedException, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { CertService } from 'src/cert/cert.service';
 import { LoginResponseDto } from './dto/login-response.dto';
 import { LoginInputDTO } from './dto/login-input.dto';
 import {
@@ -15,7 +16,10 @@ import { AuthenticatedUser } from './auth.interfaces';
 
 @Resolver()
 export class AuthResolver {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private certService: CertService,
+  ) {}
 
   @Mutation(() => LoginResponseDto)
   async login(@Args('input') input: LoginInputDTO): Promise<LoginResponseDto> {
@@ -52,6 +56,6 @@ export class AuthResolver {
     @Args('input') input: CertIDInputDTO,
   ): Promise<UserAuthDTO> {
     console.log('asjdjasldjl', user, input);
-    return this.authService.signCert(user, input);
+    return this.certService.signCert(user, input);
   }
 }

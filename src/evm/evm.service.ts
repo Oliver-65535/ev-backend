@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { uploadAndMint } from '../ipfs/ipfs';
-import * as fs from 'fs';
-
+import { uploadAndMint } from './ipfs/ipfs';
 
 @Injectable()
 export class EvmService {
@@ -12,8 +10,12 @@ export class EvmService {
     // const abi = (JSON.parse(fs.readFileSync("src/ipfs/abi.json", { encoding: "utf-8" }))).abi;
 
     // console.log('abi:', abi);
-    const result = await uploadAndMint(args.tokenId, args.json1, args.json2);
+    const result = await uploadAndMint(
+      args.id,
+      args.publicMetadata,
+      args.privateMetadata,
+    );
     // console.log("NEST MODULE RESULT:", result);
-    return { message: result, paylod: args };
+    return result;
   }
 }
