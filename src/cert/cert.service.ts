@@ -85,6 +85,7 @@ export class CertService {
       ...privateData,
     };
     const publicData = {
+      private_data_url: 'ipfs://link_to_private_data',
       firstname,
       middlename,
       lastname,
@@ -95,7 +96,6 @@ export class CertService {
       street: pb_street,
       city: pb_city,
       country: pb_country,
-      private_data_url: 'ipfs://link_to_private_data',
     };
     const publicMetadata = {
       name: `Live Birth Certificate 00000${id}`,

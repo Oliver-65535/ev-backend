@@ -29,7 +29,8 @@ async function prepareAndDownload(
   const CIDprivate = await uploadToIPFS(dataPrivate, nftStorageToken);
   console.log('CID for private data:', CIDprivate);
 
-  metaOpen.attributes.private_data_url = 'ipfs://' + CIDprivate;
+  metaOpen.attributes[0].value = 'ipfs://' + CIDprivate;
+  //console.log('metaOpen', metaOpen);
   const dataOpen = JSON.stringify(metaOpen);
 
   const CIDopen = await uploadToIPFS(dataOpen, nftStorageToken);
