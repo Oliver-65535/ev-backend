@@ -65,19 +65,37 @@ export class CertService {
   async convertCertToNFTMetadata(cert: Cert) {
     const {
       id,
-      child_weight,
-      child_height,
-      child_blood,
+      firstname,
+      middlename,
+      lastname,
+      sex,
+      single_twin,
+      ismultiple,
+      pb_name,
+      pb_street,
+      pb_city,
+      pb_country,
       singed_role1_id,
       singed_role2_id,
       singed_role4_id,
-      ...publicData
+      ...privateData
     } = cert;
     const privateMetadata = {
       lbc_number: `00000${id}`,
-      child_weight,
-      child_height,
-      child_blood,
+      ...privateData,
+    };
+    const publicData = {
+      firstname,
+      middlename,
+      lastname,
+      sex,
+      single_twin,
+      ismultiple,
+      name: pb_name,
+      street: pb_street,
+      city: pb_city,
+      country: pb_country,
+      private_data_url: 'ipfs://link_to_private_data',
     };
     const publicMetadata = {
       name: `Live Birth Certificate 00000${id}`,
@@ -96,7 +114,6 @@ export class CertService {
         sign2: singed_role2_id,
         sign3: singed_role4_id,
       },
-      private_data_url: 'ipfs://link_to_private_data',
     };
 
     return {
