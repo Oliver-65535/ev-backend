@@ -17,7 +17,7 @@ export class UserEntity {
   @Column({ length: 50 })
   firstname: string;
 
-  @Column({ length: 50 })
+  @Column({ length: 50, nullable: true })
   middlename: string;
 
   @Column({ length: 50 })
