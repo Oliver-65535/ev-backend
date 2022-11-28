@@ -42,9 +42,9 @@ export class CertService {
         await this.certService.updateOne(cert_id.id, objUpdate);
         const updatedCert = await this.certService.getById(cert_id.id);
         if (
-          updatedCert.signatory1 == null &&
-          updatedCert.signatory2 == null &&
-          updatedCert.signatory3 == null
+          updatedCert.signatory1.id != 1 &&
+          updatedCert.signatory2.id != 1 &&
+          updatedCert.signatory3.id != 1
         ) {
           const payload = await this.convertCertToNFTMetadata(updatedCert);
           const mintedData = await this.evmService.ipfsSend(payload);

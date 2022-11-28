@@ -14,11 +14,6 @@ import { Role } from '../../../enums/role.enum';
   pagingStrategy: PagingStrategies.OFFSET,
   enableTotalCount: true,
 })
-@FilterableOffsetConnection('certs', () => CertDTO, {
-  disableRemove: true,
-  disableUpdate: true,
-  enableTotalCount: true,
-})
 export class UserDTO {
   @IDField(() => ID)
   id!: number;

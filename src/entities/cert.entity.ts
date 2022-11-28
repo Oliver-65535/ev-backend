@@ -17,15 +17,15 @@ export class Cert {
 
   @OneToOne(() => UserEntity)
   @JoinColumn()
-  signatory1: UserEntity | null;
+  signatory1: UserEntity;
 
   @OneToOne(() => UserEntity)
   @JoinColumn()
-  signatory2: UserEntity | null;
+  signatory2: UserEntity;
 
   @OneToOne(() => UserEntity)
   @JoinColumn()
-  signatory3: UserEntity | null;
+  signatory3: UserEntity;
 
   @CreateDateColumn({
     type: 'timestamp',
@@ -40,8 +40,12 @@ export class Cert {
   })
   public updatedAt: Date;
 
-  // @Column({ length: 50 })
-  // reg_number: string;
+  @Column({
+    nullable: true,
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+  })
+  public datetime_of_birth: Date;
 
   @Column({
     nullable: true,
