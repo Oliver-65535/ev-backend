@@ -2,8 +2,8 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  OneToMany,
-  ManyToOne,
+  JoinColumn,
+  OneToOne,
   Index,
   CreateDateColumn,
   UpdateDateColumn,
@@ -15,14 +15,17 @@ export class Cert {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: true })
-  singed_role1_id: number;
+  @OneToOne(() => UserEntity)
+  @JoinColumn()
+  singed_role1: UserEntity | null;
 
-  @Column({ nullable: true })
-  singed_role2_id: number;
+  @OneToOne(() => UserEntity)
+  @JoinColumn()
+  singed_role2: UserEntity | null;
 
-  @Column({ nullable: true })
-  singed_role4_id: number;
+  @OneToOne(() => UserEntity)
+  @JoinColumn()
+  singed_role4: UserEntity | null;
 
   @CreateDateColumn({
     type: 'timestamp',
@@ -133,7 +136,4 @@ export class Cert {
 
   @Column({ length: 128 })
   ipfs_private_key: string;
-
-  @ManyToOne(() => UserEntity, (user) => user.certs)
-  user: UserEntity;
 }

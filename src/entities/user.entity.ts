@@ -31,7 +31,4 @@ export class UserEntity {
 
   @Column({ default: false })
   is_active: boolean;
-
-  @OneToMany(() => Cert, (cert) => cert.user, { eager: true })
-  certs: Cert[];
 }

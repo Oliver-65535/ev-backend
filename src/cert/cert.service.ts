@@ -12,9 +12,9 @@ import { AuthenticatedUser } from '../auth/auth.interfaces';
 import { Role } from '../enums/role.enum';
 
 const roles = [
-  { role: Role.Admin, column: 'singed_role1_id' },
-  { role: Role.Doctor, column: 'singed_role2_id' },
-  { role: Role.Midwife, column: 'singed_role4_id' },
+  { role: Role.Admin, column: 'singed_role1' },
+  { role: Role.Doctor, column: 'singed_role2' },
+  { role: Role.Midwife, column: 'singed_role4' },
 ];
 
 @Injectable()
@@ -42,9 +42,9 @@ export class CertService {
         await this.certService.updateOne(cert_id.id, objUpdate);
         const updatedCert = await this.certService.getById(cert_id.id);
         if (
-          updatedCert.singed_role1_id > 0 &&
-          updatedCert.singed_role2_id > 0 &&
-          updatedCert.singed_role4_id > 0
+          updatedCert.singed_role1 == null &&
+          updatedCert.singed_role2 == null &&
+          updatedCert.singed_role4 == null
         ) {
           const payload = await this.convertCertToNFTMetadata(updatedCert);
           const mintedData = await this.evmService.ipfsSend(payload);
@@ -75,9 +75,9 @@ export class CertService {
       pb_street,
       pb_city,
       pb_country,
-      singed_role1_id,
-      singed_role2_id,
-      singed_role4_id,
+      singed_role1,
+      singed_role2,
+      singed_role4,
       ...privateData
     } = cert;
     const privateMetadata = {
@@ -110,9 +110,9 @@ export class CertService {
         };
       }),
       signs: {
-        sign1: singed_role1_id,
-        sign2: singed_role2_id,
-        sign3: singed_role4_id,
+        sign1: singed_role1,
+        sign2: singed_role2,
+        sign3: singed_role4,
       },
     };
 
