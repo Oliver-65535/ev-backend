@@ -30,6 +30,9 @@ export class UserDTO {
   firstname: string;
 
   @FilterableField({ nullable: true })
+  middlename: string;
+
+  @FilterableField({ nullable: true })
   lastname: string;
 
   @FilterableField({ nullable: true })
