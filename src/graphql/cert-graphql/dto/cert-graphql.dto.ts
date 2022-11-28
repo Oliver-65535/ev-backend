@@ -9,7 +9,15 @@ import { ObjectType, GraphQLISODateTime, Field, ID } from '@nestjs/graphql';
 import { UserDTO } from 'src/graphql/user-graphql/dto/user.dto';
 
 @ObjectType('Cert')
-@Relation('user', () => UserDTO, {
+@Relation('singed1', () => UserDTO, {
+  disableRemove: true,
+  disableUpdate: true,
+})
+@Relation('singed2', () => UserDTO, {
+  disableRemove: true,
+  disableUpdate: true,
+})
+@Relation('singed3', () => UserDTO, {
   disableRemove: true,
   disableUpdate: true,
 })
@@ -21,14 +29,14 @@ export class CertDTO {
   @IDField(() => ID)
   id!: number;
 
-  @FilterableField({ nullable: true })
-  singed_role1_id: number;
+  // @FilterableField({ nullable: true })
+  // singed_role1_id: number;
 
-  @FilterableField({ nullable: true })
-  singed_role2_id: number;
+  // @FilterableField({ nullable: true })
+  // singed_role2_id: number;
 
-  @FilterableField({ nullable: true })
-  singed_role4_id: number;
+  // @FilterableField({ nullable: true })
+  // singed_role4_id: number;
 
   // @Column({ length: 50 })
   // reg_number: string;
