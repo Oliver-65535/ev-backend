@@ -17,15 +17,15 @@ export class Cert {
 
   @OneToOne(() => UserEntity)
   @JoinColumn()
-  singed1: UserEntity | null;
+  signatory1: UserEntity | null;
 
   @OneToOne(() => UserEntity)
   @JoinColumn()
-  singed2: UserEntity | null;
+  signatory2: UserEntity | null;
 
   @OneToOne(() => UserEntity)
   @JoinColumn()
-  singed3: UserEntity | null;
+  signatory3: UserEntity | null;
 
   @CreateDateColumn({
     type: 'timestamp',

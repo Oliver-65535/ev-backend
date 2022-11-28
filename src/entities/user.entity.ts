@@ -23,7 +23,7 @@ export class UserEntity {
   @Column({ length: 50 })
   lastname: string;
 
-  @Column({ type: 'enum', enum: Role, default: Role.User })
+  @Column({ type: 'enum', enum: Role, default: Role.Midwife })
   role: Role;
 
   @Column({ unique: true, length: 64 })
