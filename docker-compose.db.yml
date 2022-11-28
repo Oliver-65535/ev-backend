@@ -6,8 +6,8 @@ services:
     image: postgres:alpine
     # networks:
     #   - overlay
-     volumes:
-     - ./postgres-data:/var/lib/postgresql/data
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
     ports:
       - '5440:5432'
     restart: always
