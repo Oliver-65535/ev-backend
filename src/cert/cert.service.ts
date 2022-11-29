@@ -47,18 +47,22 @@ export class CertService {
           updatedCert.signatory3 > 0
         ) {
           const payload = await this.convertCertToNFTMetadata(updatedCert);
-          const mintedData = await this.evmService.ipfsSend(payload);
-          if (mintedData) {
-            this.certService.updateOne(cert_id.id, {
-              ipfs_public_hash: mintedData.txHash,
-            });
-            return { msg: 'Singed and load in blockchain successfully!' };
-          }
+          this.mintCert(cert_id.id, payload);
         }
         return { msg: 'Signed successfully!' };
       } else throw new Error('Already signed!');
     } catch (e) {
       throw new Error(e);
+    }
+  }
+
+  async mintCert(cert_id, payload: any) {
+    const mintedData = await this.evmService.ipfsSend(payload);
+    if (mintedData) {
+      this.certService.updateOne(cert_id, {
+        ipfs_public_hash: mintedData.txHash,
+      });
+      return { msg: 'Singed and load in blockchain successfully!' };
     }
   }
 
