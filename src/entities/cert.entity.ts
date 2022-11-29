@@ -16,7 +16,7 @@ export class Cert {
   id: number;
 
   @OneToMany(() => UserEntity, (user) => user.cert)
-  signs: UserEntity[];
+  users: UserEntity[];
 
   @CreateDateColumn({
     type: 'timestamp',

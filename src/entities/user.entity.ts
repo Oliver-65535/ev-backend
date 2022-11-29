@@ -32,6 +32,6 @@ export class UserEntity {
   @Column({ default: false })
   is_active: boolean;
 
-  @ManyToOne(() => Cert, (cert) => cert.signs)
+  @ManyToOne(() => Cert, (cert) => cert.users)
   cert: Cert;
 }
