@@ -9,7 +9,15 @@ import { ObjectType, GraphQLISODateTime, Field, ID } from '@nestjs/graphql';
 import { UserDTO } from 'src/graphql/user-graphql/dto/user.dto';
 
 @ObjectType('Cert')
-@Relation('signs', () => UserDTO, {
+@Relation('signatory1', () => UserDTO, {
+  disableRemove: true,
+  disableUpdate: true,
+})
+@Relation('signatory2', () => UserDTO, {
+  disableRemove: true,
+  disableUpdate: true,
+})
+@Relation('signatory3', () => UserDTO, {
   disableRemove: true,
   disableUpdate: true,
 })
@@ -128,4 +136,7 @@ export class CertDTO {
 
   @FilterableField({ nullable: true })
   ipfs_private_key: string;
+
+  @FilterableField({ nullable: true })
+  user!: string;
 }

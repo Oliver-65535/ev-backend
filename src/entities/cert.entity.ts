@@ -3,7 +3,7 @@ import {
   Column,
   PrimaryGeneratedColumn,
   JoinColumn,
-  OneToMany,
+  OneToOne,
   Index,
   CreateDateColumn,
   UpdateDateColumn,
@@ -15,8 +15,17 @@ export class Cert {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToMany(() => UserEntity, (user) => user.cert)
-  users: UserEntity[];
+  @OneToOne(() => UserEntity, { onDelete: 'CASCADE', nullable: true })
+  @JoinColumn()
+  signatory1: UserEntity;
+
+  @OneToOne(() => UserEntity, { onDelete: 'CASCADE', nullable: true })
+  @JoinColumn()
+  signatory2: UserEntity;
+
+  @OneToOne(() => UserEntity, { onDelete: 'CASCADE', nullable: true })
+  @JoinColumn()
+  signatory3: UserEntity;
 
   @CreateDateColumn({
     type: 'timestamp',

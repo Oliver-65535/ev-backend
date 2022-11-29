@@ -41,7 +41,11 @@ export class CertService {
         objUpdate[column_singer.column] = authUser.id;
         await this.certService.updateOne(cert_id.id, objUpdate);
         const updatedCert = await this.certService.getById(cert_id.id);
-        if (updatedCert.users.length == 3) {
+        if (
+          updatedCert.signatory1.id != 1 &&
+          updatedCert.signatory2.id != 1 &&
+          updatedCert.signatory3.id != 1
+        ) {
           const payload = await this.convertCertToNFTMetadata(updatedCert);
           const mintedData = await this.evmService.ipfsSend(payload);
           if (mintedData) {
@@ -71,7 +75,9 @@ export class CertService {
       pb_street,
       pb_city,
       pb_country,
-      users,
+      signatory1,
+      signatory2,
+      signatory3,
       ...privateData
     } = cert;
     const privateMetadata = {
@@ -103,7 +109,11 @@ export class CertService {
           value: publicData[key],
         };
       }),
-      signs: users,
+      signs: {
+        sign1: signatory1,
+        sign2: signatory2,
+        sign3: signatory3,
+      },
     };
 
     return {
