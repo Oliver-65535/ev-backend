@@ -49,7 +49,7 @@ export class CertService {
           const payload = await this.convertCertToNFTMetadata(updatedCert);
           const mintedData = await this.evmService.ipfsSend(payload);
           if (mintedData) {
-            await this.certService.updateOne(cert_id.id, {
+            this.certService.updateOne(cert_id.id, {
               ipfs_public_hash: mintedData.txHash,
             });
             return { msg: 'Singed and load in blockchain successfully!' };

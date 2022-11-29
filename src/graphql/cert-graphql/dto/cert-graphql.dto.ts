@@ -124,7 +124,4 @@ export class CertDTO {
 
   @FilterableField({ nullable: true })
   ipfs_private_key: string;
-
-  @FilterableField({ nullable: true })
-  user!: string;
 }
