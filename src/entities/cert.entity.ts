@@ -3,7 +3,7 @@ import {
   Column,
   PrimaryGeneratedColumn,
   JoinColumn,
-  OneToOne,
+  OneToMany,
   Index,
   CreateDateColumn,
   UpdateDateColumn,
@@ -15,17 +15,8 @@ export class Cert {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(() => UserEntity)
-  @JoinColumn()
-  signatory1: UserEntity;
-
-  @OneToOne(() => UserEntity)
-  @JoinColumn()
-  signatory2: UserEntity;
-
-  @OneToOne(() => UserEntity)
-  @JoinColumn()
-  signatory3: UserEntity;
+  @OneToMany(() => UserEntity, (user) => user.cert)
+  signs: UserEntity[];
 
   @CreateDateColumn({
     type: 'timestamp',

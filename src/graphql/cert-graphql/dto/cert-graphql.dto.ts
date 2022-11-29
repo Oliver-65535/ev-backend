@@ -9,15 +9,7 @@ import { ObjectType, GraphQLISODateTime, Field, ID } from '@nestjs/graphql';
 import { UserDTO } from 'src/graphql/user-graphql/dto/user.dto';
 
 @ObjectType('Cert')
-@Relation('signatory1', () => UserDTO, {
-  disableRemove: true,
-  disableUpdate: true,
-})
-@Relation('signatory2', () => UserDTO, {
-  disableRemove: true,
-  disableUpdate: true,
-})
-@Relation('signatory3', () => UserDTO, {
+@Relation('signs', () => UserDTO, {
   disableRemove: true,
   disableUpdate: true,
 })
