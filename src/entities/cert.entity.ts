@@ -8,24 +8,20 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { UserEntity } from './user.entity';
 
 @Entity()
 export class Cert {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(() => UserEntity, { onDelete: 'CASCADE', nullable: true })
-  @JoinColumn()
-  signatory1: UserEntity;
+  @Column({ default: 0 })
+  signatory1: number;
 
-  @OneToOne(() => UserEntity, { onDelete: 'CASCADE', nullable: true })
-  @JoinColumn()
-  signatory2: UserEntity;
+  @Column({ default: 0 })
+  signatory2: number;
 
-  @OneToOne(() => UserEntity, { onDelete: 'CASCADE', nullable: true })
-  @JoinColumn()
-  signatory3: UserEntity;
+  @Column({ default: 0 })
+  signatory3: number;
 
   @CreateDateColumn({
     type: 'timestamp',

@@ -9,18 +9,6 @@ import { ObjectType, GraphQLISODateTime, Field, ID } from '@nestjs/graphql';
 import { UserDTO } from 'src/graphql/user-graphql/dto/user.dto';
 
 @ObjectType('Cert')
-@Relation('signatory1', () => UserDTO, {
-  disableRemove: true,
-  disableUpdate: true,
-})
-@Relation('signatory2', () => UserDTO, {
-  disableRemove: true,
-  disableUpdate: true,
-})
-@Relation('signatory3', () => UserDTO, {
-  disableRemove: true,
-  disableUpdate: true,
-})
 @QueryOptions({
   pagingStrategy: PagingStrategies.OFFSET,
   enableTotalCount: true,
@@ -29,14 +17,14 @@ export class CertDTO {
   @IDField(() => ID)
   id!: number;
 
-  // @FilterableField({ nullable: true })
-  // singed_role1_id: number;
+  @FilterableField({ nullable: true })
+  signatory1: number;
 
-  // @FilterableField({ nullable: true })
-  // singed_role2_id: number;
+  @FilterableField({ nullable: true })
+  signatory2: number;
 
-  // @FilterableField({ nullable: true })
-  // singed_role4_id: number;
+  @FilterableField({ nullable: true })
+  signatory3: number;
 
   // @Column({ length: 50 })
   // reg_number: string;
