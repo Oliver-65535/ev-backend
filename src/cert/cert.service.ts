@@ -66,6 +66,13 @@ export class CertService {
     }
   }
 
+  async checkSubscription() {
+    this.certService.updateOne(3, {
+      ipfs_private_hash: 'test string',
+    });
+    return { msg: 'subscriptio runned!' };
+  }
+
   async convertCertToNFTMetadata(cert: Cert) {
     const {
       id,
