@@ -18,6 +18,7 @@ import { UserDTO } from './dto/user.dto';
           create: { disabled: false },
           update: { disabled: false },
           delete: { disabled: false },
+          enableSubscriptions: true,
         },
       ],
     }),

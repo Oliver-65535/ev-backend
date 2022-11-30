@@ -20,6 +20,7 @@ import { CertDTO } from './dto/cert-graphql.dto';
           create: { disabled: false },
           update: { disabled: false },
           delete: { disabled: false },
+          enableSubscriptions: true,
         },
       ],
     }),
