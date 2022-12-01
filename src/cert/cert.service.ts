@@ -10,13 +10,29 @@ import { Cert } from 'src/entities/cert.entity';
 import { EvmService } from 'src/evm/evm.service';
 import { AuthenticatedUser } from '../auth/auth.interfaces';
 import { Role } from '../enums/role.enum';
-require('dotenv').config();
 
 const roles = [
   { role: Role.Administrator, column: 'signatory1' },
   { role: Role.Doctor, column: 'signatory2' },
   { role: Role.Midwife, column: 'signatory3' },
 ];
+
+const convertTime = (timeFromProps: string) => {
+  let timeArr = timeFromProps.split(':');
+  let result;
+  if (
+    timeArr.length == 2 &&
+    (timeArr[0].length == 1 || timeArr[0].length == 2) &&
+    (timeArr[1].length == 1 || timeArr[1].length == 2)
+  ) {
+    let firstHalf = timeArr[0].length == 1 ? '0' + timeArr[0] : timeArr[0];
+    let secondHalf = timeArr[1].length == 1 ? timeArr[1] + '0' : timeArr[1];
+    result = firstHalf + secondHalf;
+  } else {
+    result = 'UCT';
+  }
+  return result;
+};
 
 @Injectable()
 export class CertService {
@@ -106,13 +122,12 @@ export class CertService {
       { key: '3A. This Birth, Single, Twin, etc.', val: single_twin },
       { key: '3B. If Multiple This Child 1st, 2nd, etc.', val: ismultiple },
       { key: '4A. Date of birth', val: dob_date },
-      { key: '4B. Hour - 24 Hour Clock Time', val: dob_time },
+      { key: '4B. Hour - 24 Hour Clock Time', val: convertTime(dob_time) },
       { key: '5A. Name of Hospital or Facility', val: pb_name },
       { key: '5B. Street and Number, or Location', val: pb_street },
       { key: '5C. City', val: pb_city },
       { key: '5D. County', val: pb_country },
       { key: '6A. Private data url', val: 'ipfs://link_to_private_data' },
-      { key: '6B. Contract address', val: process.env.CONTRACT_ADDRESS },
     ];
     const publicMetadata = {
       name: `Live Birth Certificate 00000${id}`,
