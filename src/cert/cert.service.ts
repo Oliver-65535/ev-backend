@@ -10,6 +10,7 @@ import { Cert } from 'src/entities/cert.entity';
 import { EvmService } from 'src/evm/evm.service';
 import { AuthenticatedUser } from '../auth/auth.interfaces';
 import { Role } from '../enums/role.enum';
+require('dotenv').config();
 
 const roles = [
   { role: Role.Administrator, column: 'signatory1' },
@@ -67,10 +68,10 @@ export class CertService {
   }
 
   async checkSubscription() {
-    this.certService.updateOne(3, {
+    return await this.certService.updateOne(8, {
       ipfs_private_hash: 'test string',
     });
-    return { msg: 'subscriptio runned!' };
+    //return { msg: 'subscriptio runned!' };
   }
 
   async convertCertToNFTMetadata(cert: Cert) {
@@ -82,6 +83,8 @@ export class CertService {
       sex,
       single_twin,
       ismultiple,
+      dob_date,
+      dob_time,
       pb_name,
       pb_street,
       pb_city,
@@ -95,31 +98,29 @@ export class CertService {
       lbc_number: `00000${id}`,
       ...privateData,
     };
-    const publicData = {
-      private_data_url: 'ipfs://link_to_private_data',
-      firstname,
-      middlename,
-      lastname,
-      sex,
-      single_twin,
-      ismultiple,
-      name: pb_name,
-      street: pb_street,
-      city: pb_city,
-      country: pb_country,
-    };
+    const publicData = [
+      { key: '1A. First Name', val: firstname },
+      { key: '1B. Middle Name', val: middlename },
+      { key: '1C. Last Name', val: lastname },
+      { key: '2. Sex', val: sex },
+      { key: '3A. This Birth, Single, Twin, etc.', val: single_twin },
+      { key: '3B. If Multiple This Child 1st, 2nd, etc.', val: ismultiple },
+      { key: '4A. Date of birth', val: dob_date },
+      { key: '4B. Hour - 24 Hour Clock Time', val: dob_time },
+      { key: '5A. Name of Hospital or Facility', val: pb_name },
+      { key: '5B. Street and Number, or Location', val: pb_street },
+      { key: '5C. City', val: pb_city },
+      { key: '5D. County', val: pb_country },
+      { key: '6A. Private data url', val: 'ipfs://link_to_private_data' },
+      { key: '6B. Contract address', val: process.env.CONTRACT_ADDRESS },
+    ];
     const publicMetadata = {
       name: `Live Birth Certificate 00000${id}`,
       description: 'LBC for USER_X',
       image: `ipfs://QmcqbSmqLsEtHn51obdtUm4KtVU3Zf3jQqPYJMj2wnRZyx`,
       external_url: `https://link_to_LBC_website`,
       LBCnumber: `00000${id}`,
-      attributes: Object.keys(publicData).map((key) => {
-        return {
-          trait_type: key,
-          value: publicData[key],
-        };
-      }),
+      attributes: publicData.map((e) => ({ trait_type: e.key, value: e.val })),
       signs: {
         sign1: signatory1,
         sign2: signatory2,

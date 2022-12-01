@@ -1,5 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { EvmService } from './evm.service';
+import { CertService } from 'src/cert/cert.service';
 
 //////////
 //for test
@@ -8,7 +9,10 @@ import * as fs from 'fs';
 
 @Controller('evm')
 export class EvmController {
-  constructor(private readonly evmService: EvmService) {}
+  constructor(
+    private readonly evmService: EvmService,
+    private readonly certService: CertService,
+  ) {}
 
   @Get()
   getEvmTest(): any {
@@ -23,6 +27,7 @@ export class EvmController {
     //   json1: metaOpen,
     //   json2: metaPrivate,
     // });
-    return 'evm run';
+    return this.certService.checkSubscription();
+    //return 'evm run';
   }
 }
