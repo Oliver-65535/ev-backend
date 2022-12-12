@@ -92,7 +92,9 @@ async function mintCertificate(account, abi, tokenId, URI, mintTo) {
 
   console.log('GAS OPTIONS', options);
 
-  let receipt = await erc721.connect(signer).safeMint(mintTo, tokenId, URI);
+  let receipt = await erc721
+    .connect(signer)
+    .safeMint(mintTo, tokenId, URI, options);
 
   console.log('----------------------------------------------------------');
   console.log('-- Signer minted token to ', mintTo);
