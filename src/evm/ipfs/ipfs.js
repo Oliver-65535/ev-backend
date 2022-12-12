@@ -76,7 +76,7 @@ async function mintCertificate(account, abi, tokenId, URI, mintTo) {
     .connect(signer)
     .estimateGas.safeMint(mintTo, tokenId, URI);
 
-  estimateGas = estimateGas.mul(ethers.BigNumber.from('1.4'));
+  estimateGas = estimateGas.mul(ethers.BigNumber.from('2'));
 
   console.log('estimateGas', estimateGas.toString());
   let feeData = await RPCprovider.getFeeData();
