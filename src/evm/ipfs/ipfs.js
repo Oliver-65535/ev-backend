@@ -87,7 +87,7 @@ async function mintCertificate(account, abi, tokenId, URI, mintTo) {
   let options = {
     maxPriorityFeePerGas: fees.priorityFees[1],
     maxFeePerGas: fees.maxFees[1],
-    gasLimit: ethers.BigNumber.from('200000'),
+    gasLimit: ethers.BigNumber.from('400000'),
   };
 
   console.log('GAS OPTIONS', options);
