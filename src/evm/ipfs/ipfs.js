@@ -70,9 +70,15 @@ async function mintCertificate(account, abi, tokenId, URI, mintTo) {
     abi,
     RPCprovider,
   );
-  let estimateGas =
-    (await erc721.connect(signer).estimateGas.safeMint(mintTo, tokenId, URI)) *
-    1.4;
+
+  console.log('process.env.CONTRACT_ADDRESS', process.env.CONTRACT_ADDRESS);
+  let estimateGas = await erc721
+    .connect(signer)
+    .estimateGas.safeMint(mintTo, tokenId, URI);
+
+  estimateGas = estimateGas.mul(ethers.BigNumber.from('1.4'));
+
+  console.log('estimateGas', estimateGas.toString());
   let feeData = await RPCprovider.getFeeData();
   let fees = await calcMaxFees(RPCprovider, estimateGas, feeData);
   let options = {
