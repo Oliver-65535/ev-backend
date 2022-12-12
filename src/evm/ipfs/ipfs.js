@@ -59,6 +59,9 @@ async function uploadToIPFS(data, nftStorageToken) {
 // }
 
 async function mintCertificate(account, abi, tokenId, URI, mintTo) {
+  console.log('ENV', 'process.env.ETH_NODE_URL');
+  console.log('process.env', process.env);
+
   const RPCprovider = new ethers.providers.JsonRpcProvider(
     process.env.ETH_NODE_URL,
   );
