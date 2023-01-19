@@ -24,6 +24,9 @@ export class StationEntity {
   @Column({ length: 50, nullable: true })
   address: string;
 
+  @Column({ length: 50, nullable: true })
+  connectors: string;
+
   @Column({ default: false })
   is_active: boolean;
 }

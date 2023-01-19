@@ -30,5 +30,8 @@ export class StationDTO {
   address: string;
 
   @FilterableField({ nullable: true })
+  connectors: string;
+
+  @FilterableField({ nullable: true })
   is_active: boolean;
 }
