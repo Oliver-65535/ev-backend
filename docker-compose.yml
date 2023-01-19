@@ -6,10 +6,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    networks:
-      - overlay
-    depends_on:
-      - database
+    # networks:
+    #   - overlay
+    # depends_on:
+    #   - database
     ports:
       - '${BACKEND_PORT}:${BACKEND_PORT}'
     restart: always
@@ -36,5 +36,5 @@ services:
 #       POSTGRES_USER: ${DATABASE_USERNAME}
 #       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
 
-networks:
-  overlay:
+# networks:
+#   overlay:
