@@ -6,13 +6,13 @@ WORKDIR /app
 # COPY yarn.lock .
 # COPY ormconfig.js .
 
-RUN yarn
+RUN npm install
 
 COPY . .
 
 # RUN yarn build
 
-ENTRYPOINT [ "yarn", "start" ]
+ENTRYPOINT [ "npm","run", "start" ]
 
 #---
 
