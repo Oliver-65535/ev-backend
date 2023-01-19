@@ -13,6 +13,7 @@ import { AuthModule } from './auth/auth.module';
 import { EvmModule } from './evm/evm.module';
 
 import ormconfig = require('../ormconfig');
+import { GraphqlStationModule } from './common/charge-station/station-graphql/station-graphql.module';
 
 @Module({
   imports: [
@@ -20,6 +21,8 @@ import ormconfig = require('../ormconfig');
     TypeOrmModule.forRoot(ormconfig),
     GraphQLModule.forRoot({
       // set to true to automatically generate schema
+      debug: false,
+      playground: true,
       subscriptions: {
         'graphql-ws': true,
         'subscriptions-transport-ws': true,
@@ -30,6 +33,7 @@ import ormconfig = require('../ormconfig');
     }),
     GraphqlCertModule,
     GraphqlUserModule,
+    GraphqlStationModule,
     AuthModule,
     EvmModule,
   ],

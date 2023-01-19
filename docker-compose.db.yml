@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   database:
-    container_name: birth-certs-database
+    container_name: ev-server-database
     image: postgres:alpine
     # networks:
     #   - overlay
