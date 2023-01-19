@@ -10,7 +10,7 @@ RUN yarn
 
 COPY . .
 
-RUN yarn build
+# RUN yarn build
 
 ENTRYPOINT [ "yarn", "start" ]
 
