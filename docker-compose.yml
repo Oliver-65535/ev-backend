@@ -23,7 +23,7 @@ services:
 
 #   database:
 #     container_name: nft-publisher-database
-#     image: postgres:alpine
+#     image: postgis/postgis:15-3.3
 #     networks:
 #       - overlay
 #     volumes:

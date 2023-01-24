@@ -21,10 +21,10 @@ export class StationDTO {
   station_id!: string;
 
   @FilterableField({ nullable: true })
-  latitude: string;
+  latitude: number;
 
   @FilterableField({ nullable: true })
-  longitude: string;
+  longitude: number;
 
   @FilterableField({ nullable: true })
   address: string;

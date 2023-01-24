@@ -3995,6 +3995,11 @@ gensync@^1.0.0-beta.2:
   resolved "https://registry.yarnpkg.com/gensync/-/gensync-1.0.0-beta.2.tgz#32a6ee76c3d7f52d46b2b1ae5d93fea8580a25e0"
   integrity sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==
 
+geojson@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/geojson/-/geojson-0.5.0.tgz#3cd6c96399be65b56ee55596116fe9191ce701c0"
+  integrity sha512-/Bx5lEn+qRF4TfQ5aLu6NH+UKtvIv7Lhc487y/c8BdludrCTpiWf9wyI0RTyqg49MFefIAvFDuEi5Dfd/zgNxQ==
+
 get-caller-file@^2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-2.0.5.tgz#4f94412a82db32f36e3b0b9741f8a97feb031f7e"
@@ -7256,10 +7261,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==
 
-typeorm@^0.3.10:
-  version "0.3.10"
-  resolved "https://registry.yarnpkg.com/typeorm/-/typeorm-0.3.10.tgz#aa2857fd4b078c912ca693b7eee01b6535704458"
-  integrity sha512-VMKiM84EpJQ+Mz9xDIPqnfplWhyUy1d8ccaKdMY9obifxJOTFnv8GYVyPsGwG8Lk7Nb8MlttHyHWENGAhBA3WA==
+typeorm@^0.3.11:
+  version "0.3.11"
+  resolved "https://registry.yarnpkg.com/typeorm/-/typeorm-0.3.11.tgz#09b6ab0b0574bf33c1faf7344bab6c363cf28921"
+  integrity sha512-pzdOyWbVuz/z8Ww6gqvBW4nylsM0KLdUCDExr2gR20/x1khGSVxQkjNV/3YqliG90jrWzrknYbYscpk8yxFJVg==
   dependencies:
     "@sqltools/formatter" "^1.2.2"
     app-root-path "^3.0.0"

@@ -3,7 +3,7 @@ version: '3.3'
 services:
   database:
     container_name: ev-server-database
-    image: postgres:alpine
+    image: postgis/postgis:15-3.3
     # networks:
     #   - overlay
     volumes:

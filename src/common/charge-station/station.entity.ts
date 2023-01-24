@@ -5,21 +5,20 @@ import {
   ManyToOne,
   OneToMany,
   Index,
+  BaseEntity,
 } from 'typeorm';
+import { Geometry, Point } from 'geojson';
 
 @Entity()
-export class StationEntity {
+export class StationEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ unique: true, length: 64 })
   station_id!: string;
 
-  @Column({ length: 50, nullable: true })
-  latitude: string;
-  
-  @Column({ length: 50, nullable: true })
-  longitude: string;
+  @Column("geometry")
+  point: Point;
 
   @Column({ length: 50, nullable: true })
   address: string;
