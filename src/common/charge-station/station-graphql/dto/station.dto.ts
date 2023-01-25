@@ -21,10 +21,7 @@ export class StationDTO {
   station_id!: string;
 
   @FilterableField({ nullable: true })
-  latitude: number;
-
-  @FilterableField({ nullable: true })
-  longitude: number;
+  point: PointerEvent;
 
   @FilterableField({ nullable: true })
   address: string;
