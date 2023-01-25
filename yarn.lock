@@ -4113,6 +4113,11 @@ graphql-fields@^2.0.3:
   resolved "https://registry.yarnpkg.com/graphql-fields/-/graphql-fields-2.0.3.tgz#5e68dff7afbb202be4f4f40623e983b22c96ab8f"
   integrity sha512-x3VE5lUcR4XCOxPIqaO4CE+bTK8u6gVouOdpQX9+EKHr+scqtK5Pp/l8nIGqIpN1TUlkKE6jDCCycm/WtLRAwA==
 
+graphql-geojson@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/graphql-geojson/-/graphql-geojson-1.0.0.tgz#62287a1bc63940f5e51accde8f99fe01f41e39d4"
+  integrity sha512-zdyZgOMlZfwSQYMFGN5AAdJ8uFrZM3b0NKVe/cC0uSUmQML9fzcjRftvlk1SCRKVO1b2DlPiYgi46I7uM1nN+w==
+
 graphql-subscriptions@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/graphql-subscriptions/-/graphql-subscriptions-2.0.0.tgz#11ec181d475852d8aec879183e8e1eb94f2eb79a"
