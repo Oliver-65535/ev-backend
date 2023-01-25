@@ -22,6 +22,9 @@ export class StationDTO {
   station_id!: string;
 
   @FilterableField({ nullable: true })
+  point: PointerEvent;
+
+  @FilterableField({ nullable: true })
   address: string;
 
   @FilterableField({ nullable: true })
