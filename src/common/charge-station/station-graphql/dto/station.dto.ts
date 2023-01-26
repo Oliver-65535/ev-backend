@@ -8,6 +8,7 @@ import {
 } from '@nestjs-query/query-graphql';
 
 import { PointObject } from 'graphql-geojson';
+import GraphQLJSON,{ } from 'graphql-type-json';
 
 @ObjectType('Station')
 @QueryOptions({
@@ -21,8 +22,8 @@ export class StationDTO {
   @FilterableField({ nullable: true })
   station_id!: string;
 
-  @FilterableField({ nullable: true })
-  point: PointerEvent;
+  @FilterableField((type) => GraphQLJSON)
+  point: JSON;
 
   @FilterableField({ nullable: true })
   address: string;
