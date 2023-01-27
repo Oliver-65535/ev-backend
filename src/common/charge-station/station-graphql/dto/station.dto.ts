@@ -22,8 +22,17 @@ export class StationDTO {
   @FilterableField({ nullable: true })
   station_id!: string;
 
+  @FilterableField({ nullable: true })
+  station_name: string;
+
+  @FilterableField({ nullable: true })
+  owner: string;
+
+  @FilterableField({ nullable: true })
+  status: string;
+
   @FilterableField((type) => GraphQLJSON)
-  point: JSON;
+  location: JSON;
 
   @FilterableField({ nullable: true })
   address: string;
@@ -32,5 +41,8 @@ export class StationDTO {
   connectors: string;
 
   @FilterableField({ nullable: true })
-  is_active: boolean;
+  instant_power: string;
+
+  @FilterableField({ nullable: true })
+  public: boolean;
 }

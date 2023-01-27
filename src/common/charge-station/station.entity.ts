@@ -17,15 +17,27 @@ export class StationEntity extends BaseEntity {
   @Column({ unique: true, length: 64 })
   station_id!: string;
 
-  @Column("geometry")
-  point: Point;
+  @Column({ length: 128, nullable: true })
+  station_name: string;
+
+  @Column({ length: 128, nullable: true })
+  owner: string;
 
   @Column({ length: 50, nullable: true })
+  status: string;
+
+  @Column("geometry")
+  location: Point;
+
+  @Column({ length: 128, nullable: true })
   address: string;
 
   @Column({ length: 50, nullable: true })
   connectors: string;
 
+  @Column({ length: 128, nullable: true })
+  instant_power: string;
+
   @Column({ default: false })
-  is_active: boolean;
+  public: boolean;
 }
