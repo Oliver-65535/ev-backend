@@ -6,16 +6,12 @@ import {
   PagingStrategies,
   QueryOptions,
   Relation,
-  UnPagedRelation
 } from '@nestjs-query/query-graphql';
 
-import { PointObject } from 'graphql-geojson';
-import GraphQLJSON,{ } from 'graphql-type-json';
-import { ConnectorDTO } from '../../connector/connector-graphql/dto/connector.dto';
+import { StationDTO } from 'src/common/charge-station/station-graphql/dto/station.dto';
 
-@ObjectType('Station')
-
-@UnPagedRelation('connectors', () => ConnectorDTO, {
+@ObjectType('Connector')
+@Relation('station', () => StationDTO, {
   disableRemove: true,
   disableUpdate: true,
   enableTotalCount: true,
@@ -25,34 +21,32 @@ import { ConnectorDTO } from '../../connector/connector-graphql/dto/connector.dt
   pagingStrategy: PagingStrategies.OFFSET,
   enableTotalCount: true,
 })
-export class StationDTO {
+export class ConnectorDTO {
   @IDField(() => ID)
   id!: number;
 
   @FilterableField({ nullable: true })
-  station_id!: string;
+  connector!: string;
 
   @FilterableField({ nullable: true })
-  station_name: string;
+  connector_type!: string;
 
   @FilterableField({ nullable: true })
-  owner: string;
+  status!: string;
 
   @FilterableField({ nullable: true })
-  status: string;
-
-  @FilterableField((type) => GraphQLJSON)
-  location: JSON;
+  information!: string;
 
   @FilterableField({ nullable: true })
-  address: string;
+  instant_power!: string;
 
   @FilterableField({ nullable: true })
-  connectors: string;
+  consumption!: string;
 
   @FilterableField({ nullable: true })
-  instant_power: string;
+  inactivity!: string;
 
-  @FilterableField({ nullable: true })
-  public: boolean;
+  @FilterableField()
+  stationId!: string;
+
 }

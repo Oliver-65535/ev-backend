@@ -14,6 +14,7 @@ import { EvmModule } from './evm/evm.module';
 
 import ormconfig = require('../ormconfig');
 import { GraphqlStationModule } from './common/charge-station/station-graphql/station-graphql.module';
+import { GraphqlConnectorModule } from './common/charge-station/connector/connector-graphql/connector-graphql.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { GraphqlStationModule } from './common/charge-station/station-graphql/st
     GraphqlCertModule,
     GraphqlUserModule,
     GraphqlStationModule,
+    GraphqlConnectorModule,
     AuthModule,
     EvmModule,
   ],
