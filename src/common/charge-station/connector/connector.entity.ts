@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import { Geometry, Point } from 'geojson';
 
-import { StationEntity } from '../station.entity';
+import { StationEntity } from '../station-graphql/station.entity';
 
 @Entity("connector")
 export class ConnectorEntity extends BaseEntity {

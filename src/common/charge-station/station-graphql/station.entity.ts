@@ -8,7 +8,7 @@ import {
   BaseEntity,
 } from 'typeorm';
 import { Geometry, Point } from 'geojson';
-import { ConnectorEntity } from './connector/connector.entity';
+import { ConnectorEntity } from '../connector/connector.entity';
 
 @Entity()
 export class StationEntity extends BaseEntity {

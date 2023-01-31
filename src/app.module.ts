@@ -15,6 +15,7 @@ import { EvmModule } from './evm/evm.module';
 import ormconfig = require('../ormconfig');
 import { GraphqlStationModule } from './common/charge-station/station-graphql/station-graphql.module';
 import { GraphqlConnectorModule } from './common/charge-station/connector/connector-graphql/connector-graphql.module';
+import { MapsApiModule } from './common/maps-api/maps-api.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { GraphqlConnectorModule } from './common/charge-station/connector/connec
     GraphqlConnectorModule,
     AuthModule,
     EvmModule,
+    MapsApiModule
   ],
   controllers: [AppController],
   providers: [AppService],
