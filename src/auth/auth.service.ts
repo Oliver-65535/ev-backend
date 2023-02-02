@@ -8,11 +8,9 @@ import { InjectQueryService, QueryService } from '@nestjs-query/core';
 import ethUtil from 'ethereumjs-util';
 import { recoverPersonalSignature } from '@metamask/eth-sig-util';
 import { randomBytes } from 'crypto';
-import { UserEntity } from '../entities/user.entity';
-import { Cert } from 'src/entities/cert.entity';
+import { UserEntity } from '../common/user/user.entity';
 import { LoginResponseDto } from './dto/login-response.dto';
 import { AuthenticatedUser, JwtPayload } from './auth.interfaces';
-import { UserDTO } from '../graphql/user-graphql/dto/user.dto';
 import { Role } from '../enums/role.enum';
 
 type resultAuth = {

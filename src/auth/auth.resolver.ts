@@ -1,7 +1,6 @@
 import { Resolver, Mutation, Args, Query } from '@nestjs/graphql';
 import { UnauthorizedException, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CertService } from 'src/cert/cert.service';
 import { LoginResponseDto } from './dto/login-response.dto';
 import { LoginInputDTO } from './dto/login-input.dto';
 import {
@@ -9,7 +8,7 @@ import {
   CertIDInputDTO,
 } from './dto/login-randmsg-input.dto';
 import { RandomMessageResponseDTO } from './dto/login-randmsg-response.dto';
-import { UserAuthDTO } from '../user/user.dto';
+import { UserAuthDTO } from '../common/user/user.dto';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { CurrentUser } from './current-user.decorator';
 import { AuthenticatedUser } from './auth.interfaces';
@@ -18,7 +17,7 @@ import { AuthenticatedUser } from './auth.interfaces';
 export class AuthResolver {
   constructor(
     private authService: AuthService,
-    private certService: CertService,
+    
   ) {}
 
   @Mutation(() => LoginResponseDto)
@@ -49,13 +48,13 @@ export class AuthResolver {
     return this.authService.currentUser(user);
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Mutation(() => RandomMessageResponseDTO)
-  sign(
-    @CurrentUser() user: AuthenticatedUser,
-    @Args('input') input: CertIDInputDTO,
-  ): Promise<UserAuthDTO> {
-    console.log('asjdjasldjl', user, input);
-    return this.certService.signCert(user, input);
-  }
+  // @UseGuards(JwtAuthGuard)
+  // @Mutation(() => RandomMessageResponseDTO)
+  // sign(
+  //   @CurrentUser() user: AuthenticatedUser,
+  //   @Args('input') input: CertIDInputDTO,
+  // ): Promise<UserAuthDTO> {
+  //   console.log('asjdjasldjl', user, input);
+  //   return this.certService.signCert(user, input);
+  // }
 }

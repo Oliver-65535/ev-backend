@@ -1,4 +1,4 @@
-import { UserEntity } from '../entities/user.entity';
+import { UserEntity } from '../common/user/user.entity';
 import { Role } from 'src/enums/role.enum';
 
 export type AuthenticatedUser = Pick<

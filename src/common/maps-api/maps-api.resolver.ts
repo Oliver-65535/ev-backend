@@ -1,7 +1,6 @@
 import { Resolver, Mutation, Args, Query } from '@nestjs/graphql';
 import { UnauthorizedException, UseGuards } from '@nestjs/common';
 import { MapsApiService } from './maps-api.service';
-import { CertService } from 'src/cert/cert.service';
 import { ConnectorsOnMarkerResponseDto } from './dto/getConnectors.dto';
 import { LoginInputDTO } from './dto/maps-api-login-input.dto';
 import {

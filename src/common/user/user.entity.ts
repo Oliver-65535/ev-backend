@@ -6,8 +6,7 @@ import {
   OneToMany,
   Index,
 } from 'typeorm';
-import { Cert } from './cert.entity';
-import { Role } from '../enums/role.enum';
+import { Role } from '../../enums/role.enum';
 
 @Entity()
 export class UserEntity {

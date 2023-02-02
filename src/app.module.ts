@@ -7,10 +7,8 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
-import { GraphqlCertModule } from './graphql/cert-graphql/cert-graphql.module';
-import { GraphqlUserModule } from './graphql/user-graphql/user-graphql.module';
+
 import { AuthModule } from './auth/auth.module';
-import { EvmModule } from './evm/evm.module';
 
 import ormconfig = require('../ormconfig');
 import { GraphqlStationModule } from './common/charge-station/station-graphql/station-graphql.module';
@@ -34,13 +32,10 @@ import { GraphqlSiteModule } from './common/site/site/site-graphql/site-graphql.
       autoSchemaFile: true,
       installSubscriptionHandlers: true,
     }),
-    GraphqlCertModule,
-    GraphqlUserModule,
     GraphqlSiteModule,
     GraphqlStationModule,
     GraphqlConnectorModule,
     AuthModule,
-    EvmModule,
     MapsApiModule
   ],
   controllers: [AppController],
