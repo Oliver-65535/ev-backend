@@ -6,6 +6,7 @@ import {
   OneToMany,
   Index,
   BaseEntity,
+  JoinColumn
 } from 'typeorm';
 import { Geometry, Point } from 'geojson';
 
@@ -39,4 +40,7 @@ export class ConnectorEntity extends BaseEntity {
 
   @ManyToOne(() => StationEntity, (station) => station.connectors)
   station: StationEntity;
+
+  @Column({ nullable: true })
+  stationId?: number;
 }

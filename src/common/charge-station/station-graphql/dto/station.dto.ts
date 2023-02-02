@@ -9,7 +9,6 @@ import {
   UnPagedRelation
 } from '@nestjs-query/query-graphql';
 
-import { PointObject } from 'graphql-geojson';
 import GraphQLJSON,{ } from 'graphql-type-json';
 import { ConnectorDTO } from '../../connector/connector-graphql/dto/connector.dto';
 

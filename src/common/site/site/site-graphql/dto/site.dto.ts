@@ -7,11 +7,12 @@ import {
   QueryOptions,
   Relation,
 } from '@nestjs-query/query-graphql';
+import GraphQLJSON,{ } from 'graphql-type-json';
 
 import { StationDTO } from 'src/common/charge-station/station-graphql/dto/station.dto';
 
-@ObjectType('Connector')
-@Relation('station', () => StationDTO, {
+@ObjectType('Site')
+@Relation('stations', () => StationDTO, {
   disableRemove: false,
   disableUpdate: false,
   enableTotalCount: true,
@@ -21,31 +22,34 @@ import { StationDTO } from 'src/common/charge-station/station-graphql/dto/statio
   pagingStrategy: PagingStrategies.OFFSET,
   enableTotalCount: true,
 })
-export class ConnectorDTO {
+export class SiteDTO {
   @IDField(() => ID)
   id!: number;
 
   @FilterableField({ nullable: true })
-  connector!: string;
+  name!: string;
 
   @FilterableField({ nullable: true })
-  connector_type!: string;
+  site!: string;
 
   @FilterableField({ nullable: true })
-  status!: string;
+  site_area!: string;
+
+  @FilterableField((type) => GraphQLJSON)
+  location: JSON;
 
   @FilterableField({ nullable: true })
   information!: string;
 
   @FilterableField({ nullable: true })
+  dynamic_asset: string;
+
+  @FilterableField({ nullable: true })
+  asset_type!: string;
+
+  @FilterableField({ nullable: true })
   instant_power!: string;
 
-  @FilterableField({ nullable: true })
-  consumption!: string;
-
-  @FilterableField({ nullable: true })
-  inactivity!: string;
-
   @FilterableField({ nullable: false })
-  stationId!: number;
+  battery!: string;
 }

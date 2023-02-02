@@ -39,10 +39,11 @@ export class MapsApiResolver {
   // }
 
 
-  @Query(() =>ConnectorsOnMarkerResponseDto)
-  getConnectorByMarker(): Promise<ConnectorsOnMarkerResponseDto> {
-    console.log('ME', "asd");
-    return this.mapsApiService.getConnectorsOnMarkers();
+  @Query(() => [ConnectorsOnMarkerResponseDto])
+  getConnectorByMarker(): Promise<any[]> {
+    const res = this.mapsApiService.getConnectorsOnMarkers();
+    console.log('ME', "asd",res);
+    return res;
   }
 
   

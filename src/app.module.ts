@@ -16,6 +16,7 @@ import ormconfig = require('../ormconfig');
 import { GraphqlStationModule } from './common/charge-station/station-graphql/station-graphql.module';
 import { GraphqlConnectorModule } from './common/charge-station/connector/connector-graphql/connector-graphql.module';
 import { MapsApiModule } from './common/maps-api/maps-api.module';
+import { GraphqlSiteModule } from './common/site/site/site-graphql/site-graphql.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { MapsApiModule } from './common/maps-api/maps-api.module';
     }),
     GraphqlCertModule,
     GraphqlUserModule,
+    GraphqlSiteModule,
     GraphqlStationModule,
     GraphqlConnectorModule,
     AuthModule,

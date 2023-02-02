@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { Geometry, Point } from 'geojson';
 import { ConnectorEntity } from '../connector/connector.entity';
+import { SiteEntity } from 'src/common/site/site/site.entity';
 
 @Entity()
 export class StationEntity extends BaseEntity {
@@ -33,8 +34,11 @@ export class StationEntity extends BaseEntity {
   @Column({ length: 128, nullable: true })
   address: string;
 
-  @OneToMany(() => ConnectorEntity, (connector) => connector.station, { eager: true })
+  @OneToMany(() => ConnectorEntity, (connector) => connector.station, {cascade: true})
   connectors: ConnectorEntity[];
+
+  @ManyToOne(() => SiteEntity, (site) => site.stations)
+  site: SiteEntity;
 
   @Column({ length: 50, nullable: true })
   instant_power: string;
