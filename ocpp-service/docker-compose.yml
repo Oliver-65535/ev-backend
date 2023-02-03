@@ -1,0 +1,21 @@
+services:
+  lake:
+    container_name: near-lake-microservice
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+      AWS_BUCKET_NAME: ${AWS_BUCKET_NAME}
+      AWS_REGION_NAME: ${AWS_REGION_NAME}
+      NEAR_NODE_URL: ${NEAR_NODE_URL}
+  redis:
+    container_name: 'redis-for-microservices'
+    restart: always
+    image: 'redis:6.2-alpine'
+    ports:
+      - 6379:6379
