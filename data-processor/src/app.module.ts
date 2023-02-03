@@ -15,6 +15,8 @@ import { GraphqlStationModule } from './common/charge-station/station-graphql/st
 import { GraphqlConnectorModule } from './common/charge-station/connector/connector-graphql/connector-graphql.module';
 import { MapsApiModule } from './common/maps-api/maps-api.module';
 import { GraphqlSiteModule } from './common/site/site/site-graphql/site-graphql.module';
+import { OCPPModule } from "./modules-microservices/ocpp-cs-service/ocpp-cs.module"
+
 
 @Module({
   imports: [
@@ -36,7 +38,8 @@ import { GraphqlSiteModule } from './common/site/site/site-graphql/site-graphql.
     GraphqlStationModule,
     GraphqlConnectorModule,
     AuthModule,
-    MapsApiModule
+    MapsApiModule,
+    OCPPModule
   ],
   controllers: [AppController],
   providers: [AppService],

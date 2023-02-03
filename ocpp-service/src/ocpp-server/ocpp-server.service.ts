@@ -78,7 +78,7 @@ export class OCPPService {
     
         // save the client in the database
         // chargePoints[client.identity] = new ChargePoint(client.identity, client)
-        this.publishEvent({chargeBoxId:client.identity, params:params})
+        this.publishEvent({chargeBoxId:client.identity,action:"BootNotification", params:params})
         // respond to accept the client
         return {
           status: "Accepted",
@@ -90,7 +90,7 @@ export class OCPPService {
       // create a specific handler for handling Heartbeat requests
       client.handle('Heartbeat', ({ params }) => {
         console.log(`Server got Heartbeat at ${new Date().toLocaleString("ru-RU", { timeZone: "Europe/Moscow" })} from ${client.identity}:`, params);
-        this.publishEvent({chargeBoxId:client.identity, params:params})
+        this.publishEvent({chargeBoxId:client.identity,action:"Heartbeat", params:params})
         // respond with the server's current time.
         return {
           currentTime: new Date().toISOString()
