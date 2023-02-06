@@ -1,8 +1,8 @@
 version: '3.3'
 
 services:
-  backend:
-    container_name: birth-certs-backend
+  ev-backend:
+    container_name: ev-backend
     build:
       context: .
       dockerfile: Dockerfile
@@ -13,14 +13,13 @@ services:
     ports:
       - '${BACKEND_PORT}:${BACKEND_PORT}'
     restart: always
-    environment:
-      DATABASE_HOST: ${DATABASE_HOST}
-      DATABASE_PORT: ${DATABASE_PORT}
-      DATABASE_USERNAME: ${DATABASE_USERNAME}
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-      DATABASE_NAME: ${DATABASE_NAME}
-      BACKEND_PORT: ${BACKEND_PORT}
-
+    # environment:
+    #   DATABASE_HOST: ${DATABASE_HOST}
+    #   DATABASE_PORT: ${DATABASE_PORT}
+    #   DATABASE_USERNAME: ${DATABASE_USERNAME}
+    #   DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+    #   DATABASE_NAME: ${DATABASE_NAME}
+    #   BACKEND_PORT: ${BACKEND_PORT}
 #   database:
 #     container_name: nft-publisher-database
 #     image: postgis/postgis:15-3.3

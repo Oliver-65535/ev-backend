@@ -1,7 +1,7 @@
 {
-  "name": "near-lake-service",
+  "name": "ocpp-cs-service",
   "version": "0.0.1",
-  "description": "near lake microservice",
+  "description": "ocpp cs microservice",
   "author": "Tarasov Oleg(RadianceTeam)",
   "private": true,
   "license": "MIT",
@@ -28,7 +28,6 @@
     "@nestjs/microservices": "^9.1.4",
     "@nestjs/platform-express": "^9.0.0",
     "ioredis": "^5.2.3",
-    "near-lake-framework": "^1.0.4",
     "ocpp-rpc": "^2.0.0",
     "ocpp-ts": "^0.3.0",
     "reflect-metadata": "^0.1.13",

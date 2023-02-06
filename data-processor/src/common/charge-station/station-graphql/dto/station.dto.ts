@@ -2,24 +2,23 @@ import { Field, GraphQLISODateTime, ID, ObjectType } from '@nestjs/graphql';
 import {
   FilterableField,
   FilterableOffsetConnection,
+  FilterableRelation,
+  FilterableUnPagedRelation,
   IDField,
   PagingStrategies,
   QueryOptions,
   Relation,
-  UnPagedRelation
 } from '@nestjs-query/query-graphql';
 
-import GraphQLJSON,{ } from 'graphql-type-json';
 import { ConnectorDTO } from '../../connector/connector-graphql/dto/connector.dto';
+import GraphQLJSON from 'graphql-type-json';
 
 @ObjectType('Station')
-
-@UnPagedRelation('connectors', () => ConnectorDTO, {
+@FilterableUnPagedRelation('connectors', () => ConnectorDTO, {
   disableRemove: true,
-  disableUpdate: true,
-  enableTotalCount: true,
+  // disableUpdate: true,
+  // enableTotalCount: true,
 })
-
 @QueryOptions({
   pagingStrategy: PagingStrategies.OFFSET,
   enableTotalCount: true,
@@ -40,14 +39,14 @@ export class StationDTO {
   @FilterableField({ nullable: true })
   status: string;
 
-  @FilterableField((type) => GraphQLJSON)
+  @FilterableField(() => GraphQLJSON)
   location: JSON;
 
   @FilterableField({ nullable: true })
   address: string;
 
-  @FilterableField({ nullable: true })
-  connectors: string;
+  // @FilterableField({ nullable: true })
+  // connectors: string;
 
   @FilterableField({ nullable: true })
   instant_power: string;

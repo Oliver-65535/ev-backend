@@ -1,4 +1,4 @@
-FROM node:16.3.0-alpine as build
+FROM node:18.3.0-alpine 
 
 WORKDIR /app
 
@@ -6,13 +6,13 @@ WORKDIR /app
 # COPY yarn.lock .
 # COPY ormconfig.js .
 
-RUN npm install
+RUN yarn
 
 COPY . .
 
 # RUN yarn build
 
-ENTRYPOINT [ "npm","run", "start" ]
+ENTRYPOINT [ "yarn", "start" ]
 
 #---
 

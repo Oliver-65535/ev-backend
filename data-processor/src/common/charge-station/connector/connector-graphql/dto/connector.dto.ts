@@ -11,16 +11,8 @@ import {
 import { StationDTO } from 'src/common/charge-station/station-graphql/dto/station.dto';
 
 @ObjectType('Connector')
-@Relation('station', () => StationDTO, {
-  disableRemove: false,
-  disableUpdate: false,
-  enableTotalCount: true,
-})
-
-@QueryOptions({
-  pagingStrategy: PagingStrategies.OFFSET,
-  enableTotalCount: true,
-})
+@QueryOptions({ pagingStrategy: PagingStrategies.NONE })
+@Relation('station', () => StationDTO, { disableRemove: true })
 export class ConnectorDTO {
   @IDField(() => ID)
   id!: number;

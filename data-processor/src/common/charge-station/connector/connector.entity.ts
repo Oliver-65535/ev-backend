@@ -1,18 +1,17 @@
 import {
-  Entity,
+  BaseEntity,
   Column,
-  PrimaryGeneratedColumn,
+  Entity,
+  Index,
+  JoinColumn,
   ManyToOne,
   OneToMany,
-  Index,
-  BaseEntity,
-  JoinColumn
+  PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Geometry, Point } from 'geojson';
 
 import { StationEntity } from '../station-graphql/station.entity';
 
-@Entity("connector")
+@Entity('Connector')
 export class ConnectorEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;

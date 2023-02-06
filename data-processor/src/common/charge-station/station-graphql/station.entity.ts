@@ -1,14 +1,15 @@
 import {
-  Entity,
+  BaseEntity,
   Column,
-  PrimaryGeneratedColumn,
+  Entity,
+  Index,
   ManyToOne,
   OneToMany,
-  Index,
-  BaseEntity,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Geometry, Point } from 'geojson';
+
 import { ConnectorEntity } from '../connector/connector.entity';
+import { Point } from 'geojson';
 import { SiteEntity } from 'src/common/site/site/site.entity';
 
 @Entity()
@@ -28,13 +29,13 @@ export class StationEntity extends BaseEntity {
   @Column({ length: 50, nullable: true })
   status: string;
 
-  @Column("geometry")
+  @Column('geometry')
   location: Point;
 
   @Column({ length: 128, nullable: true })
   address: string;
 
-  @OneToMany(() => ConnectorEntity, (connector) => connector.station, {cascade: true})
+  @OneToMany(() => ConnectorEntity, (connectors) => connectors.station)
   connectors: ConnectorEntity[];
 
   @ManyToOne(() => SiteEntity, (site) => site.stations)
