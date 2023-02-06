@@ -6,7 +6,7 @@ COPY package.json .
 # COPY yarn.lock .
 # COPY ormconfig.js .
 
-RUN npm install
+RUN npm install --force
 
 COPY . .
 
