@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { OCPPService } from './ocpp-server.service';
+
+import { OCPPService } from './ocpp-cs.service';
 
 describe('OCPPService', () => {
   let service: OCPPService;

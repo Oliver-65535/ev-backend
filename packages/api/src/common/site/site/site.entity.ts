@@ -1,18 +1,18 @@
 import {
-  Entity,
+  BaseEntity,
   Column,
-  PrimaryGeneratedColumn,
+  Entity,
+  Index,
+  JoinColumn,
   ManyToOne,
   OneToMany,
-  Index,
-  BaseEntity,
-  JoinColumn
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Geometry, Point } from 'geojson';
 
-import { StationEntity } from '../../charge-station/station-graphql/station.entity';
+import { StationEntity } from '../../station/station/station.entity';
 
-@Entity("site")
+@Entity('site')
 export class SiteEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -26,7 +26,7 @@ export class SiteEntity extends BaseEntity {
   @Column({ length: 50, nullable: true })
   site_area: string;
 
-  @Column("geometry")
+  @Column('geometry')
   location: Point;
 
   @Column({ length: 50, nullable: true })
@@ -41,6 +41,6 @@ export class SiteEntity extends BaseEntity {
   @Column({ length: 50, nullable: true })
   battery: string;
 
-  @OneToMany(() => StationEntity, (station) => station.site, {cascade: true})
+  @OneToMany(() => StationEntity, (station) => station.site, { cascade: true })
   stations: StationEntity[];
 }

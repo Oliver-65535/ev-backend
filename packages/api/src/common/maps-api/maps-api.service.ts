@@ -7,26 +7,19 @@ import { DataSource } from 'typeorm';
 
 import { InjectQueryService, QueryService } from '@nestjs-query/core';
 
-import { StationEntity } from '../charge-station/station-graphql/station.entity';
-
-
+import { StationEntity } from '../station/station/station.entity';
 
 type resultAuth = {
   publicAddress: string;
   result: boolean;
 };
 
-
-
-
-
 @Injectable()
 export class MapsApiService {
   constructor(
     @InjectQueryService(StationEntity)
     private stationService: QueryService<StationEntity>,
-     private dataSource: DataSource,
-    
+    private dataSource: DataSource,
   ) {}
 
   // async validateUser(
@@ -59,33 +52,34 @@ export class MapsApiService {
       // const station = await this.dataSource.createQueryBuilder()
       // .select("location")
       // .from(StationEntity,"station").getMany()
-      const station_table = await this.dataSource.query(`select * from station_entity se
-      RIGHT OUTER JOIN  connector c ON se.id = c."stationId" WHERE c.status = 'Available'`)
-      const station = await this.dataSource.query(`select ST_AsGeoJSON(se.location) ,COUNT(*) from station_entity se
-      RIGHT OUTER JOIN  connector c ON se.id = c."stationId" WHERE c.status = 'Available' GROUP BY se.location`)
+      const station_table = await this.dataSource
+        .query(`select * from station_entity se
+      RIGHT OUTER JOIN  connector c ON se.id = c."stationId" WHERE c.status = 'Available'`);
+      const station = await this.dataSource
+        .query(`select ST_AsGeoJSON(se.location) ,COUNT(*) from station_entity se
+      RIGHT OUTER JOIN  connector c ON se.id = c."stationId" WHERE c.status = 'Available' GROUP BY se.location`);
 
-    //   const station = await this.dataSource
-    //   .createQueryBuilder(StationEntity,"station")
-    // .innerJoinAndSelect(
-    //     "station.id",
-    //     "connector.stationId",
-    //     "connector.status = :status",
-    //     { status: 'Available' },
-    // )
-    // // .where("user.name = :name", { name: "Timber" })
-    // .getRawMany()
+      //   const station = await this.dataSource
+      //   .createQueryBuilder(StationEntity,"station")
+      // .innerJoinAndSelect(
+      //     "station.id",
+      //     "connector.stationId",
+      //     "connector.status = :status",
+      //     { status: 'Available' },
+      // )
+      // // .where("user.name = :name", { name: "Timber" })
+      // .getRawMany()
 
-
-      const st = station.map((e)=>{
-       const res = {...e, location:JSON.parse(e.st_asgeojson)}
-        delete res.st_asgeojson
-        return res
-      })
-      console.table(station_table)
-      console.log(st)
+      const st = station.map((e) => {
+        const res = { ...e, location: JSON.parse(e.st_asgeojson) };
+        delete res.st_asgeojson;
+        return res;
+      });
+      console.table(station_table);
+      console.log(st);
       return st;
     } catch (e) {
-      console.log(e)
+      console.log(e);
       // throw new UnauthorizedException();
     }
   }

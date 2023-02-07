@@ -7,9 +7,9 @@ import {
   QueryOptions,
   Relation,
 } from '@nestjs-query/query-graphql';
-import GraphQLJSON,{ } from 'graphql-type-json';
 
-import { StationDTO } from 'src/common/charge-station/station-graphql/dto/station.dto';
+import GraphQLJSON from 'graphql-type-json';
+import { StationDTO } from 'src/common/station/station/dto/station.dto';
 
 @ObjectType('Site')
 @Relation('stations', () => StationDTO, {
@@ -17,7 +17,6 @@ import { StationDTO } from 'src/common/charge-station/station-graphql/dto/statio
   disableUpdate: false,
   enableTotalCount: true,
 })
-
 @QueryOptions({
   pagingStrategy: PagingStrategies.OFFSET,
   enableTotalCount: true,

@@ -1,9 +1,9 @@
+import { Module } from '@nestjs/common';
 import { NestjsQueryGraphQLModule } from '@nestjs-query/query-graphql';
 import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm';
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { StationEntity } from 'src/common/charge-station/station-graphql/station.entity';
 import { StationDTO } from './dto/station.dto';
+import { StationEntity } from 'src/common/station/station/station.entity';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [

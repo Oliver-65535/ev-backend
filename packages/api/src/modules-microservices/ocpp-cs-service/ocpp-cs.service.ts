@@ -2,9 +2,7 @@ import { Injectable } from '@nestjs/common';
 // import { EventEmitter2 } from '@nestjs/event-emitter';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { StationEntity } from 'src/common/charge-station/station-graphql/station.entity';
-
-
+import { StationEntity } from 'src/common/station/station/station.entity';
 
 @Injectable()
 export class OCPPService {
@@ -12,43 +10,52 @@ export class OCPPService {
     // private eventEmitter: EventEmitter2
     @InjectRepository(StationEntity)
     private readonly stationEntityRepository: Repository<StationEntity>,
-
-    ) {}
+  ) {}
 
   receiptIds = [];
 
-
-  newEvent(data){
+  newEvent(data) {
     // const  {chargeBoxId,action, params} =  data;
-     console.log(data)
-    this.distributorEvenst(data)
+    console.log(data);
+    this.distributorEvenst(data);
   }
 
-
-  distributorEvenst(data){
+  distributorEvenst(data) {
     switch (data.action) {
-      case "BootNotification":
+      case 'BootNotification':
         this.stationConnect(data);
         break;
-      case "Heartbeat":
+      case 'disconnect':
+        this.stationDisconnect(data);
+        break;
+      case 'Heartbeat':
         this.stationConnect(data);
         break;
-    
+
       default:
         break;
     }
   }
- 
 
-
-  async stationConnect(data){
-    const staion = await this.stationEntityRepository.findOneBy({ station_id:data.chargeBoxId });
-    console.log(staion)
-    if(staion == undefined) return;  
-    staion.status = "Connected"
-    return await this.stationEntityRepository.save(staion) ;
+  async stationConnect(data) {
+    const staion = await this.stationEntityRepository.findOneBy({
+      station_id: data.chargeBoxId,
+    });
+    console.log(staion);
+    if (staion == undefined) return;
+    staion.status = 'Connected';
+    return await this.stationEntityRepository.save(staion);
   }
 
+  async stationDisconnect(data) {
+    const staion = await this.stationEntityRepository.findOneBy({
+      station_id: data.chargeBoxId,
+    });
+    console.log(staion);
+    if (staion == undefined) return;
+    staion.status = 'Disconnected';
+    return await this.stationEntityRepository.save(staion);
+  }
 
   // async createStartFunctionEvent(data: any): Promise<void> {
   //   data.args = JSON.parse(data.args);

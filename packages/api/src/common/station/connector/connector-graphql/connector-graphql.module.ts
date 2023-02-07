@@ -1,9 +1,9 @@
+import { ConnectorDTO } from './dto/connector.dto';
+import { ConnectorEntity } from 'src/common/station/connector/connector.entity';
+import { Module } from '@nestjs/common';
 import { NestjsQueryGraphQLModule } from '@nestjs-query/query-graphql';
 import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm';
-import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConnectorEntity } from 'src/common/charge-station/connector/connector.entity';
-import { ConnectorDTO } from './dto/connector.dto';
 
 @Module({
   imports: [

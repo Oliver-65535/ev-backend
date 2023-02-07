@@ -1,22 +1,19 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-
-
 import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
+import { GraphQLModule } from '@nestjs/graphql';
+import { GraphqlConnectorModule } from './common/station/connector/connector-graphql/connector-graphql.module';
+import { GraphqlSiteModule } from './common/site/site/site-graphql/site-graphql.module';
+import { GraphqlStationModule } from './common/station/station/station-graphql.module';
+import { MapsApiModule } from './common/maps-api/maps-api.module';
+import { Module } from '@nestjs/common';
+import { OCPPModule } from './modules-microservices/ocpp-cs-service/ocpp-cs.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 import ormconfig = require('../ormconfig');
-import { GraphqlStationModule } from './common/charge-station/station-graphql/station-graphql.module';
-import { GraphqlConnectorModule } from './common/charge-station/connector/connector-graphql/connector-graphql.module';
-import { MapsApiModule } from './common/maps-api/maps-api.module';
-import { GraphqlSiteModule } from './common/site/site/site-graphql/site-graphql.module';
-import { OCPPModule } from "./modules-microservices/ocpp-cs-service/ocpp-cs.module"
-
 
 @Module({
   imports: [
@@ -39,7 +36,7 @@ import { OCPPModule } from "./modules-microservices/ocpp-cs-service/ocpp-cs.modu
     GraphqlConnectorModule,
     AuthModule,
     MapsApiModule,
-    OCPPModule
+    OCPPModule,
   ],
   controllers: [AppController],
   providers: [AppService],

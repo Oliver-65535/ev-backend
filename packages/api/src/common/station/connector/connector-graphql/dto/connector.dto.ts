@@ -8,7 +8,7 @@ import {
   Relation,
 } from '@nestjs-query/query-graphql';
 
-import { StationDTO } from 'src/common/charge-station/station-graphql/dto/station.dto';
+import { StationDTO } from 'src/common/station/station/dto/station.dto';
 
 @ObjectType('Connector')
 @QueryOptions({ pagingStrategy: PagingStrategies.NONE })
