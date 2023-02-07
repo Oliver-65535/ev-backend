@@ -38,6 +38,6 @@ export class ConnectorDTO {
   @FilterableField({ nullable: true })
   inactivity!: string;
 
-  @FilterableField({ nullable: false })
+  @FilterableField()
   stationId!: number;
 }
