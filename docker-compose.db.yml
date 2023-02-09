@@ -1,27 +1,26 @@
+version: '3.3'
+
 services:
   database:
-    container_name: nft-publisher-database
-    image: postgres:alpine
-    networks:
-      - overlay
+    container_name: ev-server-database
+    image: postgis/postgis:15-3.3
+    # networks:
+    #   - overlay
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
     ports:
-      - "${DATABASE_PORT}:5432"
+      - '5440:5432'
     restart: always
     environment:
       POSTGRES_DB: ${DATABASE_NAME}
       POSTGRES_USER: ${DATABASE_USERNAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
 
-  redis:
-    container_name: redis-for-microservices
-    restart: always
-    image: "redis:6.2-alpine"
-    networks:
-      - overlay
-    ports:
-      - "${REDIS_PORT}:6379"
-
-networks:
-  overlay:
+  # redis:
+  #   container_name: redis-for-microservices
+  #   restart: always
+  #   image: 'redis:6.2-alpine'
+  #   networks:
+  #     - overlay
+  #   ports:
+  #     - '${REDIS_PORT}:6379'
