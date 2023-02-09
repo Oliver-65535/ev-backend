@@ -30,10 +30,6 @@ rpcServer.auth((accept, reject, handshake) => {
   });
 });
 
-const chargePoints = {};
-const idTags = [];
-const transactions = {};
-
 @Injectable()
 export class OCPPService {
   redisClient: ClientProxy;

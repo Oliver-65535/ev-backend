@@ -1,6 +1,6 @@
 import { AppModule } from './app.module';
 import { NestFactory } from '@nestjs/core';
-import { OCPPService } from './ocpp-server/ocpp-cs.service';
+import { OCPPService } from './ocpp-cs/ocpp-server/ocpp-cs.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
