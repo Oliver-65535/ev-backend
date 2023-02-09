@@ -4,7 +4,7 @@
 /**/uploads
 /postgres-data
 /temp
-/test
+# /test
 # Logs
 logs
 *.log
