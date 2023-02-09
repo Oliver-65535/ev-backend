@@ -2,6 +2,7 @@ import { Field, GraphQLISODateTime, ID, ObjectType } from '@nestjs/graphql';
 import {
   FilterableField,
   FilterableOffsetConnection,
+  FilterableUnPagedRelation,
   IDField,
   PagingStrategies,
   QueryOptions,
@@ -12,15 +13,12 @@ import GraphQLJSON from 'graphql-type-json';
 import { StationDTO } from 'src/common/station/station/dto/station.dto';
 
 @ObjectType('Site')
-@Relation('stations', () => StationDTO, {
-  disableRemove: false,
-  disableUpdate: false,
-  enableTotalCount: true,
+@FilterableUnPagedRelation('stations', () => StationDTO, {
+  disableRemove: true,
+  // disableUpdate: true,
+  // enableTotalCount: true,
 })
-@QueryOptions({
-  pagingStrategy: PagingStrategies.OFFSET,
-  enableTotalCount: true,
-})
+@QueryOptions({ pagingStrategy: PagingStrategies.NONE })
 export class SiteDTO {
   @IDField(() => ID)
   id!: number;

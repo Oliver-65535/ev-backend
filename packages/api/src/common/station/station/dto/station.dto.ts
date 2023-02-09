@@ -19,10 +19,7 @@ import GraphQLJSON from 'graphql-type-json';
   // disableUpdate: true,
   // enableTotalCount: true,
 })
-@QueryOptions({
-  pagingStrategy: PagingStrategies.OFFSET,
-  enableTotalCount: true,
-})
+@QueryOptions({ pagingStrategy: PagingStrategies.NONE })
 export class StationDTO {
   @IDField(() => ID)
   id!: number;
