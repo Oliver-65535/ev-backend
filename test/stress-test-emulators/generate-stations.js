@@ -1,7 +1,7 @@
 const stations = require("./stations.json");
 
 const createStatiosFetch = async (chargeBoxId, chargeBoxName, lat, long) => {
-  const queryCreateConnector = JSON.stringify({
+  const queryCreateStation = JSON.stringify({
     query: `mutation{
         createOneStation(
           input:{
@@ -24,7 +24,7 @@ const createStatiosFetch = async (chargeBoxId, chargeBoxName, lat, long) => {
   const response = await fetch("http://45.147.176.223:3012/graphql", {
     headers: { "content-type": "application/json" },
     method: "POST",
-    body: queryCreateConnector,
+    body: queryCreateStation,
   });
 
   const responseJson = await response.json();
