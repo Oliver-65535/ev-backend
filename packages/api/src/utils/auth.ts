@@ -1,38 +1,37 @@
-import ethUtil from "ethereumjs-util";
-import { randomBytes } from "crypto";
+// // import ethUtil from "ethereumjs-util";
+// import { randomBytes } from "crypto";
 
+// type resultAuth = {
+//     publicAddress: string,
+//     result: boolean
+// }
 
-type resultAuth = {
-    publicAddress: string,
-    result: boolean
-}
+// module.exports = {
+//     auth, generateString
+// }
 
-module.exports = {
-    auth, generateString
-}
+// async function auth(publicAddress: string, msg: string, signature: string): Promise<resultAuth> {
+//     var addrVerifi = verify(msg, signature);
+//     return {
+//         publicAddress: publicAddress,
+//         result: publicAddress == addrVerifi
+//     };
+// }
 
-async function auth(publicAddress: string, msg: string, signature: string): Promise<resultAuth> {
-    var addrVerifi = verify(msg, signature);
-    return {
-        publicAddress: publicAddress,
-        result: publicAddress == addrVerifi
-    };
-}
+// function verify(msg: string, signature: string): string {
+//     var msgHash = ethUtil.hashPersonalMessage(new Buffer(msg));
 
-function verify(msg: string, signature: string): string {
-    var msgHash = ethUtil.hashPersonalMessage(new Buffer(msg));
+//     var signatureParams = ethUtil.fromRpcSig(signature);
 
-    var signatureParams = ethUtil.fromRpcSig(signature);
+//     var publicKey = ethUtil.ecrecover(msgHash,
+//         signatureParams.v, signatureParams.r, signatureParams.s);
 
-    var publicKey = ethUtil.ecrecover(msgHash, 
-        signatureParams.v, signatureParams.r, signatureParams.s);
+//     var addressBuffer = ethUtil.publicToAddress(publicKey);
+//     var address = ethUtil.bufferToHex(addressBuffer);
 
-    var addressBuffer = ethUtil.publicToAddress(publicKey);
-    var address = ethUtil.bufferToHex(addressBuffer);
-    
-    return address;
-}
+//     return address;
+// }
 
-function generateString(size: number): string {
-    return randomBytes(size).toString('hex');
-}
+// function generateString(size: number): string {
+//     return randomBytes(size).toString('hex');
+// }

@@ -5,8 +5,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectQueryService, QueryService } from '@nestjs-query/core';
-import ethUtil from 'ethereumjs-util';
-import { recoverPersonalSignature } from '@metamask/eth-sig-util';
+
 import { randomBytes } from 'crypto';
 import { UserEntity } from '../common/user/user.entity';
 import { LoginResponseDto } from './dto/login-response.dto';
@@ -78,14 +77,14 @@ export class AuthService {
     msg: string,
     signature: string,
   ): string {
-    console.log({ msg, signature });
-    const recoveredAddr = recoverPersonalSignature({
-      data: msg,
-      signature: signature,
-    });
-    console.log({ recoveredAddr });
+    // console.log({ msg, signature });
+    // const recoveredAddr = ({
+    //   data: msg,
+    //   signature: signature,
+    // });
+    // console.log({ recoveredAddr });
 
-    return recoveredAddr; //== publicAddress ? recoveredAddr : null;
+    return 'test'; //== publicAddress ? recoveredAddr : null;
   }
 
   generateString(size: number): string {
