@@ -1,36 +1,63 @@
-const {
-  BootNotificationRequest,
-  BootNotificationResponse,
-  OcppClient,
-  OcppError,
-} = require("ocpp-ts");
+const { RPCClient } = require("ocpp-rpc");
+const stations = require("./stations.json");
 
-const chargingPointSimple = new OcppClient("CP1111");
-chargingPointSimple.on("error", (err) => {
-  console.log(err.message);
-});
-chargingPointSimple.on("close", () => {
-  console.log("Connection closed");
-});
+const chargePointRun = async (chargePointId) => {
+  const cli = new RPCClient({
+    endpoint: "ws://45.147.176.223:3017", // the OCPP endpoint URL
+    identity: chargePointId, // the OCPP identity
+    protocols: ["ocpp1.6"], // client understands ocpp1.6 subprotocol
+    strictMode: true, // enable strict validation of requests & responses
+  });
 
-chargingPointSimple.on("connect", async () => {
-  const boot = {
-    chargePointVendor: "eParking",
-    chargePointModel: "NECU-T2",
-  };
+  // connect to the OCPP server
+  await cli.connect();
 
-  try {
-    const bootResp = await chargingPointSimple.callRequest(
-      "BootNotification",
-      boot
-    );
-    if (bootResp.status === "Accepted") {
-      console.log("Bootnotification accepted");
-    }
-  } catch (e) {
-    if (e instanceof Error || e instanceof OcppError) {
-      console.error(e.message);
-    }
+  // send a BootNotification request and await the response
+  const bootResponse = await cli.call("BootNotification", {
+    chargePointVendor: "ocpp-rpc",
+    chargePointModel: "ocpp-rpc",
+  });
+
+  // check that the server accepted the client
+  if (bootResponse.status === "Accepted") {
+    // send a Heartbeat request and await the response
+    const heartbeatResponse = await cli.call("Heartbeat", {});
+
+    // read the current server time from the response
+    console.log("Server time is:", heartbeatResponse.currentTime);
+
+    // send a StatusNotification request for the controller
+    const statusResponse = await cli.call("StatusNotification", {
+      connectorId: 0,
+      errorCode: "NoError",
+      status: "Available",
+    });
+
+    console.log("StatusNotification:", statusResponse);
   }
+
+  await cli.close();
+};
+
+const chargeBoxRunFunctions = stations.map((e) => {
+  chargePointRun(e);
 });
-chargingPointSimple.connect("ws://localhost:3017/");
+
+const main = async () => {
+  await Promise.all(chargeBoxRunFunctions);
+  // await Promise.all(chargeBoxRunFunctions);
+  // await Promise.all(chargeBoxRunFunctions);
+  // await Promise.all(chargeBoxRunFunctions);
+  // await Promise.all(chargeBoxRunFunctions);
+  // await Promise.all(chargeBoxRunFunctions);
+  // await Promise.all(chargeBoxRunFunctions);
+  // await Promise.all(chargeBoxRunFunctions);
+  // await Promise.all(chargeBoxRunFunctions);
+  // await Promise.all(chargeBoxRunFunctions);
+  // await Promise.all(chargeBoxRunFunctions);
+  // await Promise.all(chargeBoxRunFunctions);
+  // await Promise.all(chargeBoxRunFunctions);
+  // await Promise.all(chargeBoxRunFunctions);
+};
+
+main();

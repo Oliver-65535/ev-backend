@@ -66,23 +66,31 @@ const createConnectorFetch = async (id) => {
   return responseJson.data;
 };
 
-let chargeBoxIds = [];
+let chargeBoxCreateFunctions = [];
 const generateStations = async () => {
-  for (let i = 0; i < 1000; i++) {
-    createStatiosFetch(
-      "FAKECHARGEBOXID" + i,
-      "FAKECHARGEBOXNAME" + i,
-      37 + Math.random(),
-      122 + Math.random()
+  for (let i = 1; i < 1000; i++) {
+    // createStatiosFetch(
+    //   "FAKECHARGEBOXID" + i,
+    //   "FAKECHARGEBOXNAME" + i,
+    //   37 + Math.random(),
+    //   -(122 + Math.random())
+    // );
+    chargeBoxCreateFunctions.push(
+      createStatiosFetch(
+        "FAKECHARGEBOXID" + i,
+        "FAKECHARGEBOXNAME" + i,
+        37 + Math.random(),
+        -(122 + Math.random())
+      )
     );
-    chargeBoxIds.push("FAKECHARGEBOXID" + i);
   }
+  Promise.all(chargeBoxCreateFunctions);
   console.log(stations);
 };
 
 const generateConnectors = async () => {
-  for (let i = 22; i < 1021; i++) {
-    createConnectorFetch(i);
+  for (let i = 1; i < 1000; i++) {
+    chargeBoxCreateFunctions.push(createConnectorFetch(i));
   }
 };
 
