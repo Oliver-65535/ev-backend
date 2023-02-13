@@ -1,9 +1,19 @@
 const { RPCClient } = require("ocpp-rpc");
 const stations = require("./stations.json");
 
+function delay(ms) {
+  return new Promise((resolve, reject) => {
+    setTimeout(resolve, ms);
+  });
+}
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
 const chargePointRun = async (chargePointId) => {
   const cli = new RPCClient({
-    endpoint: "ws://45.147.176.223:3017", // the OCPP endpoint URL
+    endpoint: "ws://localhost:3017", // the OCPP endpoint URL
     identity: chargePointId, // the OCPP identity
     protocols: ["ocpp1.6"], // client understands ocpp1.6 subprotocol
     strictMode: true, // enable strict validation of requests & responses
@@ -26,12 +36,47 @@ const chargePointRun = async (chargePointId) => {
     // read the current server time from the response
     console.log("Server time is:", heartbeatResponse.currentTime);
 
+    const statusNotif = async () => {
+      cli.call("StatusNotification", {
+        connectorId: 1,
+        errorCode: "NoError",
+        status: "Available",
+      });
+    };
+
     // send a StatusNotification request for the controller
-    const statusResponse = await cli.call("StatusNotification", {
-      connectorId: 0,
-      errorCode: "NoError",
-      status: "Available",
-    });
+
+    const statusResponse = await delay(getRandomInt(10000)).then(
+      cli.call("StatusNotification", {
+        connectorId: 1,
+        errorCode: "NoError",
+        status: "Available",
+      })
+    );
+
+    const status1 = await delay(getRandomInt(10000)).then(
+      cli.call("StatusNotification", {
+        connectorId: 1,
+        errorCode: "NoError",
+        status: "Charging",
+      })
+    );
+
+    const status2 = await delay(getRandomInt(10000)).then(
+      cli.call("StatusNotification", {
+        connectorId: 1,
+        errorCode: "NoError",
+        status: "Finishing",
+      })
+    );
+
+    const status3 = await delay(getRandomInt(10000)).then(
+      cli.call("StatusNotification", {
+        connectorId: 1,
+        errorCode: "NoError",
+        status: "Unavailable",
+      })
+    );
 
     console.log("StatusNotification:", statusResponse);
   }
@@ -39,12 +84,13 @@ const chargePointRun = async (chargePointId) => {
   await cli.close();
 };
 
-const chargeBoxRunFunctions = stations.map((e) => {
-  chargePointRun(e);
-});
+// const chargeBoxRunFunctions = stations.map((e) => {
+//   chargePointRun(e);
+// });
 
 const main = async () => {
-  await Promise.all(chargeBoxRunFunctions);
+  chargePointRun("FAKECHARGEBOXID812");
+  // await Promise.all(chargeBoxRunFunctions);
   // await Promise.all(chargeBoxRunFunctions);
   // await Promise.all(chargeBoxRunFunctions);
   // await Promise.all(chargeBoxRunFunctions);

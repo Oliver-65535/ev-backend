@@ -120,6 +120,12 @@ export class OCPPService {
           `Server got StatusNotification from ${client.identity}:`,
           params,
         );
+
+        this.publishEvent({
+          chargeBoxId: client.identity,
+          action: 'StatusNotification',
+          params: params,
+        });
         return {};
       });
 

@@ -1,5 +1,9 @@
 const stations = require("./stations.json");
 
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
 const createStatiosFetch = async (chargeBoxId, chargeBoxName, lat, long) => {
   const queryCreateStation = JSON.stringify({
     query: `mutation{
@@ -68,19 +72,13 @@ const createConnectorFetch = async (id) => {
 
 let chargeBoxCreateFunctions = [];
 const generateStations = async () => {
-  for (let i = 1; i < 1000; i++) {
-    // createStatiosFetch(
-    //   "FAKECHARGEBOXID" + i,
-    //   "FAKECHARGEBOXNAME" + i,
-    //   37 + Math.random(),
-    //   -(122 + Math.random())
-    // );
+  for (let i = 1; i < 100; i++) {
     chargeBoxCreateFunctions.push(
       createStatiosFetch(
         "FAKECHARGEBOXID" + i,
         "FAKECHARGEBOXNAME" + i,
-        37 + Math.random(),
-        -(122 + Math.random())
+        parseFloat(37 + Math.random()),
+        -(121 + Math.random())
       )
     );
   }
@@ -89,10 +87,10 @@ const generateStations = async () => {
 };
 
 const generateConnectors = async () => {
-  for (let i = 1; i < 1000; i++) {
+  for (let i = 1; i < 100; i++) {
     chargeBoxCreateFunctions.push(createConnectorFetch(i));
   }
 };
 
-// generateStations();
+//generateStations();
 generateConnectors();

@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { StationEntity } from 'src/common/station/station/station.entity';
+// import { ConnectorEntity } from 'src/common/station/connector/connector.entity';
 
 @Injectable()
 export class OCPPService {
@@ -10,7 +11,9 @@ export class OCPPService {
     // private eventEmitter: EventEmitter2
     @InjectRepository(StationEntity)
     private readonly stationEntityRepository: Repository<StationEntity>,
-  ) {}
+  ) // @InjectRepository(ConnectorEntity)
+  // private readonly connectorEntityRepository: Repository<ConnectorEntity>,
+  {}
 
   receiptIds = [];
 
@@ -29,6 +32,9 @@ export class OCPPService {
         this.stationDisconnect(data);
         break;
       case 'Heartbeat':
+        this.stationConnect(data);
+        break;
+      case 'StatusNotification':
         this.stationConnect(data);
         break;
 
@@ -51,10 +57,23 @@ export class OCPPService {
     const staion = await this.stationEntityRepository.findOneBy({
       station_id: data.chargeBoxId,
     });
-    console.log(staion);
     if (staion == undefined) return;
     staion.status = 'Disconnected';
     return await this.stationEntityRepository.save(staion);
+  }
+
+  async stationStatusNotification(data) {
+    // const staion = await this.stationEntityRepository.findOneBy({
+    //   station_id: data.chargeBoxId,
+    // });
+    // if (!staion) return;
+    console.log(data);
+    // const connector = await this.connectorEntityRepository.findOneBy({
+    //   connector:,
+    // });
+    // if (staion == undefined) return;
+    // staion.status = 'Disconnected';
+    // return await this.stationEntityRepository.save(staion);
   }
 
   // async createStartFunctionEvent(data: any): Promise<void> {
