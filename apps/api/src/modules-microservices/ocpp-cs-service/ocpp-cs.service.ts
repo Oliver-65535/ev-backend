@@ -10,8 +10,8 @@ export class OCPPService {
   constructor(
     // private eventEmitter: EventEmitter2
     @InjectRepository(StationEntity)
-    private readonly stationEntityRepository: Repository<StationEntity>, 
-    @InjectRepository(ConnectorEntity) 
+    private readonly stationEntityRepository: Repository<StationEntity>,
+    @InjectRepository(ConnectorEntity)
     private readonly connectorEntityRepository: Repository<ConnectorEntity>,
   ) {}
 
@@ -63,18 +63,18 @@ export class OCPPService {
   }
 
   async stationStatusNotification(data) {
-    // console.log("+++++++++++",data);
     const staion = await this.stationEntityRepository.findOneBy({
-      station_id: data.chargeBoxId
+      station_id: data.chargeBoxId,
     });
     if (!staion) return;
-     console.log("station in db",staion);
+
     const connector = await this.connectorEntityRepository.findOneBy({
-      connector:"1", stationId: staion.id 
+      connector: '1',
+      stationId: staion.id,
     });
     if (!connector) return;
     connector.status = data.params.status;
-    console.log("connector in db",connector);
+
     return await this.connectorEntityRepository.save(connector);
   }
 
@@ -92,37 +92,37 @@ export class OCPPService {
   //     .then((message) => console.log(message));
   // }
 
-  // async createConnectorFetch(id) {
-  //   const queryCreateConnector = JSON.stringify({
-  //     query: `mutation{
-  //       createOneConnector(
-  //         input:{
-  //           connector:{
-  //             connector:"1"
-  //             connector_type:"2",
-  //             consumption:"7"
-  //             status:"Available",
-  //             stationId:${id}
-  //           }
-  //         }
-  //       )
-  //       {
-  //         status
-  //         station{
-  //           station_id
-  //         }
-  //       }
-  //     }`,
-  //   });
+  async createConnectorFetch(id) {
+    const queryCreateConnector = JSON.stringify({
+      query: `mutation{
+        createOneConnector(
+          input:{
+            connector:{
+              connector:"1"
+              connector_type:"2",
+              consumption:"7"
+              status:"Available",
+              stationId:${id}
+            }
+          }
+        )
+        {
+          status
+          station{
+            station_id
+          }
+        }
+      }`,
+    });
 
-  //   const response = await fetch('http://35.236.79.246:3012/graphql', {
-  //     headers: { 'content-type': 'application/json' },
-  //     method: 'POST',
-  //     body: queryCreateConnector,
-  //   });
+    const response = await fetch('http://35.236.79.246:3012/graphql', {
+      headers: { 'content-type': 'application/json' },
+      method: 'POST',
+      body: queryCreateConnector,
+    });
 
-  //   const responseJson = await response.json();
-  //   console.log(responseJson);
-  //   return responseJson.data;
-  // }
+    const responseJson = await response.json();
+    console.log(responseJson);
+    return responseJson.data;
+  }
 }

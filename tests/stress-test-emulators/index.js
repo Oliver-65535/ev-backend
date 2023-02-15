@@ -84,9 +84,23 @@ const chargePointRun = async (chargePointId) => {
   await cli.close();
 };
 
-const stationsSplit = stations.slice(0,10)
+const stationsSplit = stations.slice(0, 10);
+const st = [
+  "FAKECHARGEBOXID15",
+  "FAKECHARGEBOXID16",
+  "FAKECHARGEBOXID2",
+  "FAKECHARGEBOXID12",
+  "FAKECHARGEBOXID10",
+  "FAKECHARGEBOXID11",
+  "FAKECHARGEBOXID3",
+  "FAKECHARGEBOXID9",
+  "FAKECHARGEBOXID5",
+  "FAKECHARGEBOXID4",
+  "FAKECHARGEBOXID19",
+  "FAKECHARGEBOXID14",
+];
 
-const chargeBoxRunFunctions = stationsSplit.map((e) => {
+const chargeBoxRunFunctions = st.map((e) => {
   chargePointRun(e);
 });
 
