@@ -25,7 +25,7 @@ const createStatiosFetch = async (chargeBoxId, chargeBoxName, lat, long) => {
       `,
   });
 
-  const response = await fetch("http://45.147.176.223:3012/graphql", {
+  const response = await fetch("http://35.236.79.246:3012/graphql", {
     headers: { "content-type": "application/json" },
     method: "POST",
     body: queryCreateStation,
@@ -59,7 +59,7 @@ const createConnectorFetch = async (id) => {
     }`,
   });
 
-  const response = await fetch("http://45.147.176.223:3012/graphql", {
+  const response = await fetch("http://35.236.79.246:3012/graphql", {
     headers: { "content-type": "application/json" },
     method: "POST",
     body: queryCreateConnector,

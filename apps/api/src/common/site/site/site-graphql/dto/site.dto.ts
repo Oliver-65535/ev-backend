@@ -45,7 +45,7 @@ export class SiteDTO {
   asset_type!: string;
 
   @FilterableField({ nullable: true })
-  instant_power!: string;
+  instant_power!: number;
 
   @FilterableField({ nullable: false })
   battery!: string;

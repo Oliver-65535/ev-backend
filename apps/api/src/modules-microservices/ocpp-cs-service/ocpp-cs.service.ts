@@ -10,10 +10,8 @@ export class OCPPService {
   constructor(
     // private eventEmitter: EventEmitter2
     @InjectRepository(StationEntity)
-    private readonly stationEntityRepository: Repository<StationEntity>,
-  ) // @InjectRepository(ConnectorEntity)
-  // private readonly connectorEntityRepository: Repository<ConnectorEntity>,
-  {}
+    private readonly stationEntityRepository: Repository<StationEntity>, // @InjectRepository(ConnectorEntity) // private readonly connectorEntityRepository: Repository<ConnectorEntity>,
+  ) {}
 
   receiptIds = [];
 
@@ -89,4 +87,38 @@ export class OCPPService {
   //     .emitAsync('result-near-function.' + data.method, data)
   //     .then((message) => console.log(message));
   // }
+
+  async createConnectorFetch(id) {
+    const queryCreateConnector = JSON.stringify({
+      query: `mutation{
+        createOneConnector(
+          input:{
+            connector:{
+              connector:"1"
+              connector_type:"2",
+              consumption:"7"
+              status:"Available",
+              stationId:${id}
+            }
+          }
+        )
+        {
+          status
+          station{
+            station_id
+          }
+        }
+      }`,
+    });
+
+    const response = await fetch('http://35.236.79.246:3012/graphql', {
+      headers: { 'content-type': 'application/json' },
+      method: 'POST',
+      body: queryCreateConnector,
+    });
+
+    const responseJson = await response.json();
+    console.log(responseJson);
+    return responseJson.data;
+  }
 }

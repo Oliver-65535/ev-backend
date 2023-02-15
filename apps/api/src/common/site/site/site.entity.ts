@@ -35,8 +35,8 @@ export class SiteEntity extends BaseEntity {
   @Column({ length: 128, nullable: true })
   asset_type: string;
 
-  @Column({ length: 50, nullable: true })
-  instant_power: string;
+  @Column({ nullable: true })
+  instant_power: number;
 
   @Column({ length: 50, nullable: true })
   battery: string;
