@@ -13,7 +13,7 @@ function getRandomInt(max) {
 
 const chargePointRun = async (chargePointId) => {
   const cli = new RPCClient({
-    endpoint: "ws://localhost:3017", // the OCPP endpoint URL
+    endpoint: "ws://35.236.79.246:3017", // the OCPP endpoint URL
     identity: chargePointId, // the OCPP identity
     protocols: ["ocpp1.6"], // client understands ocpp1.6 subprotocol
     strictMode: true, // enable strict validation of requests & responses
@@ -84,12 +84,14 @@ const chargePointRun = async (chargePointId) => {
   await cli.close();
 };
 
-// const chargeBoxRunFunctions = stations.map((e) => {
-//   chargePointRun(e);
-// });
+const stationsSplit = stations.slice(0,10)
+
+const chargeBoxRunFunctions = stationsSplit.map((e) => {
+  chargePointRun(e);
+});
 
 const main = async () => {
-  chargePointRun("FAKECHARGEBOXID812");
+  // chargePointRun("FAKECHARGEBOXID81");
   // await Promise.all(chargeBoxRunFunctions);
   // await Promise.all(chargeBoxRunFunctions);
   // await Promise.all(chargeBoxRunFunctions);
