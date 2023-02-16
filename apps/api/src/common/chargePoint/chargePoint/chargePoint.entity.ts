@@ -44,16 +44,29 @@ export class СhargePointEntity extends BaseEntity {
   @ManyToOne(() => SiteEntity, (site) => site.chargePoints)
   site: SiteEntity;
 
-  @Column({ length: 50, nullable: true })
-  instant_power: string;
+  @Column({ type: 'decimal', precision: 6, scale: 3, default: 0 })
+  instantPower: string;
 
   @Column({ default: false })
   public: boolean;
 
-  @CreateDateColumn()
+  @UpdateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+  })
+  ocpp_event_timestamp: Date; // Creation date
+
+  @CreateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+  })
   created_at: Date; // Creation date
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+    onUpdate: 'CURRENT_TIMESTAMP(6)',
+  })
   updated_at: Date; // Last updated date
 
   @DeleteDateColumn()

@@ -18,26 +18,53 @@ export class ConnectorDTO {
   id!: number;
 
   @FilterableField({ nullable: true })
-  connector!: string;
+  connectorId!: number;
 
   @FilterableField({ nullable: true })
-  connector_type!: string;
+  connectorTypeName: string;
 
   @FilterableField({ nullable: true })
-  status!: string;
+  connectorTypeId: string;
 
   @FilterableField({ nullable: true })
-  information!: string;
+  statusId: number;
 
   @FilterableField({ nullable: true })
-  instant_power!: string;
+  statusName: string;
 
   @FilterableField({ nullable: true })
-  consumption!: string;
+  information: string;
 
   @FilterableField({ nullable: true })
-  inactivity!: string;
+  instantPower: number;
 
-  @FilterableField()
-  stationId!: number;
+  @FilterableField({ nullable: true })
+  power: number;
+
+  @FilterableField({ nullable: true })
+  maxPower: number;
+
+  @FilterableField({ nullable: true })
+  price: number;
+
+  @FilterableField({ nullable: true })
+  priceUnit: string;
+
+  @FilterableField({ nullable: true })
+  consumption: number;
+
+  @FilterableField({ nullable: true })
+  inactivity: number;
+
+  @FilterableField({ nullable: true })
+  chargePointId?: number;
+
+  @FilterableField({ nullable: true })
+  created_at: Date; // Creation date
+
+  @FilterableField({ nullable: true })
+  updated_at: Date; // Last updated date
+
+  @FilterableField({ nullable: true })
+  deleted_at: Date; // Deletion date
 }

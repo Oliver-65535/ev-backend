@@ -22,19 +22,37 @@ export class ConnectorEntity extends BaseEntity {
   @Column()
   connectorId!: number;
 
-  @Column({ length: 50, nullable: true })
-  connector_type: string;
+  @Column({ length: 50 })
+  connectorTypeName: string;
 
-  @Column({ length: 50, nullable: true })
-  status: string;
+  @Column({ length: 50 })
+  connectorTypeId: string;
 
-  @Column({ length: 128, nullable: true })
+  @Column({ default: 0 })
+  statusId: number;
+
+  @Column({ length: 50, default: 'Faulted' })
+  statusName: string;
+
+  @Column({ length: 128, default: 'None' })
   information: string;
 
-  @Column({ type: 'decimal', precision: 4, scale: 4, default: 0 })
-  instant_power: number;
+  @Column({ type: 'decimal', precision: 4, scale: 3, default: 0 })
+  instantPower: number;
 
-  @Column({ type: 'decimal', precision: 5, scale: 3, default: 0 })
+  @Column({ type: 'decimal', precision: 4, scale: 3, default: 0 })
+  power: number;
+
+  @Column({ type: 'decimal', precision: 4, scale: 3, default: 0 })
+  maxPower: number;
+
+  @Column({ type: 'decimal', precision: 4, scale: 4, default: 0 })
+  price: number;
+
+  @Column({ length: 10, default: 'kW/h' })
+  priceUnit: string;
+
+  @Column({ type: 'decimal', precision: 6, scale: 3, default: 0 })
   consumption: number;
 
   @Column({ type: 'decimal', precision: 4, scale: 3, default: 0 })
@@ -46,10 +64,23 @@ export class ConnectorEntity extends BaseEntity {
   @Column({ nullable: true })
   chargePointId?: number;
 
-  @CreateDateColumn()
+  @UpdateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+  })
+  ocpp_event_timestamp: Date; // Creation date
+
+  @CreateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+  })
   created_at: Date; // Creation date
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+    onUpdate: 'CURRENT_TIMESTAMP(6)',
+  })
   updated_at: Date; // Last updated date
 
   @DeleteDateColumn()

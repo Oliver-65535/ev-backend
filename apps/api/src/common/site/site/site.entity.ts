@@ -49,10 +49,23 @@ export class SiteEntity extends BaseEntity {
   })
   chargePoints: СhargePointEntity[];
 
-  @CreateDateColumn()
+  @UpdateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+  })
+  ocpp_event_timestamp: Date; // Creation date
+
+  @CreateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+  })
   created_at: Date; // Creation date
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+    onUpdate: 'CURRENT_TIMESTAMP(6)',
+  })
   updated_at: Date; // Last updated date
 
   @DeleteDateColumn()

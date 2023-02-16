@@ -73,7 +73,7 @@ export class OCPPService {
       chargePointId: staion.id,
     });
     if (!connector) return;
-    connector.status = data.params.status;
+    connector.statusName = data.params.status;
 
     return await this.connectorEntityRepository.save(connector);
   }
