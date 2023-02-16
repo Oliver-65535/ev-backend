@@ -5,9 +5,9 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
-import { GraphqlConnectorModule } from './common/station/connector/connector-graphql/connector-graphql.module';
+import { GraphqlConnectorModule } from './common/chargePoint/connector/connector-graphql/connector-graphql.module';
 import { GraphqlSiteModule } from './common/site/site/site-graphql/site-graphql.module';
-import { GraphqlStationModule } from './common/station/station/station-graphql.module';
+import { GraphqlСhargePointModule } from './common/chargePoint/chargePoint/chargePoint-graphql.module';
 import { MapsApiModule } from './common/maps-api/maps-api.module';
 import { Module } from '@nestjs/common';
 import { OCPPModule } from './modules-microservices/ocpp-cs-service/ocpp-cs.module';
@@ -32,7 +32,7 @@ import ormconfig = require('../ormconfig');
       installSubscriptionHandlers: true,
     }),
     GraphqlSiteModule,
-    GraphqlStationModule,
+    GraphqlСhargePointModule,
     GraphqlConnectorModule,
     AuthModule,
     MapsApiModule,

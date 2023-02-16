@@ -1,18 +1,21 @@
 import {
   BaseEntity,
   Column,
+  CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   Index,
   JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Geometry, Point } from 'geojson';
 
-import { StationEntity } from '../../station/station/station.entity';
+import { СhargePointEntity } from '../../chargePoint/chargePoint/chargePoint.entity';
 
-@Entity('site')
+@Entity('Site')
 export class SiteEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -41,6 +44,17 @@ export class SiteEntity extends BaseEntity {
   @Column({ length: 50, nullable: true })
   battery: string;
 
-  @OneToMany(() => StationEntity, (station) => station.site, { cascade: true })
-  stations: StationEntity[];
+  @OneToMany(() => СhargePointEntity, (chargePoint) => chargePoint.site, {
+    cascade: true,
+  })
+  chargePoints: СhargePointEntity[];
+
+  @CreateDateColumn()
+  created_at: Date; // Creation date
+
+  @UpdateDateColumn()
+  updated_at: Date; // Last updated date
+
+  @DeleteDateColumn()
+  deleted_at: Date; // Deletion date
 }

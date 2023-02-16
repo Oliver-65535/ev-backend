@@ -13,14 +13,14 @@ import {
 import { ConnectorDTO } from '../../connector/connector-graphql/dto/connector.dto';
 import GraphQLJSON from 'graphql-type-json';
 
-@ObjectType('Station')
+@ObjectType('ChargePoint')
 @FilterableUnPagedRelation('connectors', () => ConnectorDTO, {
   disableRemove: true,
   // disableUpdate: true,
   // enableTotalCount: true,
 })
 @QueryOptions({ pagingStrategy: PagingStrategies.NONE })
-export class StationDTO {
+export class ChargePointDTO {
   @IDField(() => ID)
   id!: number;
 

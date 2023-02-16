@@ -1,20 +1,20 @@
-import { ConnectorDTO } from './dto/connector.dto';
-import { ConnectorEntity } from 'src/common/station/connector/connector.entity';
+import { ChargePointDTO } from './dto/chargePoint.dto';
 import { Module } from '@nestjs/common';
 import { NestjsQueryGraphQLModule } from '@nestjs-query/query-graphql';
 import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { СhargePointEntity } from 'src/common/chargePoint/chargePoint/chargePoint.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([ConnectorEntity]),
+    TypeOrmModule.forFeature([СhargePointEntity]),
     NestjsQueryGraphQLModule.forFeature({
-      imports: [NestjsQueryTypeOrmModule.forFeature([ConnectorEntity])],
+      imports: [NestjsQueryTypeOrmModule.forFeature([СhargePointEntity])],
       // describe the resolvers you want to expose
       resolvers: [
         {
-          DTOClass: ConnectorDTO,
-          EntityClass: ConnectorEntity,
+          DTOClass: ChargePointDTO,
+          EntityClass: СhargePointEntity,
           create: { disabled: false },
           update: { disabled: false },
           delete: { disabled: false },
@@ -25,5 +25,5 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   ],
   exports: [TypeOrmModule],
 })
-export class GraphqlConnectorModule {}
-// console.log(NestjsQueryGraphQLModule.forFeature);
+export class GraphqlСhargePointModule {}
+console.log(NestjsQueryGraphQLModule.forFeature);

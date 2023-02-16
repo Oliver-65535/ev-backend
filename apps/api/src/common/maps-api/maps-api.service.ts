@@ -7,7 +7,7 @@ import { DataSource } from 'typeorm';
 
 import { InjectQueryService, QueryService } from '@nestjs-query/core';
 
-import { StationEntity } from '../station/station/station.entity';
+import { СhargePointEntity } from '../chargePoint/chargePoint/chargePoint.entity';
 
 type resultAuth = {
   publicAddress: string;
@@ -17,8 +17,8 @@ type resultAuth = {
 @Injectable()
 export class MapsApiService {
   constructor(
-    @InjectQueryService(StationEntity)
-    private stationService: QueryService<StationEntity>,
+    @InjectQueryService(СhargePointEntity)
+    private chargePointService: QueryService<СhargePointEntity>,
     private dataSource: DataSource,
   ) {}
 

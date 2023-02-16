@@ -1,7 +1,7 @@
 import { MapsApiResolver } from './maps-api.resolver';
 import { MapsApiService } from './maps-api.service';
 import { Module } from '@nestjs/common';
-import { StationModule } from '../station/station/station.module';
+import { StationModule } from '../chargePoint/chargePoint/chargePoint.module';
 
 @Module({
   imports: [StationModule],

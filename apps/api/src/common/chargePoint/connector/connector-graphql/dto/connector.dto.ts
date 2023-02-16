@@ -8,11 +8,11 @@ import {
   Relation,
 } from '@nestjs-query/query-graphql';
 
-import { StationDTO } from 'src/common/station/station/dto/station.dto';
+import { ChargePointDTO } from 'src/common/chargePoint/chargePoint/dto/chargePoint.dto';
 
 @ObjectType('Connector')
 @QueryOptions({ pagingStrategy: PagingStrategies.NONE })
-@Relation('station', () => StationDTO, { disableRemove: true })
+@Relation('chargePoint', () => ChargePointDTO, { disableRemove: true })
 export class ConnectorDTO {
   @IDField(() => ID)
   id!: number;

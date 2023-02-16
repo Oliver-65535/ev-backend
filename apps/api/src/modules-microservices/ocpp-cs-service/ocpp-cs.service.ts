@@ -2,15 +2,15 @@ import { Injectable } from '@nestjs/common';
 // import { EventEmitter2 } from '@nestjs/event-emitter';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { StationEntity } from 'src/common/station/station/station.entity';
-import { ConnectorEntity } from 'src/common/station/connector/connector.entity';
+import { СhargePointEntity } from 'src/common/chargePoint/chargePoint/chargePoint.entity';
+import { ConnectorEntity } from 'src/common/chargePoint/connector/connector.entity';
 
 @Injectable()
 export class OCPPService {
   constructor(
     // private eventEmitter: EventEmitter2
-    @InjectRepository(StationEntity)
-    private readonly stationEntityRepository: Repository<StationEntity>,
+    @InjectRepository(СhargePointEntity)
+    private readonly chargePointEntityRepository: Repository<СhargePointEntity>,
     @InjectRepository(ConnectorEntity)
     private readonly connectorEntityRepository: Repository<ConnectorEntity>,
   ) {}
@@ -44,33 +44,33 @@ export class OCPPService {
   }
 
   async stationConnect(data) {
-    const staion = await this.stationEntityRepository.findOneBy({
-      station_id: data.chargeBoxId,
+    const staion = await this.chargePointEntityRepository.findOneBy({
+      сhargePointId: data.chargeBoxId,
     });
     console.log(staion);
     if (staion == undefined) return;
     staion.status = 'Connected';
-    return await this.stationEntityRepository.save(staion);
+    return await this.chargePointEntityRepository.save(staion);
   }
 
   async stationDisconnect(data) {
-    const staion = await this.stationEntityRepository.findOneBy({
-      station_id: data.chargeBoxId,
+    const staion = await this.chargePointEntityRepository.findOneBy({
+      сhargePointId: data.chargeBoxId,
     });
     if (staion == undefined) return;
     staion.status = 'Disconnected';
-    return await this.stationEntityRepository.save(staion);
+    return await this.chargePointEntityRepository.save(staion);
   }
 
   async stationStatusNotification(data) {
-    const staion = await this.stationEntityRepository.findOneBy({
-      station_id: data.chargeBoxId,
+    const staion = await this.chargePointEntityRepository.findOneBy({
+      сhargePointId: data.chargeBoxId,
     });
     if (!staion) return;
 
     const connector = await this.connectorEntityRepository.findOneBy({
-      connector: '1',
-      stationId: staion.id,
+      connectorId: 1,
+      chargePointId: staion.id,
     });
     if (!connector) return;
     connector.status = data.params.status;
