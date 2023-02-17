@@ -2,15 +2,15 @@ import { Injectable } from '@nestjs/common';
 // import { EventEmitter2 } from '@nestjs/event-emitter';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { СhargePointEntity } from 'src/common/chargePoint/chargePoint/chargePoint.entity';
+import { ChargePointEntity } from 'src/common/chargePoint/chargePoint/chargePoint.entity';
 import { ConnectorEntity } from 'src/common/chargePoint/connector/connector.entity';
 
 @Injectable()
 export class OCPPService {
   constructor(
     // private eventEmitter: EventEmitter2
-    @InjectRepository(СhargePointEntity)
-    private readonly chargePointEntityRepository: Repository<СhargePointEntity>,
+    @InjectRepository(ChargePointEntity)
+    private readonly chargePointEntityRepository: Repository<ChargePointEntity>,
     @InjectRepository(ConnectorEntity)
     private readonly connectorEntityRepository: Repository<ConnectorEntity>,
   ) {}
@@ -45,7 +45,7 @@ export class OCPPService {
 
   async stationConnect(data) {
     const staion = await this.chargePointEntityRepository.findOneBy({
-      сhargePointId: data.chargeBoxId,
+      chargePointId: data.chargeBoxId,
     });
     console.log(staion);
     if (staion == undefined) return;
@@ -55,7 +55,7 @@ export class OCPPService {
 
   async stationDisconnect(data) {
     const staion = await this.chargePointEntityRepository.findOneBy({
-      сhargePointId: data.chargeBoxId,
+      chargePointId: data.chargeBoxId,
     });
     if (staion == undefined) return;
     staion.status = 'Disconnected';
@@ -64,7 +64,7 @@ export class OCPPService {
 
   async stationStatusNotification(data) {
     const staion = await this.chargePointEntityRepository.findOneBy({
-      сhargePointId: data.chargeBoxId,
+      chargePointId: data.chargeBoxId,
     });
     if (!staion) return;
 

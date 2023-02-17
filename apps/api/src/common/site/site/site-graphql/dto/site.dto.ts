@@ -10,10 +10,16 @@ import {
 } from '@nestjs-query/query-graphql';
 
 import { ChargePointDTO } from 'src/common/chargePoint/chargePoint/dto/chargePoint.dto';
+import { ConnectorDTO } from 'src/common/chargePoint/connector/connector-graphql/dto/connector.dto';
 import GraphQLJSON from 'graphql-type-json';
 
 @ObjectType('Site')
 @FilterableUnPagedRelation('chargePoint', () => ChargePointDTO, {
+  disableRemove: true,
+  // disableUpdate: true,
+  // enableTotalCount: true,
+})
+@FilterableUnPagedRelation('connectors', () => ConnectorDTO, {
   disableRemove: true,
   // disableUpdate: true,
   // enableTotalCount: true,

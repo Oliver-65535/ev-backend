@@ -16,15 +16,15 @@ import { Point } from 'geojson';
 import { SiteEntity } from 'src/common/site/site/site.entity';
 
 @Entity('ChargePoint')
-export class СhargePointEntity extends BaseEntity {
+export class ChargePointEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ unique: true, length: 64 })
-  сhargePointId!: string;
+  chargePointId!: string;
 
   @Column({ length: 128, nullable: true })
-  сhargePointName: string;
+  chargePointName: string;
 
   @Column({ length: 128, nullable: true })
   owner: string;
@@ -35,9 +35,6 @@ export class СhargePointEntity extends BaseEntity {
   // @Column('geometry')
   // location: Point;
 
-  @Column({ length: 128, nullable: true })
-  address: string;
-
   @OneToMany(() => ConnectorEntity, (connectors) => connectors.chargePoint)
   connectors: ConnectorEntity[];
 
@@ -45,7 +42,7 @@ export class СhargePointEntity extends BaseEntity {
   site: SiteEntity;
 
   @Column({ type: 'decimal', precision: 6, scale: 3, default: 0 })
-  instantPower: string;
+  instantPower: number;
 
   @Column({ default: false })
   public: boolean;

@@ -25,10 +25,10 @@ export class ChargePointDTO {
   id!: number;
 
   @FilterableField({ nullable: true })
-  station_id!: string;
+  chargePointId: string;
 
   @FilterableField({ nullable: true })
-  station_name: string;
+  chargePointName: string;
 
   @FilterableField({ nullable: true })
   owner: string;
@@ -36,18 +36,24 @@ export class ChargePointDTO {
   @FilterableField({ nullable: true })
   status: string;
 
-  @FilterableField(() => GraphQLJSON)
-  location: JSON;
+  // @Column('geometry')
+  // location: Point;
 
   @FilterableField({ nullable: true })
-  address: string;
-
-  // @FilterableField({ nullable: true })
-  // connectors: string;
-
-  @FilterableField({ nullable: true })
-  instant_power: string;
+  instantPower: number;
 
   @FilterableField({ nullable: true })
   public: boolean;
+
+  @FilterableField({ nullable: true })
+  ocpp_event_timestamp: Date; // Creation date
+
+  @FilterableField({ nullable: true })
+  created_at: Date; // Creation date
+
+  @FilterableField({ nullable: true })
+  updated_at: Date; // Last updated date
+
+  @FilterableField({ nullable: true })
+  deleted_at: Date; // Deletion date
 }

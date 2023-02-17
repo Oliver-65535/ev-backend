@@ -13,6 +13,7 @@ import {
 } from 'typeorm';
 import { Geometry, Point } from 'geojson';
 
+import { ConnectorEntity } from 'src/common/chargePoint/connector/connector.entity';
 import { СhargePointEntity } from '../../chargePoint/chargePoint/chargePoint.entity';
 
 @Entity('Site')
@@ -32,6 +33,9 @@ export class SiteEntity extends BaseEntity {
   @Column('geometry')
   location: Point;
 
+  @Column({ length: 128, nullable: true })
+  address: string;
+
   @Column({ length: 50, nullable: true })
   dynamic_asset: string;
 
@@ -48,6 +52,9 @@ export class SiteEntity extends BaseEntity {
     cascade: true,
   })
   chargePoints: СhargePointEntity[];
+
+  @OneToMany(() => ConnectorEntity, (connectors) => connectors.site)
+  connectors: ConnectorEntity[];
 
   @UpdateDateColumn({
     type: 'timestamp',

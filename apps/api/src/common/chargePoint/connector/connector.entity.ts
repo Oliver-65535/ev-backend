@@ -12,6 +12,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+import { SiteEntity } from 'src/common/site/site/site.entity';
 import { СhargePointEntity } from '../chargePoint/chargePoint.entity';
 
 @Entity('Connector')
@@ -60,6 +61,9 @@ export class ConnectorEntity extends BaseEntity {
 
   @ManyToOne(() => СhargePointEntity, (chargePoint) => chargePoint.connectors)
   chargePoint: СhargePointEntity;
+
+  @ManyToOne(() => SiteEntity, (site) => site.connectors)
+  site: SiteEntity;
 
   @Column({ nullable: true })
   chargePointId?: number;
