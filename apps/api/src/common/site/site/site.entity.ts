@@ -13,8 +13,8 @@ import {
 } from 'typeorm';
 import { Geometry, Point } from 'geojson';
 
+import { ChargePointEntity } from '../../chargePoint/chargePoint/chargePoint.entity';
 import { ConnectorEntity } from 'src/common/chargePoint/connector/connector.entity';
-import { СhargePointEntity } from '../../chargePoint/chargePoint/chargePoint.entity';
 
 @Entity('Site')
 export class SiteEntity extends BaseEntity {
@@ -48,10 +48,10 @@ export class SiteEntity extends BaseEntity {
   @Column({ length: 50, nullable: true })
   battery: string;
 
-  @OneToMany(() => СhargePointEntity, (chargePoint) => chargePoint.site, {
+  @OneToMany(() => ChargePointEntity, (chargePoint) => chargePoint.site, {
     cascade: true,
   })
-  chargePoints: СhargePointEntity[];
+  chargePoints: ChargePointEntity[];
 
   @OneToMany(() => ConnectorEntity, (connectors) => connectors.site)
   connectors: ConnectorEntity[];

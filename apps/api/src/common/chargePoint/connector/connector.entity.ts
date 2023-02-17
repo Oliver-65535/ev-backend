@@ -12,8 +12,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+import { ChargePointEntity } from '../chargePoint/chargePoint.entity';
 import { SiteEntity } from 'src/common/site/site/site.entity';
-import { СhargePointEntity } from '../chargePoint/chargePoint.entity';
 
 @Entity('Connector')
 export class ConnectorEntity extends BaseEntity {
@@ -59,8 +59,8 @@ export class ConnectorEntity extends BaseEntity {
   @Column({ type: 'decimal', precision: 4, scale: 3, default: 0 })
   inactivity: number;
 
-  @ManyToOne(() => СhargePointEntity, (chargePoint) => chargePoint.connectors)
-  chargePoint: СhargePointEntity;
+  @ManyToOne(() => ChargePointEntity, (chargePoint) => chargePoint.connectors)
+  chargePoint: ChargePointEntity;
 
   @ManyToOne(() => SiteEntity, (site) => site.connectors)
   site: SiteEntity;
