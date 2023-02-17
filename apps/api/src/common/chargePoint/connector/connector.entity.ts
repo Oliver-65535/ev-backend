@@ -47,13 +47,13 @@ export class ConnectorEntity extends BaseEntity {
   @Column({ type: 'decimal', precision: 4, scale: 3, default: 0 })
   maxPower: number;
 
-  @Column({ type: 'decimal', precision: 4, scale: 4, default: 0 })
+  @Column({ type: 'decimal', precision: 4, scale: 3, default: 0 })
   price: number;
 
-  @Column({ length: 10, default: 'kW/h' })
+  @Column({ length: 10, default: '$/kWh' })
   priceUnit: string;
 
-  @Column({ type: 'decimal', precision: 6, scale: 3, default: 0 })
+  @Column({ type: 'decimal', precision: 5, scale: 3, default: 0 })
   consumption: number;
 
   @Column({ type: 'decimal', precision: 4, scale: 3, default: 0 })
