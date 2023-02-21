@@ -63,19 +63,24 @@ export class OCPPService {
   }
 
   async stationStatusNotification(data) {
-    // const staion = await this.chargePointEntityRepository.findOneBy({
+    const connId = await this.queryConnectorFetch(
+      data.chargeBoxId,
+      data.params.connectorId,
+    );
+    console.log(connId.connectors[0].id);
+
+    return await this.updateConnectorFetch(
+      connId.connectors[0].id,
+      data.params.status,
+    );
+    // const connector = await this.connectorEntityRepository.findOneBy({
+    //   connectorId: 1,
     //   chargePointHardwareId: data.chargeBoxId,
     // });
-    // if (!staion) return;
+    // if (!connector) return;
+    // connector.statusName = data.params.status;
 
-    const connector = await this.connectorEntityRepository.findOneBy({
-      connectorId: 1,
-      chargePointHardwareId: data.chargeBoxId,
-    });
-    if (!connector) return;
-    connector.statusName = data.params.status;
-
-    return await this.connectorEntityRepository.save(connector);
+    // return await this.connectorEntityRepository.save(connector);
   }
 
   // async createStartFunctionEvent(data: any): Promise<void> {
@@ -92,35 +97,39 @@ export class OCPPService {
   //     .then((message) => console.log(message));
   // }
 
-  async createConnectorFetch(id) {
-    // const queryCreateConnector = JSON.stringify({
-    //   query: `mutation{
-    //     createOneConnector(
-    //       input:{
-    //         connector:{
-    //           connector:"1"
-    //           connector_type:"2",
-    //           consumption:"7"
-    //           status:"Available",
-    //           stationId:${id}
-    //         }
-    //       }
-    //     )
-    //     {
-    //       status
-    //       station{
-    //         station_id
-    //       }
-    //     }
-    //   }`,
-    // });
-    // const response = await fetch('http://35.236.79.246:3012/graphql', {
-    //   headers: { 'content-type': 'application/json' },
-    //   method: 'POST',
-    //   body: queryCreateConnector,
-    // });
-    // const responseJson = await response.json();
+  async queryConnectorFetch(hargePointHardwareId, connectorId) {
+    const queryCreateConnector = JSON.stringify({
+      query: `query{
+        connectors(filter:{chargePointHardwareId:{eq:"${hargePointHardwareId}"},connectorId:{eq:${connectorId}}}){
+          id
+        }
+      }`,
+    });
+    const response = await fetch('http://35.236.79.246:3012/graphql', {
+      headers: { 'content-type': 'application/json' },
+      method: 'POST',
+      body: queryCreateConnector,
+    });
+    const responseJson = await response.json();
     // console.log(responseJson);
-    // return responseJson.data;
+    return responseJson.data;
+  }
+
+  async updateConnectorFetch(connectorId, status) {
+    const queryCreateConnector = JSON.stringify({
+      query: `mutation{
+        updateOneConnector(input:{id:${connectorId},update:{statusName:"${status}"}}){
+          id
+        }
+      }`,
+    });
+    const response = await fetch('http://35.236.79.246:3012/graphql', {
+      headers: { 'content-type': 'application/json' },
+      method: 'POST',
+      body: queryCreateConnector,
+    });
+    const responseJson = await response.json();
+    console.log(responseJson);
+    return responseJson.data;
   }
 }

@@ -84,7 +84,6 @@ const chargePointRun = async (chargePointId) => {
   await cli.close();
 };
 
-const stationsSplit = stations.slice(0, 10);
 const st = [
   "TESTCHARGEPOINTID9",
   "TESTCHARGEPOINTID8",
@@ -105,6 +104,9 @@ const st = [
   "TESTCHARGEPOINTID15",
   "TESTCHARGEPOINTID14",
 ];
+
+const statuses = ["Available", "Charging", "Finishing", "Unavailable"];
+const connectors = [1, 2];
 
 const chargeBoxRunFunctions = st.map((e) => {
   chargePointRun(e);
