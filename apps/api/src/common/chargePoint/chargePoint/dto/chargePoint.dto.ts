@@ -25,7 +25,7 @@ export class ChargePointDTO {
   id!: number;
 
   @FilterableField({ nullable: true })
-  chargePointId: string;
+  chargePointHardwareId: string;
 
   @FilterableField({ nullable: true })
   chargePointName: string;
@@ -56,4 +56,7 @@ export class ChargePointDTO {
 
   @FilterableField({ nullable: true })
   deleted_at: Date; // Deletion date
+
+  @FilterableField()
+  siteId: number;
 }

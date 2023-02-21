@@ -23,6 +23,9 @@ export class ConnectorDTO {
   connectorId!: number;
 
   @FilterableField({ nullable: true })
+  chargePointHardwareId!: string;
+
+  @FilterableField({ nullable: true })
   connectorTypeName: string;
 
   @FilterableField({ nullable: true })
@@ -59,9 +62,6 @@ export class ConnectorDTO {
   inactivity: number;
 
   @FilterableField({ nullable: true })
-  chargePointId?: number;
-
-  @FilterableField({ nullable: true })
   created_at: Date; // Creation date
 
   @FilterableField({ nullable: true })
@@ -69,4 +69,10 @@ export class ConnectorDTO {
 
   @FilterableField({ nullable: true })
   deleted_at: Date; // Deletion date
+
+  @Field()
+  chargePointId: number;
+
+  @Field()
+  siteId: number;
 }

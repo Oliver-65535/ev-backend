@@ -21,7 +21,7 @@ export class ChargePointEntity extends BaseEntity {
   id: number;
 
   @Column({ unique: true, length: 64 })
-  chargePointId!: string;
+  chargePointHardwareId!: string;
 
   @Column({ length: 128, nullable: true })
   chargePointName: string;
@@ -40,6 +40,9 @@ export class ChargePointEntity extends BaseEntity {
 
   @ManyToOne(() => SiteEntity, (site) => site.chargePoints)
   site: SiteEntity;
+
+  @Column({ nullable: true })
+  siteId?: number;
 
   @Column({ type: 'decimal', precision: 6, scale: 3, default: 0 })
   instantPower: number;

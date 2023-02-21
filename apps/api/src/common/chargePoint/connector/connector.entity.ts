@@ -24,6 +24,9 @@ export class ConnectorEntity extends BaseEntity {
   connectorId!: number;
 
   @Column({ length: 50 })
+  chargePointHardwareId!: string;
+
+  @Column({ length: 50 })
   connectorTypeName: string;
 
   @Column({ length: 50 })
@@ -62,11 +65,14 @@ export class ConnectorEntity extends BaseEntity {
   @ManyToOne(() => ChargePointEntity, (chargePoint) => chargePoint.connectors)
   chargePoint: ChargePointEntity;
 
+  @Column({ nullable: true })
+  chargePointId?: number;
+
   @ManyToOne(() => SiteEntity, (site) => site.connectors)
   site: SiteEntity;
 
   @Column({ nullable: true })
-  chargePointId?: number;
+  siteId?: number;
 
   @UpdateDateColumn({
     type: 'timestamp',

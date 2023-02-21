@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "node-cron": "^3.0.2",
     "ocpp-rpc": "^2.0.0",
     "ocpp-ts": "^0.3.0"
   }

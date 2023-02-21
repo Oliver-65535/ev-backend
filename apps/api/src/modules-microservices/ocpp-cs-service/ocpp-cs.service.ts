@@ -45,7 +45,7 @@ export class OCPPService {
 
   async stationConnect(data) {
     const staion = await this.chargePointEntityRepository.findOneBy({
-      chargePointId: data.chargeBoxId,
+      chargePointHardwareId: data.chargeBoxId,
     });
     console.log(staion);
     if (staion == undefined) return;
@@ -55,7 +55,7 @@ export class OCPPService {
 
   async stationDisconnect(data) {
     const staion = await this.chargePointEntityRepository.findOneBy({
-      chargePointId: data.chargeBoxId,
+      chargePointHardwareId: data.chargeBoxId,
     });
     if (staion == undefined) return;
     staion.status = 'Disconnected';
@@ -63,14 +63,14 @@ export class OCPPService {
   }
 
   async stationStatusNotification(data) {
-    const staion = await this.chargePointEntityRepository.findOneBy({
-      chargePointId: data.chargeBoxId,
-    });
-    if (!staion) return;
+    // const staion = await this.chargePointEntityRepository.findOneBy({
+    //   chargePointHardwareId: data.chargeBoxId,
+    // });
+    // if (!staion) return;
 
     const connector = await this.connectorEntityRepository.findOneBy({
       connectorId: 1,
-      chargePointId: staion.id,
+      chargePointHardwareId: data.chargeBoxId,
     });
     if (!connector) return;
     connector.statusName = data.params.status;
