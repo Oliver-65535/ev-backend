@@ -93,36 +93,34 @@ export class OCPPService {
   // }
 
   async createConnectorFetch(id) {
-    const queryCreateConnector = JSON.stringify({
-      query: `mutation{
-        createOneConnector(
-          input:{
-            connector:{
-              connector:"1"
-              connector_type:"2",
-              consumption:"7"
-              status:"Available",
-              stationId:${id}
-            }
-          }
-        )
-        {
-          status
-          station{
-            station_id
-          }
-        }
-      }`,
-    });
-
-    const response = await fetch('http://35.236.79.246:3012/graphql', {
-      headers: { 'content-type': 'application/json' },
-      method: 'POST',
-      body: queryCreateConnector,
-    });
-
-    const responseJson = await response.json();
-    console.log(responseJson);
-    return responseJson.data;
+    // const queryCreateConnector = JSON.stringify({
+    //   query: `mutation{
+    //     createOneConnector(
+    //       input:{
+    //         connector:{
+    //           connector:"1"
+    //           connector_type:"2",
+    //           consumption:"7"
+    //           status:"Available",
+    //           stationId:${id}
+    //         }
+    //       }
+    //     )
+    //     {
+    //       status
+    //       station{
+    //         station_id
+    //       }
+    //     }
+    //   }`,
+    // });
+    // const response = await fetch('http://35.236.79.246:3012/graphql', {
+    //   headers: { 'content-type': 'application/json' },
+    //   method: 'POST',
+    //   body: queryCreateConnector,
+    // });
+    // const responseJson = await response.json();
+    // console.log(responseJson);
+    // return responseJson.data;
   }
 }

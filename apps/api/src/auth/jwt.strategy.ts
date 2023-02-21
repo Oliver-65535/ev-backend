@@ -1,8 +1,9 @@
-import { ExtractJwt, Strategy } from 'passport-jwt';
-import { PassportStrategy } from '@nestjs/passport';
-import { Injectable } from '@nestjs/common';
-import { jwtConstants } from './auth.constants';
 import { AuthenticatedUser, JwtPayload } from './auth.interfaces';
+import { ExtractJwt, Strategy } from 'passport-jwt';
+
+import { Injectable } from '@nestjs/common';
+import { PassportStrategy } from '@nestjs/passport';
+import { jwtConstants } from './auth.constants';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -20,7 +21,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       firstname: payload.firstname,
       lastname: payload.lastname,
       role: payload.role,
-      wallet_eth: payload.wallet_eth,
+      number: payload.number,
     });
   }
 }

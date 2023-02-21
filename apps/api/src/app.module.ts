@@ -12,6 +12,7 @@ import { MapsApiModule } from './common/maps-api/maps-api.module';
 import { Module } from '@nestjs/common';
 import { OCPPModule } from './modules-microservices/ocpp-cs-service/ocpp-cs.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from './common/user/user.module';
 
 import ormconfig = require('../ormconfig');
 
@@ -34,7 +35,8 @@ import ormconfig = require('../ormconfig');
     GraphqlSiteModule,
     GraphqlСhargePointModule,
     GraphqlConnectorModule,
-    AuthModule,
+    UserModule,
+    // AuthModule,
     MapsApiModule,
     OCPPModule,
   ],

@@ -37,7 +37,7 @@ export class AuthService {
     );
     console.log({ recoveredAddr });
     const [user] = await this.usersService.query({
-      filter: { wallet_eth: { eq: recoveredAddr } },
+      filter: { number: { eq: recoveredAddr } },
       paging: { limit: 1 },
     });
     // dont use plain text passwords in production!
@@ -63,7 +63,7 @@ export class AuthService {
       firstname: user.firstname,
       lastname: user.lastname,
       role: user.role,
-      wallet_eth: user.wallet_eth,
+      number: user.number,
       //is_active: user.is_active,
     };
     return Promise.resolve({

@@ -1,11 +1,12 @@
 import {
-  Entity,
   Column,
-  PrimaryGeneratedColumn,
+  Entity,
+  Index,
   ManyToOne,
   OneToMany,
-  Index,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
+
 import { Role } from '../../enums/role.enum';
 
 @Entity()
@@ -13,20 +14,20 @@ export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 50 })
+  @Column({ unique: true, length: 64 })
+  number: string;
+
+  @Column({ length: 50, default: 'empty' })
   firstname: string;
 
-  @Column({ length: 50, nullable: true })
+  @Column({ length: 50, default: 'empty' })
   middlename: string;
 
-  @Column({ length: 50 })
+  @Column({ length: 50, default: 'empty' })
   lastname: string;
 
-  @Column({ type: 'enum', enum: Role, default: Role.Midwife })
+  @Column({ type: 'enum', enum: Role, default: Role.Guest })
   role: Role;
-
-  @Column({ unique: true, length: 64 })
-  wallet_eth: string;
 
   @Column({ default: false })
   is_active: boolean;

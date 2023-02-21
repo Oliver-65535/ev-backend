@@ -1,16 +1,16 @@
-import { UserEntity } from '../common/user/user.entity';
 import { Role } from 'src/enums/role.enum';
+import { UserEntity } from '../common/user/user.entity';
 
 export type AuthenticatedUser = Pick<
   UserEntity,
-  'id' | 'firstname' | 'lastname' | 'role' | 'wallet_eth'
+  'id' | 'firstname' | 'lastname' | 'role' | 'number'
 >;
 export type JwtPayload = {
   sub: number;
   firstname: string;
   lastname: string;
   role: Role;
-  wallet_eth: string;
+  number: string;
 };
 
 export type UserContext = {
