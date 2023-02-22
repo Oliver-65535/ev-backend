@@ -19,6 +19,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
           update: { disabled: false },
           delete: { disabled: false },
           enableSubscriptions: true,
+          enableAggregate: true,
         },
       ],
     }),

@@ -1,9 +1,9 @@
+import { Module } from '@nestjs/common';
 import { NestjsQueryGraphQLModule } from '@nestjs-query/query-graphql';
 import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm';
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { SiteEntity } from 'src/common/site/site/site.entity';
 import { SiteDTO } from './dto/site.dto';
+import { SiteEntity } from 'src/common/site/site/site.entity';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
@@ -19,6 +19,7 @@ import { SiteDTO } from './dto/site.dto';
           update: { disabled: false },
           delete: { disabled: false },
           enableSubscriptions: true,
+          enableAggregate: true,
         },
       ],
     }),
