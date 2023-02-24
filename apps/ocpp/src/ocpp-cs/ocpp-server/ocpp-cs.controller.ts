@@ -7,7 +7,6 @@ export class OcppController {
 
   @Get(':id')
   findOne(@Param('id') id: string): Promise<any> {
-    return;
-    // return this.occpService.sendTransaction(id, '23');
+    return this.occpService.sendTransaction('111', 1, '234');
   }
 }

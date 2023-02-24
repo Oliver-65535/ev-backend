@@ -5,6 +5,8 @@ import {
 } from '@nestjs/microservices';
 import { Inject, Injectable } from '@nestjs/common';
 
+import { CallChargePoint } from './charge-point-call';
+
 const { RPCServer, createRPCError } = require('ocpp-rpc');
 
 require('dotenv').config();
@@ -36,8 +38,12 @@ export class OCPPService {
     });
   }
 
+  chargePoints: Record<string, CallChargePoint> = {};
+
   async getStart() {
     rpcServer.on('client', async (client) => {
+      this.chargePoints[client.identity] = new CallChargePoint(client);
+
       // create a specific handler for handling BootNotification requests
       client.handle('BootNotification', ({ params }) => {
         console.log(
@@ -139,11 +145,11 @@ export class OCPPService {
     this.redisClient.emit('ocpp-server-channel', params);
   }
 
-  // async sendTransaction(connectorId, idTag) {
-  //   // const response = await this.client.call('RemoteStartTransaction', {
-  //   //   connectorId,
-  //   //   idTag,
-  //   // });
-  //   // return response;
-  // }
+  async sendTransaction(chargePoinId, connectorId, idTag) {
+    const response = this.chargePoints[chargePoinId].startTransaction({
+      connectorId,
+      idTag,
+    });
+    return response;
+  }
 }

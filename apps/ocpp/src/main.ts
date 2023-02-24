@@ -4,7 +4,7 @@ import { OCPPService } from './ocpp-cs/ocpp-server/ocpp-cs.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  // await app.listen(3000);
+  await app.listen(3000);
   const appService = app.get(OCPPService).getStart();
 }
 bootstrap();
