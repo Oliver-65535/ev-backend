@@ -70,7 +70,7 @@ const chpoints = st.map((e) => new ChargePoint(e));
 
 // init();
 
-var task = cron.schedule("* * * * * *", async () => {
+var task = cron.schedule("*/5 * * * * *", async () => {
   const res1 = await chpoints[0].sendConnectorStatus(
     connectors[getRandomInt(2)],
     statuses[getRandomInt(4)]
