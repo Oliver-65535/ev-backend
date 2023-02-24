@@ -1,9 +1,10 @@
-import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { OCPPService } from './ocpp-cs.service';
+import { OcppController } from './ocpp-cs.controller';
 
 @Module({
-  imports: [HttpModule],
+  imports: [],
   providers: [OCPPService],
+  controllers: [OcppController],
 })
 export class OCPPModule {}

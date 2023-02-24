@@ -71,9 +71,77 @@ const chpoints = st.map((e) => new ChargePoint(e));
 // init();
 
 var task = cron.schedule("* * * * * *", async () => {
-  const res = await chpoints[getRandomInt(18)].sendConnectorStatus(
+  const res1 = await chpoints[0].sendConnectorStatus(
     connectors[getRandomInt(2)],
     statuses[getRandomInt(4)]
   );
-  console.log(res);
+  const res2 = await chpoints[1].sendConnectorStatus(
+    connectors[getRandomInt(2)],
+    statuses[getRandomInt(4)]
+  );
+  const res3 = await chpoints[2].sendConnectorStatus(
+    connectors[getRandomInt(2)],
+    statuses[getRandomInt(4)]
+  );
+  const res4 = await chpoints[3].sendConnectorStatus(
+    connectors[getRandomInt(2)],
+    statuses[getRandomInt(4)]
+  );
+  const res5 = await chpoints[4].sendConnectorStatus(
+    connectors[getRandomInt(2)],
+    statuses[getRandomInt(4)]
+  );
+  const res6 = await chpoints[5].sendConnectorStatus(
+    connectors[getRandomInt(2)],
+    statuses[getRandomInt(4)]
+  );
+  const res7 = await chpoints[6].sendConnectorStatus(
+    connectors[getRandomInt(2)],
+    statuses[getRandomInt(4)]
+  );
+  const res8 = await chpoints[7].sendConnectorStatus(
+    connectors[getRandomInt(2)],
+    statuses[getRandomInt(4)]
+  );
+  const res9 = await chpoints[8].sendConnectorStatus(
+    connectors[getRandomInt(2)],
+    statuses[getRandomInt(4)]
+  );
+  const res10 = await chpoints[9].sendConnectorStatus(
+    connectors[getRandomInt(2)],
+    statuses[getRandomInt(4)]
+  );
+  const res11 = await chpoints[10].sendConnectorStatus(
+    connectors[getRandomInt(2)],
+    statuses[getRandomInt(4)]
+  );
+  const res12 = await chpoints[11].sendConnectorStatus(
+    connectors[getRandomInt(2)],
+    statuses[getRandomInt(4)]
+  );
+  const res13 = await chpoints[12].sendConnectorStatus(
+    connectors[getRandomInt(2)],
+    statuses[getRandomInt(4)]
+  );
+  const res14 = await chpoints[13].sendConnectorStatus(
+    connectors[getRandomInt(2)],
+    statuses[getRandomInt(4)]
+  );
+  const res15 = await chpoints[14].sendConnectorStatus(
+    connectors[getRandomInt(2)],
+    statuses[getRandomInt(4)]
+  );
+  const res16 = await chpoints[15].sendConnectorStatus(
+    connectors[getRandomInt(2)],
+    statuses[getRandomInt(4)]
+  );
+  const res17 = await chpoints[16].sendConnectorStatus(
+    connectors[getRandomInt(2)],
+    statuses[getRandomInt(4)]
+  );
+  const res18 = await chpoints[17].sendConnectorStatus(
+    connectors[getRandomInt(2)],
+    statuses[getRandomInt(4)]
+  );
+  console.log(res1);
 });
