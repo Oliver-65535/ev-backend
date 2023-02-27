@@ -145,10 +145,17 @@ export class OCPPService {
     this.redisClient.emit('ocpp-server-channel', params);
   }
 
-  async sendTransaction(chargePoinId, connectorId, idTag) {
+  async startTransaction(chargePoinId, connectorId, idTag) {
     const response = this.chargePoints[chargePoinId].startTransaction({
       connectorId,
       idTag,
+    });
+    return response;
+  }
+
+  async stopTransaction(chargePoinId, transactionId) {
+    const response = this.chargePoints[chargePoinId].stopTransaction({
+      transactionId,
     });
     return response;
   }

@@ -43,6 +43,17 @@ export class CallChargePoint {
     return response;
   }
 
+  async stopTransaction({
+    transactionId,
+  }: {
+    transactionId: number;
+  }): Promise<any> {
+    const response = await this.client.call('RemoteStopTransaction', {
+      transactionId,
+    });
+    return response;
+  }
+
   async getLocalListVersion(): Promise<number> {
     const response = await this.client.call('GetLocalListVersion');
     return parseInt(response.listVersion, 10);
