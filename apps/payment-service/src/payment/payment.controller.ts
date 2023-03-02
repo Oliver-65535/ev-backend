@@ -8,7 +8,14 @@ export class PaymentController {
 
   @Get()
   getHello(): string {
-    return this.paymentService.getHello();
+    return 'nnn';
+    // return this.paymentService.getHello();
+  }
+
+  @Get('/check')
+  checkChannel(): any {
+    const params: any = { hello: 'hello' };
+    return this.paymentService.publishEvent(params);
   }
 
   @Post('/create-payment-intent')

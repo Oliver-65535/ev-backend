@@ -1,4 +1,10 @@
+import {
+  ClientProxy,
+  ClientProxyFactory,
+  Transport,
+} from '@nestjs/microservices';
 import { HttpStatus, Injectable } from '@nestjs/common';
+
 const stripe = require('stripe')(
   'sk_test_51Mgxh1Jf7Xu5OYokhGrEb6gEgH9mZy6EuLMz9SeP1szuBjQMwvqZQiDR4OTwYrtsrDTgOw0r7N4jLz4VlKsLzSHU00e3a7MObN',
 );
@@ -14,6 +20,18 @@ const calculateOrderAmount = (items) => {
 
 @Injectable()
 export class PaymentService {
+  redisClient: ClientProxy;
+
+  constructor() {
+    this.redisClient = ClientProxyFactory.create({
+      transport: Transport.REDIS,
+      options: {
+        host: process.env.REDIS_HOST,
+        port: Number(process.env.REDIS_PORT),
+      },
+    });
+  }
+
   async getPayment(req): Promise<any> {
     const { items } = req.body;
 
@@ -84,6 +102,10 @@ export class PaymentService {
 
     // Return a 200 response to acknowledge receipt of the event
     return HttpStatus.OK;
+  }
+
+  async publishEvent(params: any) {
+    this.redisClient.emit('payment-channel', params);
   }
 
   getHello(): string {
