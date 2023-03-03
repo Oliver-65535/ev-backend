@@ -6,7 +6,7 @@ const stripe = Stripe(
 );
 
 // The items the customer wants to buy
-const items = [{ id: 'xl-tshirt' }];
+const items = [{ id: 'xl-tshirt', chargePointId: '111', connectorId: 1 }];
 
 let elements;
 
@@ -21,7 +21,7 @@ let emailAddress = '';
 // Fetches a payment intent and captures the client secret
 async function initialize() {
   const response = await fetch(
-    'http://localhost:3000/payment/create-payment-intent',
+    'http://localhost:3020/payment/create-payment-intent',
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

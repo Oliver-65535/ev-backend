@@ -1,32 +1,19 @@
-import {
-  ClientProxy,
-  ClientProxyFactory,
-  EventPattern,
-  Transport,
-} from '@nestjs/microservices';
-
+import { EnergyMeterService } from 'src/energy-meter/energy-meter.service';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class BillingService {
-  redisClient: ClientProxy;
-
-  constructor() {
-    this.redisClient = ClientProxyFactory.create({
-      transport: Transport.REDIS,
-      options: {
-        host: process.env.REDIS_HOST,
-        port: Number(process.env.REDIS_PORT),
-      },
-    });
-  }
+  constructor(private readonly energyMeterService: EnergyMeterService) {}
 
   handlePaymentEvent(data: any) {
-    console.log('service', data);
-    this.publishEvent({ publish: data });
-  }
+    // console.log('BILLING', data);
+    const data_in = {
+      amount: data.amount / 100,
+      chargepointId: JSON.parse(data.description).items[0].chargePointId,
+      connectorId: JSON.parse(data.description).items[0].connectorId,
+      id: data.id,
+    };
 
-  publishEvent(params: any) {
-    this.redisClient.emit('billing-channel', params);
+    return this.energyMeterService.startCharge(data_in);
   }
 }

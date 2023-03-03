@@ -8,8 +8,7 @@ export class PaymentController {
 
   @Get()
   getHello(): string {
-    return 'nnn';
-    // return this.paymentService.getHello();
+    return this.paymentService.getHello();
   }
 
   @Get('/check')
@@ -22,6 +21,8 @@ export class PaymentController {
   async getPaymentPost(@Req() request: Request): Promise<any> {
     return await this.paymentService.getPayment(request);
   }
+
+  // stripe listen --forward-to localhost:3020/payment/webhook
 
   @Post('/webhook')
   async hookPaymentPost(@Req() request: Request): Promise<any> {

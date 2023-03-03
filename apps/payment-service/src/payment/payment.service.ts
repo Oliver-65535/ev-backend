@@ -38,6 +38,7 @@ export class PaymentService {
     // Create a PaymentIntent with the order amount and currency
     const paymentIntent = await stripe.paymentIntents.create({
       amount: calculateOrderAmount(items),
+      description: JSON.stringify({ items }),
       currency: 'usd',
       automatic_payment_methods: {
         enabled: true,
@@ -84,6 +85,7 @@ export class PaymentService {
     switch (event.type) {
       case 'payment_intent.succeeded':
         const paymentIntent = event.data.object;
+        this.publishEvent(paymentIntent);
         console.log(
           `PaymentIntent for ${paymentIntent.amount} id ${paymentIntent.id} was successful!`,
         );

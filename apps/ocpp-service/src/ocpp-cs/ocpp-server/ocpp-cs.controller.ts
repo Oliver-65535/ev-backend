@@ -18,6 +18,6 @@ export class OcppController {
   @EventPattern('billing-channel')
   handleBookCreatedEvent(data: any) {
     console.log(data);
-    //this.billingService.handlePaymentEvent(data);
+    this.occpService.getBillingEvent(data);
   }
 }

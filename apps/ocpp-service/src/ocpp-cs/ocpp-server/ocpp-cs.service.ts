@@ -159,4 +159,19 @@ export class OCPPService {
     });
     return response;
   }
+
+  getBillingEvent(data) {
+    switch (data.active) {
+      case 'START_TRANSACTION':
+        console.log('START_TRANSACTION', data);
+        this.startTransaction('111', 1, '234');
+        break;
+      case 'STOP_TRANSACTION':
+        console.log('STOP_TRANSACTION', data);
+        this.stopTransaction('111', 1);
+        break;
+      default:
+        break;
+    }
+  }
 }
