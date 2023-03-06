@@ -146,6 +146,50 @@ async function generateSitewithstation(num) {
     chargePointId: chargePoint.createOneChargePoint.id,
   });
   console.log(connector2);
+
+  const connector3 = await createConnectorFetch({
+    connectorId: 3,
+    connectorTypeId: "tesla",
+    connectorTypeName: "Tesla",
+    chargePointHardwareId:
+      chargePoint.createOneChargePoint.chargePointHardwareId,
+    siteId: chargePoint.createOneChargePoint.siteId,
+    chargePointId: chargePoint.createOneChargePoint.id,
+  });
+  console.log(connector3);
+
+  const connector4 = await createConnectorFetch({
+    connectorId: 4,
+    connectorTypeId: "CCS1",
+    connectorTypeName: "CCS1",
+    chargePointHardwareId:
+      chargePoint.createOneChargePoint.chargePointHardwareId,
+    siteId: chargePoint.createOneChargePoint.siteId,
+    chargePointId: chargePoint.createOneChargePoint.id,
+  });
+  console.log(connector4);
+
+  const connector5 = await createConnectorFetch({
+    connectorId: 5,
+    connectorTypeId: "CCS2",
+    connectorTypeName: "CCS2",
+    chargePointHardwareId:
+      chargePoint.createOneChargePoint.chargePointHardwareId,
+    siteId: chargePoint.createOneChargePoint.siteId,
+    chargePointId: chargePoint.createOneChargePoint.id,
+  });
+  console.log(connector5);
+
+  const connector6 = await createConnectorFetch({
+    connectorId: 6,
+    connectorTypeId: "CHAdeMO",
+    connectorTypeName: "CHAdeMO",
+    chargePointHardwareId:
+      chargePoint.createOneChargePoint.chargePointHardwareId,
+    siteId: chargePoint.createOneChargePoint.siteId,
+    chargePointId: chargePoint.createOneChargePoint.id,
+  });
+  console.log(connector6);
 }
 
 for (let index = 2; index < 20; index++) {

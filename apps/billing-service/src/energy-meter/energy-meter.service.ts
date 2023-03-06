@@ -65,7 +65,7 @@ export class EnergyMeterService {
   calcSpending(amount, power, time, price) {
     //5 sec = 0,004h
     // kwh = kw/h
-    this.logger.debug(`NEXT Tick amount:${amount}`);
+    this.logger.debug(`NEXT Tick amount:$${amount}`);
     const kWh = power * time;
     const spend = kWh * price;
     return amount - spend;

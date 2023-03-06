@@ -9,9 +9,11 @@ import { InjectQueryService, QueryService } from '@nestjs-query/core';
 
 import { ChargePointEntity } from '../chargePoint/chargePoint/chargePoint.entity';
 
-type resultAuth = {
-  publicAddress: string;
-  result: boolean;
+type markerType = {
+  siteid: number;
+  location: any;
+  available: string;
+  total: string;
 };
 
 @Injectable()
@@ -45,40 +47,19 @@ export class MapsApiService {
   //   return null;
   // }
 
-  async getConnectorsOnMarkers(): Promise<any> {
+  async getConnectorsOnMarkers(): Promise<markerType[]> {
     try {
-      // const station = await this.stationService.getById(1);
-      // const station = await this.dataSource.query(`select se."location" ,COUNT(*) from station_entity se inner join  connector c on se.id = c."stationId" group by se."location" WHERE c.status LIKE "Available"`);
-      // const station = await this.dataSource.createQueryBuilder()
-      // .select("location")
-      // .from(StationEntity,"station").getMany()
+      const station = await this.dataSource
+        .query(`select  siteId,ST_AsGeoJSON(location) as location, available,total from 
+        (select  "location" as location,COUNT(*) as total,s.id as siteId  from "Site" s inner join "Connector" c on c."siteId" = s.id  where c."connectorTypeName" in ('Type 2','Tesla') group by s.id) t1 left join 
+        (select  COUNT(*) as available,s.id as connSiteId  from "Site" s inner join "Connector" c on c."siteId" = s.id  where c."connectorTypeName" in ('Type 2','Tesla') and c."statusName" = 'Available' group by s.id)
+         t2 on t1.siteId = t2.connSiteId order by t1.siteId ASC`);
 
-      // const station_table = await this.dataSource
-      //   .query(`select * from ChargePoint se
-      // RIGHT OUTER JOIN  connector c ON se.id = c."stationId" WHERE c.status = 'Available'`);
-      // const station = await this.dataSource
-      //   .query(`select ST_AsGeoJSON(se.location) ,COUNT(*) from ChargePoint se
-      // RIGHT OUTER JOIN  connector c ON se.id = c."stationId" WHERE c.status = 'Available' GROUP BY se.location`);
-
-      //   const station = await this.dataSource
-      //   .createQueryBuilder(StationEntity,"station")
-      // .innerJoinAndSelect(
-      //     "station.id",
-      //     "connector.stationId", c
-      //     "connector.status = :status",
-      //     { status: 'Available' },
-      // )
-      // // .where("user.name = :name", { name: "Timber" })
-      // .getRawMany()
-
-      // const st = station.map((e) => {
-      //   const res = { ...e, location: JSON.parse(e.st_asgeojson) };
-      //   delete res.st_asgeojson;
-      //   return res;
-      // });
-      // console.table(station_table);
-      // console.log(st);
-      return [];
+      const st = station.map((e) => {
+        return { ...e, location: JSON.parse(e.location) };
+      });
+      console.log(st);
+      return st;
     } catch (e) {
       console.log(e);
       // throw new UnauthorizedException();

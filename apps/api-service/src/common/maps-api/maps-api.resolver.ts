@@ -1,20 +1,25 @@
-import { Resolver, Mutation, Args, Query } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import {
+  CertIDInputDTO,
+  RandomMessageInputDTO,
+} from './dto/maps-api-login-randmsg-input.dto';
 import { UnauthorizedException, UseGuards } from '@nestjs/common';
-import { MapsApiService } from './maps-api.service';
+
 import { ConnectorsOnMarkerResponseDto } from './dto/getConnectors.dto';
 import { LoginInputDTO } from './dto/maps-api-login-input.dto';
-import {
-  RandomMessageInputDTO,
-  CertIDInputDTO,
-} from './dto/maps-api-login-randmsg-input.dto';
+import { MapsApiService } from './maps-api.service';
 import { RandomMessageResponseDTO } from './dto/maps-api-login-randmsg-response.dto';
 
+type markerType = {
+  siteid: number;
+  location: any;
+  available: string;
+  total: string;
+};
 
 @Resolver()
 export class MapsApiResolver {
-  constructor(
-    private mapsApiService: MapsApiService,
-  ) {}
+  constructor(private mapsApiService: MapsApiService) {}
 
   // @Mutation(() => LoginResponseDto)
   // async login(@Args('input') input: LoginInputDTO): Promise<LoginResponseDto> {
@@ -29,7 +34,6 @@ export class MapsApiResolver {
   //   return this.authService.login(user);
   // }
 
-
   // async getRandomMessage(
   //   @Args('input') input: RandomMessageInputDTO,
   // ): Promise<RandomMessageResponseDTO> {
@@ -37,15 +41,13 @@ export class MapsApiResolver {
   //   return { msg: msgString };
   // }
 
-
   @Query(() => [ConnectorsOnMarkerResponseDto])
-  getConnectorByMarker(): Promise<any[]> {
+  getConnectorByMarker(): Promise<markerType[]> {
     const res = this.mapsApiService.getConnectorsOnMarkers();
-    console.log('ME', "asd",res);
+    console.log('ME', 'asd', res);
     return res;
   }
 
-  
   // @Mutation(() => RandomMessageResponseDTO)
   // sign(
   //   @CurrentUser() user: AuthenticatedUser,
