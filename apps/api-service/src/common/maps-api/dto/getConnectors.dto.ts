@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, InputType, ObjectType } from '@nestjs/graphql';
 
 import GraphQLJSON from 'graphql-type-json';
 
@@ -17,8 +17,24 @@ export class ConnectorsOnMarkerResponseDto {
   total: string;
 }
 
-@ObjectType('InputConnectorsOnMarkerResponse')
-export class InputConnectorsOnMarkerResponseDto {
-  @Field()
-  request!: string;
+@InputType()
+@ObjectType('InputFilterMarkers')
+export class InputFilterMarkersDto {
+  @Field((type) => GraphQLJSON)
+  connectorTypesSelected: JSON;
+
+  @Field((type) => GraphQLJSON)
+  connectorStatusSelected: JSON;
+
+  @Field({ nullable: true })
+  minPower: number;
+
+  @Field({ nullable: true })
+  maxPower: number;
+
+  @Field({ nullable: true })
+  minPrice: number;
+
+  @Field({ nullable: true })
+  maxPrice: number;
 }

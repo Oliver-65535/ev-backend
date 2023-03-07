@@ -82,16 +82,6 @@ export class MapsApiService {
         ],
       );
 
-
-      {
-        minPrice:0,
-       maxPrice:10,
-       minPower:0,
-       maxPower:10,
-       connectorTypesSelected:["Type 1","Type 2","Tesla","CCS1","CCS2"],
-       connectorStatusSelected:["Available"],
-     }
-
       // const stat = await this.dataSource
       //   .createQueryBuilder(SiteEntity, 'site')
       //   .innerJoinAndSelect(

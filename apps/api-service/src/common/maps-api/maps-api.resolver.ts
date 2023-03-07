@@ -5,7 +5,10 @@ import {
 } from './dto/maps-api-login-randmsg-input.dto';
 import { UnauthorizedException, UseGuards } from '@nestjs/common';
 
-import { ConnectorsOnMarkerResponseDto } from './dto/getConnectors.dto';
+import {
+  ConnectorsOnMarkerResponseDto,
+  InputFilterMarkersDto,
+} from './dto/getConnectors.dto';
 import { LoginInputDTO } from './dto/maps-api-login-input.dto';
 import { MapsApiService } from './maps-api.service';
 import { RandomMessageResponseDTO } from './dto/maps-api-login-randmsg-response.dto';
@@ -42,9 +45,11 @@ export class MapsApiResolver {
   // }
 
   @Query(() => [ConnectorsOnMarkerResponseDto])
-  getConnectorByMarker(): Promise<markerType[]> {
-    const res = this.mapsApiService.getConnectorsOnMarkers();
-    console.log('ME', 'asd', res);
+  getFilteredMarkers(
+    @Args('input') input: InputFilterMarkersDto,
+  ): Promise<markerType[]> {
+    const res = this.mapsApiService.getFilteredMarkers(input);
+    //console.log('ME', 'asd', res);
     return res;
   }
 
