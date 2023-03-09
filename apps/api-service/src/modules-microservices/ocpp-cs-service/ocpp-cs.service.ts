@@ -53,9 +53,7 @@ export class OCPPService {
     console.log(chargePoint);
     if (chargePoint == undefined) return;
     chargePoint.status = 'Connected';
-    pubSub.publish('chargePointAdded', {
-      wishAdded: { chargePoint },
-    });
+
     return await this.chargePointEntityRepository.save(chargePoint);
   }
 

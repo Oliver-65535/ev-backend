@@ -25,28 +25,50 @@ export class MapsApiService {
     private dataSource: DataSource,
   ) {}
 
-  // async validateUser(
-  //   publicAddress: string,
-  //   message: string,
-  //   signature: string,
-  // ): Promise<AuthenticatedUser | null> {
-  //   const recoveredAddr = this.getAddressFromSignature(
-  //     publicAddress,
-  //     message,
-  //     signature,
-  //   );
-  //   console.log({ recoveredAddr });
-  //   const [user] = await this.usersService.query({
-  //     filter: { wallet_eth: { eq: recoveredAddr } },
-  //     paging: { limit: 1 },
-  //   });
-  //   // dont use plain text passwords in production!
-  //   if (user) {
-  //     //const { password, ...result } = user;
-  //     return user;
-  //   }
-  //   return null;
-  // }
+  async getFilteredMarker(input: any): Promise<markerType[]> {
+    try {
+      const {
+        connectorTypesSelected = ['Type 1', 'Type 2', 'Tesla'],
+        connectorStatusSelected = ['Available'],
+        minPower = 0,
+        maxPower = 30,
+        minPrice = 0,
+        maxPrice = 100,
+      } = input;
+
+      console.log('INNNPUTTT:', input);
+
+      const sites = await this.dataSource.query(
+        `select  siteId,ST_AsGeoJSON(location) as location, available,total from 
+        (select  "location" as location,COUNT(*) as total,s.id as siteId  from "Site" s 
+        inner join "Connector" c on c."siteId" = s.id  where c."connectorTypeName" = any ($1)
+        and c.price between  $3 and $4 and c.power between $5 and $6 group by s.id) t1 
+        left join 
+        (select  COUNT(*) as available,s.id as connSiteId  from "Site" s 
+        inner join "Connector" c on c."siteId" = s.id  where c."connectorTypeName" = any ($1) 
+        and c.price between  $3 and $4 and c.power between $5 and $6 
+        and c."statusName" = any ($2) group by s.id)
+         t2 on t1.siteId = t2.connSiteId order by t1.siteId ASC;`,
+        [
+          connectorTypesSelected,
+          connectorStatusSelected,
+          minPrice,
+          maxPrice,
+          minPower,
+          maxPower,
+        ],
+      );
+
+      const st = sites.map((e) => {
+        return { ...e, location: JSON.parse(e.location) };
+      });
+      // console.log(sites);
+      return st;
+    } catch (e) {
+      console.log(e);
+      // throw new UnauthorizedException();
+    }
+  }
 
   async getFilteredMarkers(input: any): Promise<markerType[]> {
     try {

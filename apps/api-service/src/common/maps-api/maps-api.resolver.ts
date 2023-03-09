@@ -15,6 +15,7 @@ import { MapsApiService } from './maps-api.service';
 import { RandomMessageResponseDTO } from './dto/maps-api-login-randmsg-response.dto';
 
 import { ChargePointDTO } from '../chargePoint/chargePoint/dto/chargePoint.dto';
+import { type } from 'os';
 
 type markerType = {
   siteid: number;
@@ -24,6 +25,10 @@ type markerType = {
 };
 
 const pubSub = new PubSub();
+
+type rest = {
+  res: string;
+};
 
 @Resolver()
 export class MapsApiResolver {
@@ -55,14 +60,26 @@ export class MapsApiResolver {
   ): Promise<markerType[]> {
     const res = this.mapsApiService.getFilteredMarkers(input);
     //console.log('ME', 'asd', res);
+    this.markersUpdated();
     return res;
   }
 
-  @Subscription(() => ChargePointDTO, {
+  @Subscription(() => InputFilterMarkersDto, {
     name: 'chargePointAdded',
   })
   chargePointAdded() {
     return pubSub.asyncIterator('chargePointAdded');
+  }
+
+  markersUpdated() {
+    pubSub.publish('chargePointAdded', {
+      chargePointAdded: {
+        minPower: 20,
+        maxPower: 60,
+        minPrice: 30,
+        maxPrice: 70,
+      },
+    });
   }
 
   // @Mutation(() => RandomMessageResponseDTO)
