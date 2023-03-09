@@ -1,0 +1,54 @@
+services:
+  backend:
+    container_name: nft-publisher-backend-prod
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    networks:
+      - overlay
+    depends_on:
+      - database
+      - redis
+    volumes:
+      - ./uploads:/app/uploads  
+    ports:
+      - "${BACKEND_PORT}:${BACKEND_PORT}"
+    restart: always
+    environment:
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_SYNCHRONIZE: ${DATABASE_SYNCHRONIZE}
+      BACKEND_PORT: ${BACKEND_PORT}
+      BASE_IMAGE_URL: ${BASE_IMAGE_URL}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+      IPFS_ENDPOINT: ${IPFS_ENDPOINT}
+      IPFS_TOKEN: ${IPFS_TOKEN}
+      CONTRACT_ROOT_NFT: ${CONTRACT_ROOT_NFT}
+      CONTRACT_MARKET_NFT: ${CONTRACT_MARKET_NFT}
+      NEAR_NETWORK_ID: ${NEAR_NETWORK_ID}
+      NEAR_NODE_URL: ${NEAR_NODE_URL}
+      NEAR_WALLET_URL: ${NEAR_WALLET_URL}
+      NEAR_HELPER_URL: ${NEAR_HELPER_URL}
+      LIKELY_NFTS_ENDPOINT: ${LIKELY_NFTS_ENDPOINT}
+
+  database:
+    container_name: nft-publisher-database-prod
+    image: postgres:alpine
+    networks:
+      - overlay
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    ports:
+      - "${DATABASE_PORT}:5432"
+    restart: always
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+
+networks:
+  overlay:
