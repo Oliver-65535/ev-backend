@@ -1,4 +1,5 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
+import { PubSub } from 'graphql-subscriptions';
 import {
   CertIDInputDTO,
   RandomMessageInputDTO,
@@ -13,12 +14,16 @@ import { LoginInputDTO } from './dto/maps-api-login-input.dto';
 import { MapsApiService } from './maps-api.service';
 import { RandomMessageResponseDTO } from './dto/maps-api-login-randmsg-response.dto';
 
+import { ChargePointDTO } from '../chargePoint/chargePoint/dto/chargePoint.dto';
+
 type markerType = {
   siteid: number;
   location: any;
   available: string;
   total: string;
 };
+
+const pubSub = new PubSub();
 
 @Resolver()
 export class MapsApiResolver {
@@ -51,6 +56,13 @@ export class MapsApiResolver {
     const res = this.mapsApiService.getFilteredMarkers(input);
     //console.log('ME', 'asd', res);
     return res;
+  }
+
+  @Subscription(() => ChargePointDTO, {
+    name: 'chargePointAdded',
+  })
+  chargePointAdded() {
+    return pubSub.asyncIterator('chargePointAdded');
   }
 
   // @Mutation(() => RandomMessageResponseDTO)
