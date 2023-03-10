@@ -5,6 +5,7 @@ import { PubSub } from 'graphql-subscriptions';
 import { Repository } from 'typeorm';
 import { ChargePointEntity } from 'src/common/chargePoint/chargePoint/chargePoint.entity';
 import { ConnectorEntity } from 'src/common/chargePoint/connector/connector.entity';
+import { MapsApiResolver } from 'src/common/maps-api/maps-api.resolver';
 
 const pubSub = new PubSub();
 
@@ -16,6 +17,7 @@ export class OCPPService {
     private readonly chargePointEntityRepository: Repository<ChargePointEntity>,
     @InjectRepository(ConnectorEntity)
     private readonly connectorEntityRepository: Repository<ConnectorEntity>,
+    private readonly mapsApiResolver: MapsApiResolver,
   ) {}
 
   receiptIds = [];
@@ -67,24 +69,27 @@ export class OCPPService {
   }
 
   async stationStatusNotification(data) {
-    const connId = await this.queryConnectorFetch(
-      data.chargeBoxId,
-      data.params.connectorId,
-    );
-    console.log(connId.connectors[0].id);
+    // const connId = await this.queryConnectorFetch(
+    //   data.chargeBoxId,
+    //   data.params.connectorId,
+    // );
+    // console.log(connId.connectors[0].id);
 
-    return await this.updateConnectorFetch(
-      connId.connectors[0].id,
-      data.params.status,
-    );
-    // const connector = await this.connectorEntityRepository.findOneBy({
-    //   connectorId: 1,
-    //   chargePointHardwareId: data.chargeBoxId,
-    // });
-    // if (!connector) return;
-    // connector.statusName = data.params.status;
+    // return await this.updateConnectorFetch(
+    //   connId.connectors[0].id,
+    //   data.params.status,
+    // );
+    const connector = await this.connectorEntityRepository.findOneBy({
+      connectorId: data.params.connectorId,
+      chargePointHardwareId: data.chargeBoxId,
+    });
+    if (!connector) return;
+    connector.statusName = data.params.status;
 
-    // return await this.connectorEntityRepository.save(connector);
+    return await this.connectorEntityRepository.save(connector).then((e) => {
+      this.mapsApiResolver.pubMarkerUpdated(connector.siteId);
+      return e;
+    });
   }
 
   // async createStartFunctionEvent(data: any): Promise<void> {

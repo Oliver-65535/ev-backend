@@ -17,6 +17,18 @@ export class ConnectorsOnMarkerResponseDto {
   total: string;
 }
 
+@ObjectType('SiteResponse')
+export class SiteResponseDto {
+  @Field({ nullable: true })
+  connector_type: string;
+
+  @Field({ nullable: true })
+  available: string;
+
+  @Field({ nullable: true })
+  total: string;
+}
+
 @InputType()
 @ObjectType('InputFilterMarkers')
 export class InputFilterMarkersDto {
@@ -37,4 +49,29 @@ export class InputFilterMarkersDto {
 
   @Field({ nullable: true })
   maxPrice: number;
+}
+
+@InputType()
+@ObjectType('InputFilterSite')
+export class InputFilterSiteDto {
+  @Field({ nullable: true })
+  siteId: number;
+
+  @Field((type) => GraphQLJSON)
+  connectorTypesSelected?: JSON;
+
+  // @Field((type) => GraphQLJSON)
+  // connectorStatusSelected: JSON;
+
+  @Field({ nullable: true })
+  minPower?: number;
+
+  @Field({ nullable: true })
+  maxPower?: number;
+
+  @Field({ nullable: true })
+  minPrice?: number;
+
+  @Field({ nullable: true })
+  maxPrice?: number;
 }

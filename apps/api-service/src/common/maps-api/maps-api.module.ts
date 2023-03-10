@@ -6,6 +6,6 @@ import { StationModule } from '../chargePoint/chargePoint/chargePoint.module';
 @Module({
   imports: [StationModule],
   providers: [MapsApiService, MapsApiResolver],
-  exports: [MapsApiService],
+  exports: [MapsApiService, MapsApiResolver],
 })
 export class MapsApiModule {}

@@ -8,7 +8,9 @@ import { UnauthorizedException, UseGuards } from '@nestjs/common';
 
 import {
   ConnectorsOnMarkerResponseDto,
+  SiteResponseDto,
   InputFilterMarkersDto,
+  InputFilterSiteDto,
 } from './dto/getConnectors.dto';
 import { LoginInputDTO } from './dto/maps-api-login-input.dto';
 import { MapsApiService } from './maps-api.service';
@@ -20,6 +22,12 @@ import { type } from 'os';
 type markerType = {
   siteid: number;
   location: any;
+  available: string;
+  total: string;
+};
+
+type siteType = {
+  connector_type: string;
   available: string;
   total: string;
 };
@@ -60,28 +68,64 @@ export class MapsApiResolver {
   ): Promise<markerType[]> {
     const res = this.mapsApiService.getFilteredMarkers(input);
     //console.log('ME', 'asd', res);
-    this.markersUpdated();
     return res;
   }
 
-  //SUBSCRIBE
-  @Subscription(() => InputFilterMarkersDto, {
-    name: 'chargePointAdded',
-  })
-  chargePointAdded() {
-    return pubSub.asyncIterator('chargePointAdded');
+  @Query(() => [SiteResponseDto])
+  getFilteredSite(
+    @Args('input') input: InputFilterSiteDto,
+  ): Promise<siteType[]> {
+    const res = this.mapsApiService.getFilteredSite(input);
+    return res;
   }
 
-  markersUpdated() {
-    pubSub.publish('chargePointAdded', {
-      chargePointAdded: {
-        minPower: 20,
-        maxPower: 60,
-        minPrice: 30,
-        maxPrice: 70,
-      },
-    });
+  //SUBSCRIBE SITE
+  @Subscription(() => [SiteResponseDto], {
+    name: 'siteUpdated',
+    filter: (payload, variables) => {
+      // console.log('FILTER', { payload, variables });
+      return payload.siteId === variables.input.siteId;
+    },
+    resolve(this: MapsApiResolver, payload, variables) {
+      // "this" refers to an instance of "AuthorResolver"
+      return this.getUpdatedSite(variables);
+    },
+  })
+  private siteUpdated(@Args('input') input: InputFilterSiteDto) {
+    return pubSub.asyncIterator('siteUpdated');
   }
+
+  //SUBSCRIBE Markers
+  @Subscription(() => [ConnectorsOnMarkerResponseDto], {
+    name: 'markerUpdated',
+    resolve(this: MapsApiResolver, payload, variables) {
+      // "this" refers to an instance of "AuthorResolver"
+      return this.getUpdatedMarker({ ...variables });
+    },
+  })
+  private markerUpdated(@Args('input') input: InputFilterSiteDto) {
+    return pubSub.asyncIterator('markerUpdated');
+  }
+
+  private async getUpdatedSite(variables) {
+    return await this.mapsApiService.getFilteredSite(variables.input);
+  }
+
+  private async getUpdatedMarker(variables) {
+    console.log('YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY', variables);
+    return await this.mapsApiService.getFilteredMarkers(variables.input);
+  }
+
+  public pubMarkerUpdated(siteId: number) {
+    console.log(siteId);
+    pubSub.publish('markerUpdated', { siteId });
+    pubSub.publish('siteUpdated', { siteId });
+  }
+
+  // pubSiteUpdated() {
+  //   console.log();
+  //   pubSub.publish('siteUpdated', { minPrice: 200 });
+  // }
 
   // @Mutation(() => RandomMessageResponseDTO)
   // sign(

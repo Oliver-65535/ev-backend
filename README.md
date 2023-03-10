@@ -1,199 +1,177 @@
-# NFT ART Generator Backend
+EV Backend - система управления зарядными станциями для электромобилей с биллингом
 
-## Description
+### Принцип работы
 
-NFT ART Generator Backend is designed to store, upload, filter NFT ART Generator data and generate NFT images from layers.
+EV Backend - использует
+Фильтрация данных осуществляется с помощью запросов GraphQL.
 
-### Principle of operation
+### Стэк
 
-The backend scans the NEAR blockchain in real time and selects the function calls of the contracts specified in the configuration. Information from the selected functions is stored in its own database. Own database accumulates information, duplicating data from the blockchain, keeping it in the most optimal structure. The data in the database is recorded only from the blockchain, in order to exclude the distortion of information by forging requests. Also backend can receive files from frontend to generate collection drawings. Data filtering is done using GraphQL queries.
-
-### Stack
-
-Projects used: Nestjs, TypeORM, PostgreSQL, Redis, WebSocket, Microservices, Near Lake Framework js, AWS, GraphQL, Docker, Docker-compose
-
-### Ready to work check
-
-    sudo docker -v
-    # output: Docker version 20.10.18, build b40c2f6
-    # Version must be greater than >= 17.04
+В проекти использованы: Nest.js, TypeORM, PostgreSQL, Redis, WebSocket, Nest.js Microservices, GraphQL, Docker, Docker-compose
 
 ## Getting started
 
-To run the application, you will need to have **Docker** installed
+Для запуска приложения потребуется наличие установленной **Docker**
+Скачайте репозиторий:
 
-Download the repository:
+    git clone ...
 
-    git clone https://git.defispace.com/nft-near/api-near-indexer.git
+Перейдите в папку репозитория:
 
-Go to the repository folder:
+    cd ev-backend
 
-    cd api-near-indexer
+Скопируйте и переимнуйте файл конфигурации
 
-Copy and rename the configuration file
+    cp .env.example .env
 
-    sudo cp .env.example .env
-
-Open the .env file and be sure to enter your details in the possible lines:
+Откройте файл .env и обязательно внесите свои данные в следующие строки:
 
     sudo nano .env
 
-.env file
+Файл .env
 
     ...
     DATABASE_PASSWORD="YOUR DATABASE PASSWORD"
     ...
-    CONTRACT_ROOT_NFT="ROOT_CONTRACT_ACCOUNT_ID"
-    CONTRACT_MARKET_NFT= "NFT_MARKET_CONTRACT_ACCOUNT_AD"
-    ....
-    AWS_ACCESS_KEY_ID= "YOUR AWS KEY ID"
-    AWS_SECRET_ACCESS_KEY= "YOUR AWS ACCESS KEY"
     ...
 
-The rest can be corrected relatively, regarding the creation of a list of networks and domains.
+Остальное можно поправить относительно, относительно вашей конфигурации сети и домена.
 
-Run the application with the command:
+Запустите приложение командой:
 
     sudo docker-compose up -d
 
-#### Optional
+### Запуск локально для разработки
 
-Are containers running
-
-    sudo docker ps
-
-Output:
-
-    ONTAINER ID IMAGE COMMAND CREATED PORT NAME STATUS
-    473075b69298 nft-art-publisher_backend "yarn start" 34 hours ago Up 34 hours 0.0.0.0:3011->3011/tcp, :::3011->3011/tcp nft-publisher-backend-prod
-    e5208cde49e9 nft-art-publisher_lake "npm run start:prod" 34 hours ago Up 34 hours near lake-microservice-prod
-    d8d7b1952666 postgres:alpine "docker-entrypoint.s…" 34 hours ago Up 34 hours 0.0.0.0:5492->5432/tcp, :::5492->5432/tcp nft-publisher-database-prod
-    a3c06facc302 redis:6.2-alpine "docker-entrypoint.s…" 34 hours ago Up 34 hours 0.0.0.0:6380->6379/tcp, :::6380->6379/tcp redis-for-microservices-prod
-
-Look at the container logs with name - ...backend...
-
-    sudo docker registers nft-publisher-backend-prod
-
-output:
-
-                Block #77064962
-
-                Block #77064962
-
-                Block #77064962
-
-                Block #77064962
-
-                Block #77064962
-
-                Block #77064962
-
-                Block #77064962
-
-                Block #77064962
-
-                Block #77064962
-
-                Block #77064962
-
-                Block #77064962
-
-                Block #77064962
-
-                Block #77064962
-
-                Block #77064962
-    outcome: []
-
-                Block #77064963
-
-The log should be something like this
-
-You can stop containers with the command
-
-    sudo docker-compose down
-
-If you have made changes to the files, then you should restart with the command:
-
-    sudo docker-compose up -d --build
-
-### Run a backend copy using one Near Lake Framework
-
-Run the same commands on normal startup, but with different database and backend settings in ./env.
-**Attention!** The first copy of the repository must already be running
-
-    #Download the repository:
-    git clone https://git.defispace.com/nft-near/api-near-indexer.git
-
-    #Go to the repository folder:
-    cd api-near-indexer
-
-    #Copy and rename the configuration file
-    sudo cp .env.example .env
-
-    #Open the .env file and be sure to fill in your details:
-    sudo nano .env
-
-    #Start a backend copy with a separate database with the command:
-    sudo docker-compose -f docker-compose.fork.yml up -d
-
-Scheme of working with a fork:
-
-![enter image description here](./readme-imgs/mermaid-diagram-2022-10-21-165434.png)
-
-**But if** you are running for mainnet and testnet then run two independent copies including Lake
-
-Scheme of two independent copies:
-
-![enter image description here](./readme-imgs/mermaid-diagram-2022-10-21-165319.png)
-![enter image description here](./readme-imgs/mermaid-diagram-2022-10-21-165246.png)
-
-### Run locally for development
-
-Fix .env for local work.
-Start only Redis and PostgreSQL docker containers with the command:
+Поправьте .env для локальной работы.
+Запустите только только Redis и PostgreSQL контейнеры docker командой:
 
     sudo docker-compose -f docker-compose.db.yml up -d
 
-You can use the installed ones or install Redis and PostgreSQL locally. if you don't have Docker installed
-Then you can start the application services separately by going to the corresponding folders:
+Вы можете использовать установленные, либо установить Redis и PostgreSQL локально. если у вас не установлен Docker  
+Далее можете запускать сервисы приложения отдельно переходя в соответсвующие папки:
 
-For near-lake-microservice:
+Для API:
 
-    cd near-lake-microservice
-    # copy and rename .env
+    cd apps/api-service
+    # скопировать и переименовать .env
      cp .env.example .env
 
-    # make changes to the configuration
+    # внести изменения в конфигурацию
      sudo nano .env
 
-    # install packages
+    # установить пакеты
     sudo yarn
 
-    # start the service
+    # запустить сервис
     sudo yarn start
 
-    # or for watch
+    # or for wath
     sudo yarn start:dev
 
-For backend:
+Для OCPP-CS:
 
-    cd backend
-    # copy and rename .env
+    cd apps/ocpp-service
+    # скопировать и переименовать .env
      cp .env.example .env
 
-    # make changes to the configuration
+    # внести изменения в конфигурацию
      sudo nano .env
 
-    # install packages
+    # установить пакеты
     sudo yarn
 
-    # start the service
+    # запустить сервис
     sudo yarn start
 
-    # or for watch
+    # or for wath
     sudo yarn start:dev
 
-### Database schema
+# Шаблоны запросов GraphQL
+
+1Получить массив геоточек с данными о количестве свободных коннекторов, с применением фильтра
+
+    QUERY:
+    query getFilteredMarkers($input:InputFilterMarkersDto!){
+        getFilteredMarkers(input:$input){
+    	    siteid
+    	    location
+    	    available
+    	    total
+    	  }
+        }
+
+
+    VARIABLES:
+
+
+           {
+      "input": {
+        "connectorTypesSelected":["Type 1","Type 2","Tesla","CCS1","CCS2"],
+        "connectorStatusSelected":["Available"],
+        "minPrice": 0,
+        "maxPrice": 70,
+        "minPower": 0,
+        "maxPower": 60
+      }
+    }
+
+1.2Подписаться на изменения состояний маркеров в реальном времени
+
+    subscription{
+      markerUpdated(input:{
+      	connectorTypesSelected:["Type 1","Type 2","Tesla","CCS1","CCS2","CHAdeMO"],
+        minPrice: 0,
+        maxPrice: 70,
+        minPower: 0,
+        maxPower: 60,
+      }){
+       location
+        available
+        total
+      }
+    }
+
+2Получить данные о свободных коннекторах геоточки(site) по id(siteId) по типам с применением фильтра
+
+    QUERY:
+     query getFilteredSite($input:InputFilterSiteDto!){
+      getFilteredSite(input:$input){
+        connector_type
+        available
+        total
+      }
+    }
+
+    VARIABLES:
+    {
+      "input": {
+        "connectorTypesSelected":["Type 1","Type 2","Tesla","CCS1","CCS2"],
+        "minPrice": 0,
+        "maxPrice": 70,
+        "minPower": 0,
+        "maxPower": 60,
+        "siteId": 2
+      }
+    }
+
+2.1Подписаться на изменения site по siteId состояний коннекторов в реальном времени
+
+    subscription{
+      siteUpdated(input: {
+        connectorTypesSelected:["Type 1","Type 2","Tesla","CCS1","CCS2","CHAdeMO"],
+        minPrice: 0,
+        maxPrice: 70,
+        minPower: 7,
+        maxPower: 60,
+        siteId: 2
+      }){
+        connector_type
+        available
+        total
+      }
+    }
+
+### Схема базы данных
 
 ![enter image description here](./readme-imgs/schema_db.png)
