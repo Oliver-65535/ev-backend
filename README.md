@@ -107,7 +107,7 @@ EV Backend - использует
 
            {
       "input": {
-        "connectorTypesSelected":["Type 1","Type 2","Tesla","CCS1","CCS2"],
+        "connectorTypesSelected":["Type 1","Type 2","Tesla","CCS1","CCS2","CHAdeMO"],
         "connectorStatusSelected":["Available"],
         "minPrice": 0,
         "maxPrice": 70,
@@ -146,7 +146,7 @@ EV Backend - использует
     VARIABLES:
     {
       "input": {
-        "connectorTypesSelected":["Type 1","Type 2","Tesla","CCS1","CCS2"],
+        "connectorTypesSelected":["Type 1","Type 2","Tesla","CCS1","CCS2","CHAdeMO"],
         "minPrice": 0,
         "maxPrice": 70,
         "minPower": 0,
